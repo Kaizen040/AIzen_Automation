@@ -5,15 +5,14 @@
   <meta charset="UTF-8">
   <title>Automation Form</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <link rel="stylesheet" href="styles.css">
 </head>
 
+<body>
+
 <header>
-    <h1>
-        AIzen Automation
-    </h1>
-    <img src="AIzen.png" alt="Logo" class="logo">
+  <h1>AIzen Automation</h1>
+  <img src="AIzen.png" alt="Logo" class="logo">
 </header>
 
 <nav>
@@ -21,30 +20,79 @@
   <a href="form.html">Form</a>
 </nav>
 
-<body>
-    <main class="container">
-        <section class="box">
-            <h2>
-                Daten für Automation einreichen
-            </h2>
+<main class="container">
+  <section class="box">
+    <h2>Daten für Automation einreichen</h2>
 
-        <form id="automationForm" action="https://n8n.srv1220381.hstgr.cloud/webhook/d5a74c1a-d778-487a-9987-ac4dea6e9ea2" method="POST" enctype="multipart/form-data">
-                <label for="username">Name:</label>
-                <input type="text" name="username" id="username" required>
+    <form id="automationForm" enctype="multipart/form-data">
+      <label for="username">Name:</label>
+      <input type="text" name="username" id="username" required>
 
-                <label for="file">Datei hochladen:</label>
-                <input type="file" name="file" id="file">
+      <label for="message">Beschreibung</label>
+      <textarea id="message" name="message" rows="4" placeholder="Was soll automatisiert werden?"></textarea>
 
-                <button type="submit">Absenden</button>
-            </form>
-          
-        </section>
-    </main>
-</body>
+      <label for="file">Datei hochladen:</label>
+      <input type="file" name="file" id="file">
+
+      <button type="submit">Absenden</button>
+      <button type="reset">Formular leeren</button>
+
+      <!-- Statusanzeige -->
+      <p id="statusMessage" style="display:none;"></p>
+    </form>
+
+  </section>
+</main>
 
 <footer>
-    <p>
-        © 2026 Kaizen 
-    </p>
-
+  <p>© 2026 Kaizen</p>
 </footer>
+
+<script>
+/* ========== PASSWORT SCHUTZ ========== */
+const password = "4711";
+const userPass = prompt("Bitte Passwort eingeben:");
+
+if (userPass !== password) {
+  document.body.innerHTML = "<h1 style='text-align:center;margin-top:50px;'>Zugriff verweigert</h1>";
+  throw new Error("Access denied");
+}
+
+/* ========== FORM LOGIK ========== */
+const form = document.getElementById("automationForm");
+const statusMessage = document.getElementById("statusMessage");
+
+const webhookUrl = "https://n8n.srv1220381.hstgr.cloud/webhook/d5a74c1a-d778-487a-9987-ac4dea6e9ea2";
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  statusMessage.style.display = "block";
+  statusMessage.style.color = "black";
+  statusMessage.textContent = "Sende Daten...";
+
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch(webhookUrl, {
+      method: "POST",
+      body: formData
+    });
+
+    if (response.ok) {
+      statusMessage.style.color = "green";
+      statusMessage.textContent = "✅ Daten wurden erfolgreich gesendet!";
+      form.reset();
+    } else {
+      statusMessage.style.color = "red";
+      statusMessage.textContent = "❌ Fehler beim Senden der Daten";
+    }
+  } catch (error) {
+    statusMessage.style.color = "red";
+    statusMessage.textContent = "❌ Verbindung zu n8n fehlgeschlagen";
+  }
+});
+</script>
+
+</body>
+</html>

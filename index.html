@@ -9,7 +9,19 @@
   <!-- DAS IST DIE VERBINDUNG ZU CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
-  
+
+<script>
+  const password = "4711";
+
+  let userPass = prompt("Bitte Passwort eingeben:");
+
+  if (userPass !== password) {
+    document.body.innerHTML = "<h1>Zugriff verweigert</h1>";
+  }
+</script>
+
+
+
 <body>
 
 <header>
@@ -19,6 +31,7 @@
 
     <img src="AIzen.png" alt="Logo" class="logo">
 </header>
+
 
 <nav>
   <a href="index.html">Home</a>
@@ -54,6 +67,4 @@
                 file:///C:/Users/kaan.yuyucu/OneDrive%20-%20Vibracoustic/Desktop/webhook_website/index.html
 -->
 
-
 </body>
-

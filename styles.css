@@ -1,0 +1,107 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #ffffff;
+  margin: 0;
+}
+
+nav {
+  background: #af7cdf;
+  padding: 1rem;
+  display: flex;
+  gap: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+main {
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem;
+  background: white;
+}
+
+.box {
+  max-width: 400px;
+  background: #ba91e0;
+  padding: 20px;
+  margin: 30px auto;
+  border-radius: 8px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;  /* links ↔ mitte ↔ rechts */
+  align-items: flex-end;   /* oben ↕ unten */
+  height: 70vh;
+}
+
+.container2 {
+  height: 20vh;
+}
+
+.container3 {
+    justify-content: middle;  /* links ↔ mitte ↔ rechts */
+    align-items: flex-end;    /* unten im Container */
+    height: 60vh;
+}
+
+/*CSS spezfisch für FORM.html*/
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+input, textarea, button {
+  padding: 5px;
+  font-size: 1rem;
+}
+
+button {
+  background: #2575d1;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #444;
+}
+
+/*
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+footer {
+    margin-top: auto;
+    }
+*/
+
+/*CSS spezfisch für das LOGO*/
+
+header {
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    background: #ffffff;
+    height: 100px;
+    color: rgb(0, 0, 0);
+}
+
+header .logo {
+    height: 60px; /* passt die Höhe an */
+    width: auto;  /* proportional */
+}
+

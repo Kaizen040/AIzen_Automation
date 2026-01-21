@@ -28,44 +28,16 @@
                 Daten für Automation einreichen
             </h2>
 
-            <form>
+        <form id="automationForm" action="https://n8n.srv1220381.hstgr.cloud/webhook/d5a74c1a-d778-487a-9987-ac4dea6e9ea2" method="POST" enctype="multipart/form-data">
+                <label for="username">Name:</label>
+                <input type="text" name="username" id="username" required>
 
-                <!--INSERT OF NAME-->
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="Dein Name" required>
-            
-                <!--INSERT OF EMAIL-->
-                <p>
-                    <label for="email">E-Mail</label>
-                    <input type="email" id="email" name="email" placeholder="mail@example.com" required>
-                </p>
+                <label for="file">Datei hochladen:</label>
+                <input type="file" name="file" id="file">
 
-                <!--INSERT OF DESCRIPTION-->
-                <p>
-                    <label for="message">Beschreibung</label>
-                    <p>
-                        <textarea id="message" name="message" rows="4" placeholder="Was soll automatisiert werden?"></textarea>
-                    </p>
-                </p>
-                
-                <!--INSERT OF file-->
-                <p>
-                    <label for="file">Dokument hochladen</label>
-                    <input type="file" id="file" name="file">
-                </p>
-
-                <!--INSERT OF file-->
-                <button type = "submit">
-                        Absenden
-                </button>       
-                
-                <!--Reset of FORM-->
-                <button type="reset">
-                    Formular leeren
-                </button>
-            
+                <button type="submit">Absenden</button>
             </form>
-
+          
         </section>
     </main>
 </body>
@@ -74,4 +46,5 @@
     <p>
         © 2026 Kaizen 
     </p>
+
 </footer>

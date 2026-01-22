@@ -10,7 +10,9 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 
+<!--
 <script>
+  
   const password = "4711";
 
   let userPass = prompt("Bitte Passwort eingeben:");
@@ -19,8 +21,7 @@
     document.body.innerHTML = "<h1>Zugriff verweigert</h1>";
   }
 </script>
-
-
+-->
 
 <body>
 
@@ -34,8 +35,9 @@
 
 
 <nav>
-  <a href="index.html">Home</a>
-  <a href="form.html">Form</a>
+    <a href="index.html">Home</a>
+    <a href="form.html">Form</a>
+    <a href="aboutus.html">About Us</a>
 </nav>
 
 
@@ -55,13 +57,22 @@
 </footer>
 
 
-<!--
-<footer class ="footer">
-    <p>
-        © 2026 Kaizen 
-    </p>
-</footer>
--->
+<script type="text/javascript">
+  (function(d, t) {
+      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      v.onload = function() {
+        window.voiceflow.chat.load({
+          verify: { projectID: '69712f3f394d4cc164741123' },
+          url: 'https://general-runtime.voiceflow.com',
+          versionID: 'production',
+          voice: {
+            url: "https://runtime-api.voiceflow.com"
+          }
+        });
+      }
+      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+  })(document, 'script');
+</script>
 
 <!--
                 file:///C:/Users/kaan.yuyucu/OneDrive%20-%20Vibracoustic/Desktop/webhook_website/index.html

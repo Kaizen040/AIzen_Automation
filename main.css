@@ -1,0 +1,379 @@
+:root {
+    --bg: #0b0f1a;
+    --bg-soft: #12172a;
+    --primary: #5b8cff;
+    --secondary: #7afcff;
+    --text: #e8ecf1;
+    --muted: #9aa4b2;
+    --radius: 14px;
+    --glow: 0 0 25px rgba(91, 140, 255, 0.35);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/*BODY*/
+body {
+    margin: 0;
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(180deg, var(--bg), #06080f);
+    color: var(--text);
+    scroll-behavior: smooth;
+}
+
+/* HEADER/NAVIGATOR*/
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(12px);
+    background: rgba(11, 15, 26, 0.75);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--primary);
+}
+
+/* NAV */
+.nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav a {
+    position: relative;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease;
+}
+
+.nav a:hover {
+    color: var(--text);
+}
+
+/* CTA LINK */
+.nav-cta {
+    padding: 0.5rem 1.2rem;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #000 !important;
+    font-weight: 600;
+    box-shadow: var(--glow);
+}
+
+/* ACTIVE INDICATOR */
+.nav-indicator {
+    position: absolute;
+    bottom: -6px;
+    height: 2px;
+    width: 0;
+    background: var(--primary);
+    transition: all 0.3s ease;
+}
+
+#starfield {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/*HERO*/
+/* HERO LAYERS */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-layer {
+    position: absolute;
+    inset: 0;
+}
+
+/* GRADIENT FLOW */
+.hero-gradient {
+    background: radial-gradient(circle at 30% 30%, #5b8cff44, transparent 40%),
+        radial-gradient(circle at 70% 70%, #7afcff33, transparent 40%);
+    animation: gradientMove 20s ease-in-out infinite alternate;
+}
+
+/* PARTICLES (FAKE BUT PREMIUM) */
+.hero-particles {
+    background-image:
+        radial-gradient(#7afcff33 1px, transparent 1px),
+        radial-gradient(#5b8cff33 1px, transparent 1px);
+    background-size: 80px 80px;
+    animation: particlesFloat 60s linear infinite;
+    opacity: 0.2;
+}
+
+/* CENTER CONTENT */
+.hero-center {
+    position: relative;
+    text-align: center;
+    max-width: 900px;
+    padding: 4rem;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(15px);
+    border-radius: var(--radius);
+    box-shadow: var(--glow);
+    z-index: 1;
+}
+
+/* ANIMATIONS */
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 0%, 100% 100%;
+    }
+
+    100% {
+        background-position: 100% 100%, 0% 0%;
+    }
+}
+
+@keyframes particlesFloat {
+    from {
+        background-position: 0 0, 0 0;
+    }
+
+    to {
+        background-position: 1000px 1000px, -1000px -1000px;
+    }
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 20%, #5b8cff33, transparent 40%),
+        radial-gradient(circle at 80% 80%, #7afcff22, transparent 40%);
+    transform: translateY(0);
+    transition: transform 0.1s linear;
+}
+
+.hero-content {
+    position: relative;
+    max-width: 800px;
+    padding: 4rem;
+    background: rgba(18, 23, 42, 0.7);
+    backdrop-filter: blur(12px);
+    border-radius: var(--radius);
+    box-shadow: var(--glow);
+    text-align: center;
+}
+
+
+
+/*CONTENT*/
+.section,
+.cta {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+}
+
+.section.visible,
+.cta.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/*MAIN*/
+.main-nav {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1.5rem;
+    background: rgba(18, 23, 42, 0.8);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.main-nav a {
+    position: relative;
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.main-nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.main-nav a:hover {
+    color: var(--text);
+}
+
+.main-nav a:hover::after,
+.main-nav a.active::after {
+    width: 100%;
+}
+
+/*CTA*/
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: var(--glow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cta-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(122, 252, 255, 0.6);
+}
+
+/* GRID */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2.5rem;
+    margin-top: 3rem;
+}
+
+/* CARD BASE */
+.card {
+    background: linear-gradient(180deg, var(--bg-soft), #0c1224);
+    padding: 2.5rem;
+    border-radius: var(--radius);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+    overflow: hidden;
+
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+/* SCROLL REVEAL */
+.card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* LIGHT GLOW */
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(122, 252, 255, 0.15), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* HOVER EFFECT */
+.card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 30px 80px rgba(91, 140, 255, 0.35);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+/*LOGO*/
+/* LOGO STRIP */
+.logo-strip {
+    position: relative;
+    overflow: hidden;
+    padding: 3rem 0;
+    background: linear-gradient(to bottom,
+            transparent,
+            rgba(18, 23, 42, 0.6),
+            transparent);
+}
+
+/* FADE EDGES */
+.logo-strip::before,
+.logo-strip::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 120px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.logo-strip::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg), transparent);
+}
+
+.logo-strip::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg), transparent);
+}
+
+/* TRACK */
+.logo-track {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    width: max-content;
+    animation: scrollLogos 35s linear infinite;
+}
+
+/* LOGOS */
+.logo-track img {
+    height: 60px;
+    opacity: 0.7;
+    filter: grayscale(100%);
+    transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
+}
+
+.logo-track img:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+    transform: scale(1.1);
+}
+
+/* ANIMATION */
+@keyframes scrollLogos {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.logo-strip:hover .logo-track {
+  animation-play-state: paused;
+}

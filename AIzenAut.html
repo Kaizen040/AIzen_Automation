@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>AIzen Automation – KI & Prozessautomatisierung</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="AIzen Automation – Wir entwickeln KI- und Automatisierungslösungen für Unternehmen. Effizient, skalierbar und messbar." />
+
+    <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+
+
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="logo">AIzen</div>
+            <!--NAVIGATOR-->
+            <nav class="nav">
+                <a href="#services" data-link>Leistungen</a>
+                <a href="#process" data-link>Vorgehen</a>
+                <a href="#proof" data-link>Referenzen</a>
+                <a href="#contact" class="nav-cta" data-link>Erstgespräch</a>
+                <a href="index.html">Home</a>
+                <span class="nav-indicator"></span>
+            </nav>
+        </div>
+    </header>
+
+
+    <main>
+        <!--HERO-->
+        <section class="hero" id="hero">
+            <canvas id="starfield"></canvas>
+            <div class="hero-layer hero-gradient"></div>
+            <div class="hero-layer hero-particles"></div>
+
+            <div class="hero-center">
+                <h1>
+                    Wir bauen Systeme,<br>
+                    <span>die Unternehmen skalieren</span>
+                </h1>
+                <p>KI & Automatisierung für messbaren Business-Impact</p>
+                <a href="#contact" class="btn-primary">Erstgespräch buchen</a>
+            </div>
+        </section>
+
+        <!-- LOGO MARQUEE -->
+        <section class="logo-strip">
+            <div class="logo-track">
+                <!-- Set 1 -->
+                <img src="assets/img/logo-bmw.svg" alt="BMW">
+                <img src="assets/img/logo-sap.svg" alt="SAP">
+                <img src="assets/img/logo-bosch.svg" alt="Bosch">
+                <img src="assets/img/logo_azure.png" alt="Azure">
+                <img src="assets/img/logo-siemens.svg" alt="Siemens">
+                <img src="assets/img/logo_vibracoustic.png" alt="Vibracoustic">
+
+                <!-- Set 2 (Duplikat für Endlosschleife) -->
+                <img src="assets/img/logo-bmw.svg" alt="BMW">
+                <img src="assets/img/logo-sap.svg" alt="SAP">
+                <img src="assets/img/logo-bosch.svg" alt="Bosch">
+                <img src="assets/img/logo-sixt.svg" alt="Sixt">
+                <img src="assets/img/logo-siemens.svg" alt="Siemens">
+                <img src="assets/img/logo_vibracoustic.png" alt="Vibracoustic">
+
+            </div>
+        </section>
+
+
+        <!-- SERVICES -->
+        <section class="section" id="services">
+            <h2>Unsere Leistungen</h2>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Prozessanalyse</h3>
+                    <p>Identifikation von Automatisierungs- und KI-Potenzialen in bestehenden Abläufen.</p>
+                </div>
+
+                <div class="card">
+                    <h3>KI-Integration</h3>
+                    <p>Implementierung von LLMs, Agenten und Entscheidungslogiken in operative Systeme.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Automatisierung</h3>
+                    <p>End-to-End Workflows mit n8n, ERP, CRM und internen IT-Systemen.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VALUE COMPARISON -->
+        <section class="section highlight">
+            <h2>Alt vs. Neu</h2>
+
+            <div class="compare">
+                <div>
+                    <h3>Traditionell</h3>
+                    <ul>
+                        <li>Manuelle Prozesse</li>
+                        <li>Intransparente Entscheidungen</li>
+                        <li>Hohe Fehlerquote</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>Mit AIzen</h3>
+                    <ul>
+                        <li>Automatisierte Abläufe</li>
+                        <li>Datenbasierte Entscheidungen</li>
+                        <li>Skalierbare Systeme</li>
+                    </ul>
+                </div>
+                <script>
+                    // Parallax Hero
+                    const heroBg = document.querySelector('.hero-bg');
+
+                    window.addEventListener('scroll', () => {
+                        const y = window.scrollY * 0.25;
+                        heroBg.style.transform = `translateY(${y}px)`;
+                    });
+
+                    // Scroll Reveal
+                    const observer = new IntersectionObserver(entries => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('visible');
+                            }
+                        });
+                    }, { threshold: 0.15 });
+
+                    document.querySelectorAll('.section, .card, .cta')
+                        .forEach(el => observer.observe(el));
+                </script>
+                <script>
+                    const links = document.querySelectorAll('[data-link]');
+                    const indicator = document.querySelector('.nav-indicator');
+                    const sections = [...document.querySelectorAll('section')];
+
+                    function moveIndicator(el) {
+                        const rect = el.getBoundingClientRect();
+                        const parentRect = el.parentElement.getBoundingClientRect();
+
+                        indicator.style.width = `${rect.width}px`;
+                        indicator.style.left = `${rect.left - parentRect.left}px`;
+                    }
+
+                    links.forEach(link => {
+                        link.addEventListener('click', e => {
+                            e.preventDefault();
+                            const target = document.querySelector(link.getAttribute('href'));
+                            target.scrollIntoView({ behavior: 'smooth' });
+                            moveIndicator(link);
+                        });
+                    });
+
+                    // Auto update on scroll
+                    window.addEventListener('scroll', () => {
+                        const scrollPos = window.scrollY + window.innerHeight / 3;
+
+                        sections.forEach(sec => {
+                            if (scrollPos > sec.offsetTop && scrollPos < sec.offsetTop + sec.offsetHeight) {
+                                const activeLink = document.querySelector(`a[href="#${sec.id}"]`);
+                                if (activeLink) moveIndicator(activeLink);
+                            }
+                        });
+                    });
+                </script>
+
+                <script>
+                    const canvas = document.getElementById('starfield');
+                    const ctx = canvas.getContext('2d');
+
+                    let w, h;
+                    function resize() {
+                        w = canvas.width = window.innerWidth;
+                        h = canvas.height = document.querySelector('.hero').offsetHeight;
+                    }
+                    window.addEventListener('resize', resize);
+                    resize();
+
+                    const STAR_COUNT = 600;
+                    const stars = [];
+
+                    for (let i = 0; i < STAR_COUNT; i++) {
+                        stars.push({
+                            x: Math.random() * w - w / 2,
+                            y: Math.random() * h - h / 2,
+                            z: Math.random() * w,
+                            o: Math.random()
+                        });
+                    }
+
+                    let speed = 1;
+
+                    function update() {
+                        ctx.fillStyle = '#0b0f1a';
+                        ctx.fillRect(0, 0, w, h);
+
+                        for (const s of stars) {
+                            s.z -= speed;
+                            if (s.z <= 0) {
+                                s.x = Math.random() * w - w / 2;
+                                s.y = Math.random() * h - h / 2;
+                                s.z = w;
+                            }
+
+                            const k = 128 / s.z;
+                            const px = s.x * k + w / 2;
+                            const py = s.y * k + h / 2;
+
+                            if (px >= 0 && px <= w && py >= 0 && py <= h) {
+                                const size = (1 - s.z / w) * 2;
+                                ctx.fillStyle = `rgba(122,252,255,${s.o})`;
+                                ctx.beginPath();
+                                ctx.arc(px, py, size, 0, Math.PI * 2);
+                                ctx.fill();
+                            }
+                        }
+
+                        requestAnimationFrame(update);
+                    }
+
+                    // Warp-Effekt bei Scroll
+                    window.addEventListener('scroll', () => {
+                        speed = 1 + window.scrollY * 0.002;
+                        speed = Math.min(speed, 12);
+                    });
+
+                    update();
+                </script>
+</body>

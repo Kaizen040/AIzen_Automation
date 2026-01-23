@@ -58,7 +58,7 @@
                 <img src="logo_vibracoustic.png" alt="Vibracoustic">
 
                 <!-- Set 2 (Duplikat für Endlosschleife) -->
-                <img src="logo-bmw.svg" alt="BMW">
+                <img src="img/logo-bmw.svg" alt="BMW">
                 <img src="logo-sap.svg" alt="SAP">
                 <img src="logo-bosch.svg" alt="Bosch">
                 <img src="logo-sixt.svg" alt="Sixt">
@@ -231,21 +231,20 @@
 
                     update();
                 </script>
+                <script type="text/javascript">
+                    (function (d, t) {
+                        var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+                        v.onload = function () {
+                            window.voiceflow.chat.load({
+                                verify: { projectID: '69712f3f394d4cc164741123' },
+                                url: 'https://general-runtime.voiceflow.com',
+                                versionID: 'production',
+                                voice: {
+                                    url: "https://runtime-api.voiceflow.com"
+                                }
+                            });
+                        }
+                        v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+                    })(document, 'script');
+                </script>
 </body>
-                <!--VOICEFLOW CHATBOT-->
-<script type="text/javascript">
-  (function (d, t) {
-    var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-    v.onload = function () {
-      window.voiceflow.chat.load({
-        verify: { projectID: '69712f3f394d4cc164741123' },
-        url: 'https://general-runtime.voiceflow.com',
-        versionID: 'production',
-        voice: {
-          url: "https://runtime-api.voiceflow.com"
-        }
-      });
-    }
-    v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-  })(document, 'script');
-</script>

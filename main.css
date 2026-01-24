@@ -95,11 +95,11 @@ body {
     z-index: 0;
 }
 
-/*HERO*/
+/*HERO = ERSTE GROßE FLÄCHE*/
 /* HERO LAYERS */
 .hero {
     position: relative;
-    min-height: 100vh;
+    min-height: 80vh;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -190,6 +190,7 @@ body {
     opacity: 0;
     transform: translateY(40px);
     transition: all 0.8s ease;
+    min-height: 35vh;
 }
 
 .section.visible,
@@ -309,33 +310,38 @@ body {
 /*LOGO*/
 /* LOGO STRIP */
 .logo-strip {
-    position: relative;
-    overflow: hidden;
-    padding: 3rem 0;
-    background: linear-gradient(to bottom,
-            transparent,
-            rgba(18, 23, 42, 0.6),
-            transparent);
+    padding: 1.5rem 0;
+    display: flex;
+    justify-content: center;
 }
 
-/* FADE EDGES */
-.logo-strip::before,
-.logo-strip::after {
+/* FOCUS WINDOW */
+.logo-window {
+    position: relative;
+    width: 70%;
+    /* <- DAS ist die begrenzte horizontale Zone */
+    max-width: 1000px;
+    overflow: hidden;
+}
+
+/* FADE MASKS */
+.logo-window::before,
+.logo-window::after {
     content: "";
     position: absolute;
     top: 0;
-    width: 120px;
+    width: 160px;
     height: 100%;
     z-index: 2;
     pointer-events: none;
 }
 
-.logo-strip::before {
+.logo-window::before {
     left: 0;
     background: linear-gradient(to right, var(--bg), transparent);
 }
 
-.logo-strip::after {
+.logo-window::after {
     right: 0;
     background: linear-gradient(to left, var(--bg), transparent);
 }
@@ -363,6 +369,11 @@ body {
     transform: scale(1.1);
 }
 
+/* PAUSE ON HOVER */
+.logo-window:hover .logo-track {
+    animation-play-state: paused;
+}
+
 /* ANIMATION */
 @keyframes scrollLogos {
     from {
@@ -374,6 +385,305 @@ body {
     }
 }
 
-.logo-strip:hover .logo-track {
-  animation-play-state: paused;
+/* SLIDER SECTION */
+.slider {
+    max-width: 1100px;
+    /* Breite größer */
+    /*height: 80vh; */
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    /* weiterhin wichtig gegen horizontales Scrollen */
+}
+
+
+.slides {
+    display: flex;
+    transition: transform 0.6s ease;
+    will-change: transform;
+    width: 100%;
+}
+
+.slide {
+    flex: 0 0 100%;
+    /* fixiert die Breite jeder Slide auf 100% des Containers */
+    padding: 40px;
+    background: rgba(26, 204, 177, 0.05);
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+}
+
+
+.slide.active {
+    display: block;
+}
+
+/* Controls */
+.slider-controls {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Dots */
+.dots {
+    display: flex;
+    gap: 10px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.dot.active {
+    background: #7afcff;
+    transform: scale(1.2);
+}
+
+/* Pause Button */
+.pause-btn {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.pause-btn:hover {
+    border-color: #7afcff;
+    color: #7afcff;
+}
+
+
+
+
+/*SLIDE-BILDER*/
+/* SLIDE LAYOUT 
+.slide-layout {
+    display: flex;
+    align-items: stretch;
+    gap: 2rem;
+    min-height: 380px;
+}
+*/
+
+.slide-layout {
+    display: flex;
+    align-items: stretch;
+    gap: 2rem;
+    min-height: 380px;
+    height: 100%;
+    /* <-- optional, falls Parent eine feste Höhe hat */
+}
+
+
+/* LEFT VISUAL 
+.slide-visual {
+    flex: 0 0 62%;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+    */
+
+.slide-visual {
+    flex: 0 0 62%;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    height: 100%;
+    /* <-- sorgt dafür, dass Bild die gesamte Höhe nutzt */
+}
+
+
+.slide-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+/* Subtle hover zoom */
+.slide:hover .slide-visual img {
+    transform: scale(1.05);
+}
+
+/* RIGHT TEXT */
+.slide-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.slide-text h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--secondary);
+}
+
+.slide-lead {
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.slide-text ul {
+    padding-left: 1.2rem;
+    margin: 0;
+}
+
+.slide-text li {
+    margin-bottom: 0.6rem;
+    position: relative;
+}
+
+/* Accent bullets */
+.slide-text li::marker {
+    color: var(--primary);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .slide-layout {
+        flex-direction: column;
+    }
+
+    .slide-visual {
+        flex: none;
+        height: 220px;
+    }
+
+    .slide-text {
+        text-align: center;
+    }
+
+    .slide-text ul {
+        padding-left: 1rem;
+    }
+}
+
+/*DEVELEPOR MODE*/
+.dev-mode * {
+    outline: 1px solid rgba(237, 22, 32, 0.4);
+}
+
+.dev-mode::before {
+    content: "DEV MODE AKTIV";
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: #0ff;
+    color: #000;
+    padding: 6px 12px;
+    font-weight: bold;
+    z-index: 9999;
+    border-radius: 6px;
+}
+
+/* FAQ / Q&A SECTION */
+.faq {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.faq h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--secondary);
+}
+
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* ITEM */
+.faq-item {
+    background: linear-gradient(180deg, var(--bg-soft), #0c1224);
+    border-radius: var(--radius);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.faq-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 30px 80px rgba(91, 140, 255, 0.35);
+}
+
+/* QUESTION BUTTON */
+.faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+}
+
+/* ICON */
+.faq-icon {
+    color: var(--secondary);
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+/* ANSWER */
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
+    opacity: 0;
+    padding: 0 2rem;
+}
+
+.faq-answer p {
+    margin: 1.5rem 0 2rem;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+/* ACTIVE STATE */
+.faq-item.active .faq-answer {
+    max-height: 300px;
+    opacity: 1;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    .faq-question {
+        padding: 1.2rem 1.5rem;
+    }
+
+    .faq-answer {
+        padding: 0 1.5rem;
+    }
 }

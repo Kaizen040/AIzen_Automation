@@ -13,24 +13,26 @@
 
 
 <body>
+
     <header class="site-header">
         <div class="header-inner">
             <div class="logo">AIzen</div>
-            <!--NAVIGATOR-->
+
             <nav class="nav">
                 <a href="#services" data-link>Leistungen</a>
                 <a href="#process" data-link>Vorgehen</a>
                 <a href="#proof" data-link>Referenzen</a>
-                <a href="#contact" class="nav-cta" data-link>Erstgespräch</a>
+                <a href="#faq" data-link>FAQ</a>
                 <a href="index.html">Home</a>
+                <a href="#contact" class="nav-cta" data-link>Erstgespräch</a>
                 <span class="nav-indicator"></span>
             </nav>
         </div>
     </header>
 
-
     <main>
-        <!--HERO-->
+
+        <!-- HERO -->
         <section class="hero" id="hero">
             <canvas id="starfield"></canvas>
             <div class="hero-layer hero-gradient"></div>
@@ -46,28 +48,31 @@
             </div>
         </section>
 
+        <h2>Unsere Kunden und Partner</h2>
+
         <!-- LOGO MARQUEE -->
         <section class="logo-strip">
-            <div class="logo-track">
-                <!-- Set 1 -->
-                <img src="logo-bmw.svg" alt="BMW">
-                <img src="logo-sap.svg" alt="SAP">
-                <img src="logo-bosch.svg" alt="Bosch">
-                <img src="logo_azure.png" alt="Azure">
-                <img src="logo-siemens.svg" alt="Siemens">
-                <img src="logo_vibracoustic.png" alt="Vibracoustic">
+            <div class="logo-window">
+                <div class="logo-track">
+                    <img src="logo-bmw.svg" alt="BMW">
+                    <img src="logo_sap.png" alt="SAP">
+                    <img src="logo_office.png" alt="Office">
+                    <img src="logo_azure.png" alt="Azure">
+                    <img src="logo_google.png" alt="Google">
+                    <img src="logo_vibracoustic.png" alt="Vibracoustic">
+                    <img src="logo_n8n.png" alt="N8N">
 
-                <!-- Set 2 (Duplikat für Endlosschleife) -->
-                <img src="logo-bmw.svg" alt="BMW">
-                <img src="logo-sap.svg" alt="SAP">
-                <img src="logo-bosch.svg" alt="Bosch">
-                <img src="logo-sixt.svg" alt="Sixt">
-                <img src="logo-siemens.svg" alt="Siemens">
-                <img src="logo_vibracoustic.png" alt="Vibracoustic">
-
+                    <!-- DUPLIKAT -->
+                    <img src="logo-bmw.svg" alt="BMW">
+                    <img src="logo_sap.png" alt="SAP">
+                    <img src="logo_office.png" alt="Office">
+                    <img src="logo_azure.png" alt="Azure">
+                    <img src="logo_google.png" alt="Google">
+                    <img src="logo_vibracoustic.png" alt="Vibracoustic">
+                    <img src="logo_n8n.png" alt="N8N">
+                </div>
             </div>
         </section>
-
 
         <!-- SERVICES -->
         <section class="section" id="services">
@@ -90,161 +95,453 @@
                 </div>
             </div>
         </section>
+    </main>
 
-        <!-- VALUE COMPARISON -->
-        <section class="section highlight">
-            <h2>Alt vs. Neu</h2>
+    <!-- ================= SCRIPTS ================= -->
 
-            <div class="compare">
-                <div>
-                    <h3>Traditionell</h3>
-                    <ul>
-                        <li>Manuelle Prozesse</li>
-                        <li>Intransparente Entscheidungen</li>
-                        <li>Hohe Fehlerquote</li>
-                    </ul>
+    <!-- Navigation Indicator + Scroll = UNTERSTREICHEN VON MENU LEISTE-->
+    <script>
+        const links = document.querySelectorAll('[data-link]');
+        const indicator = document.querySelector('.nav-indicator');
+        const sections = [...document.querySelectorAll('section')];
+
+        function moveIndicator(el) {
+            const rect = el.getBoundingClientRect();
+            const parentRect = el.parentElement.getBoundingClientRect();
+
+            indicator.style.width = `${rect.width}px`;
+            indicator.style.left = `${rect.left - parentRect.left}px`;
+        }
+
+        links.forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+                moveIndicator(link);
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.scrollY + window.innerHeight / 3;
+
+            sections.forEach(sec => {
+                if (scrollPos > sec.offsetTop && scrollPos < sec.offsetTop + sec.offsetHeight) {
+                    const activeLink = document.querySelector(`a[href="#${sec.id}"]`);
+                    if (activeLink) moveIndicator(activeLink);
+                }
+            });
+        });
+    </script>
+
+    <!-- Scroll Reveal -->
+    <script>
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        function observeAll() {
+            document.querySelectorAll('.section, .card, .cta')
+                .forEach(el => observer.observe(el));
+        }
+
+        // Initial
+        observeAll();
+
+        // Falls später neue Sections kommen (z. B. FAQ)
+        window.addEventListener('load', observeAll);
+    </script>
+
+
+    <!-- STARFIELD -->
+    <script>
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+
+        let w, h;
+        function resize() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = document.querySelector('.hero').offsetHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const STAR_COUNT = 600;
+        const stars = [];
+
+        for (let i = 0; i < STAR_COUNT; i++) {
+            stars.push({
+                x: Math.random() * w - w / 2,
+                y: Math.random() * h - h / 2,
+                z: Math.random() * w,
+                o: Math.random()
+            });
+        }
+
+        let speed = 1;
+
+        function update() {
+            ctx.fillStyle = '#0b0f1a';
+            ctx.fillRect(0, 0, w, h);
+
+            for (const s of stars) {
+                s.z -= speed;
+                if (s.z <= 0) {
+                    s.x = Math.random() * w - w / 2;
+                    s.y = Math.random() * h - h / 2;
+                    s.z = w;
+                }
+
+                const k = 128 / s.z;
+                const px = s.x * k + w / 2;
+                const py = s.y * k + h / 2;
+
+                if (px >= 0 && px <= w && py >= 0 && py <= h) {
+                    const size = (1 - s.z / w) * 2;
+                    ctx.fillStyle = `rgba(122,252,255,${s.o})`;
+                    ctx.beginPath();
+                    ctx.arc(px, py, size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        window.addEventListener('scroll', () => {
+            speed = Math.min(1 + window.scrollY * 0.002, 12);
+        });
+
+        update();
+    </script>
+
+    <!-- VOICEFLOW -->
+    <script>
+        (function (d, t) {
+            var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            v.onload = function () {
+                window.voiceflow.chat.load({
+                    verify: { projectID: '69712f3f394d4cc164741123' },
+                    url: 'https://general-runtime.voiceflow.com',
+                    versionID: 'production',
+                    voice: {
+                        url: "https://runtime-api.voiceflow.com"
+                    }
+                });
+            }
+            v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+            v.type = "text/javascript";
+            s.parentNode.insertBefore(v, s);
+        })(document, 'script');
+    </script>
+
+    <!--DEVELOPER MODE-->
+    <script>
+        document.addEventListener('keydown', e => {
+            if (e.key.toLowerCase() === 'd') {
+                document.body.classList.toggle('dev-mode');
+            }
+        });
+    </script>
+
+    <!--SLIDING CONTENT-->
+    <section id="slider" class="section visible">
+        <div class="slider">
+
+            <!-- SLIDES TRACK -->
+            <div class="slides">
+
+                <!-- SLIDE 1 -->
+                <div class="slide">
+                    <div class="slide-layout">
+                        <div class="slide-visual">
+                            <img src="dashboard.jpg" alt="Dashboard">
+                        </div>
+                        <div class="slide-text">
+                            <h2>Intelligente Geschäftsprozessautomatisierung</h2>
+                            <p class="slide-lead">
+                                Maßgeschneiderte KI-Automatisierung für operative Unternehmensprozesse.
+                            </p>
+                            <p>
+                                Wir automatisieren wiederkehrende Abläufe rund um Dokumente, Daten und Systeme – von
+                                Angebotserstellung über Excel-Workflows bis zur intelligenten Ordner- und
+                                Systemintegration. Individuell entwickelt, skalierbar umgesetzt.
+                            </p>
+                            <ul>
+                                <li>Dokumentenbasierte KI (RAG)</li>
+                                <li>CRM & Helpdesk Integration</li>
+                                <li>Mehrsprachige Agenten</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
-                <div>
-                    <h3>Mit AIzen</h3>
-                    <ul>
-                        <li>Automatisierte Abläufe</li>
-                        <li>Datenbasierte Entscheidungen</li>
-                        <li>Skalierbare Systeme</li>
-                    </ul>
+
+                <!-- SLIDE 2 -->
+                <div class="slide">
+                    <div class="slide-layout">
+                        <div class="slide-visual">
+                            <img src="chatbot1.png" alt="Chatbots">
+                        </div>
+                        <div class="slide-text">
+                            <h2>KI-Chatbots & Knowledge Systems</h2>
+                            <p class="slide-lead">
+                                Wissen, Support & Kundenkommunikation – automatisiert und präzise
+                            </p>
+                            <p>
+                                Vom Website-Chatbot bis zum internen RAG-Wissenssystem: Wir bauen KI, die Informationen
+                                versteht, kontextuell beantwortet und direkt mit euren Datenquellen arbeitet.
+                            </p>
+                            <ul>
+                                <li>Website- & Kundenservice-Chatbots</li>
+                                <li>RAG-Wissenssysteme für Unternehmen</li>
+                                <li>Interne FAQ- & Dokumentenassistenten</li>
+                                <li>Mehrsprachige KI-Kommunikation</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <script>
-                    // Parallax Hero
-                    const heroBg = document.querySelector('.hero-bg');
 
-                    window.addEventListener('scroll', () => {
-                        const y = window.scrollY * 0.25;
-                        heroBg.style.transform = `translateY(${y}px)`;
-                    });
+                <!-- SLIDE 3 -->
+                <div class="slide">
+                    <div class="slide-layout">
+                        <div class="slide-visual">
+                            <img src="digcoworker.png" alt="Agenten">
+                        </div>
+                        <div class="slide-text">
+                            <h2>KI-Agenten & Assistenzsysteme</h2>
+                            <p class="slide-lead">
+                                Digitale Assistenten für E-Mail, Systeme & tägliche Arbeitsabläufe
+                            </p>
+                            <p class="slide-lead">
+                                KI-Agenten, die nicht nur antworten – sondern handeln: E-Mails vorbereiten, Aufgaben
+                                steuern, Systeme bedienen und Prozesse aktiv vorantreiben.
+                            </p>
+                            <ul>
+                                <li>Outlook- & E-Mail-Agenten</li>
+                                <li>Aufgaben- & Termin-Automatisierung</li>
+                                <li>Interne Workflow-Steuerung</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-                    // Scroll Reveal
-                    const observer = new IntersectionObserver(entries => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                entry.target.classList.add('visible');
-                            }
-                        });
-                    }, { threshold: 0.15 });
+                <!-- SLIDE 4 -->
+                <div class="slide">
+                    <div class="slide-layout">
+                        <div class="slide-visual">
+                            <img src="sales.jpg" alt="Sales">
+                        </div>
+                        <div class="slide-text">
+                            <h2>Leadgewinnung & Growth Automation</h2>
+                            <p class="slide-lead">
+                                Automatisierte Lead-Pipelines & digitale Vertriebsprozesse
+                            </p>
+                            <p>
+                                Wir entwickeln intelligente Systeme zur Lead-Generierung, Qualifizierung und Übergabe –
+                                von Web Scraping bis CRM-Integration.
+                            </p>
+                            <ul>
+                                <li>Web-Datenextraktion (z. B. Apify)</li>
+                                <li>Lead-Scoring & Qualifizierung</li>
+                                <li>CRM-Automatisierung</li>
+                                <li>Outreach-Workflows</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-                    document.querySelectorAll('.section, .card, .cta')
-                        .forEach(el => observer.observe(el));
-                </script>
-                <script>
-                    const links = document.querySelectorAll('[data-link]');
-                    const indicator = document.querySelector('.nav-indicator');
-                    const sections = [...document.querySelectorAll('section')];
+                <!-- SLIDE 5 -->
+                <div class="slide">
+                    <div class="slide-layout">
+                        <div class="slide-visual">
+                            <img src="marketing.png" alt="Marketing">
+                        </div>
+                        <div class="slide-text">
+                            <h2>Content & Social Media Automation</h2>
+                            <p class="slide-lead">
+                                Skalierte Inhalte für Marketing & digitale Präsenz
+                            </p>
+                            <p>
+                                Automatisierte Content-Workflows für Social Media, Websites und Kampagnen – von Planung
+                                bis Veröffentlichung.
+                            </p>
+                            <ul>
+                                <li>Posting-Automatisierung</li>
+                                <li>Content-Generierung</li>
+                                <li>Plattform-Workflows</li>
+                                <li>Performance-Tracking</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-                    function moveIndicator(el) {
-                        const rect = el.getBoundingClientRect();
-                        const parentRect = el.parentElement.getBoundingClientRect();
+            </div>
 
-                        indicator.style.width = `${rect.width}px`;
-                        indicator.style.left = `${rect.left - parentRect.left}px`;
-                    }
+            <!-- CONTROLS -->
+            <div class="slider-controls">
+                <button id="pauseBtn" class="pause-btn">⏸</button>
 
-                    links.forEach(link => {
-                        link.addEventListener('click', e => {
-                            e.preventDefault();
-                            const target = document.querySelector(link.getAttribute('href'));
-                            target.scrollIntoView({ behavior: 'smooth' });
-                            moveIndicator(link);
-                        });
-                    });
+                <div class="dots">
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
 
-                    // Auto update on scroll
-                    window.addEventListener('scroll', () => {
-                        const scrollPos = window.scrollY + window.innerHeight / 3;
+        </div>
+    </section>
 
-                        sections.forEach(sec => {
-                            if (scrollPos > sec.offsetTop && scrollPos < sec.offsetTop + sec.offsetHeight) {
-                                const activeLink = document.querySelector(`a[href="#${sec.id}"]`);
-                                if (activeLink) moveIndicator(activeLink);
-                            }
-                        });
-                    });
-                </script>
+    <!-- SLIDER SCRIPT -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            const pauseBtn = document.getElementById('pauseBtn');
+            const slidesEl = document.querySelector('.slides');
 
-                <script>
-                    const canvas = document.getElementById('starfield');
-                    const ctx = canvas.getContext('2d');
+            let current = 0;
+            let playing = true;
+            const total = slides.length;
 
-                    let w, h;
-                    function resize() {
-                        w = canvas.width = window.innerWidth;
-                        h = canvas.height = document.querySelector('.hero').offsetHeight;
-                    }
-                    window.addEventListener('resize', resize);
-                    resize();
+            function showSlide(index) {
+                current = (index + total) % total;
+                slidesEl.style.transform = `translateX(-${current * 100}%)`;
 
-                    const STAR_COUNT = 600;
-                    const stars = [];
+                dots.forEach(d => d.classList.remove('active'));
+                if (dots[current]) dots[current].classList.add('active');
+            }
 
-                    for (let i = 0; i < STAR_COUNT; i++) {
-                        stars.push({
-                            x: Math.random() * w - w / 2,
-                            y: Math.random() * h - h / 2,
-                            z: Math.random() * w,
-                            o: Math.random()
-                        });
-                    }
+            function nextSlide() {
+                if (!playing) return;
+                showSlide(current + 1);
+            }
 
-                    let speed = 1;
+            let interval = setInterval(nextSlide, 8000);
 
-                    function update() {
-                        ctx.fillStyle = '#0b0f1a';
-                        ctx.fillRect(0, 0, w, h);
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => showSlide(index));
+            });
 
-                        for (const s of stars) {
-                            s.z -= speed;
-                            if (s.z <= 0) {
-                                s.x = Math.random() * w - w / 2;
-                                s.y = Math.random() * h - h / 2;
-                                s.z = w;
-                            }
+            pauseBtn.addEventListener('click', () => {
+                playing = !playing;
+                pauseBtn.textContent = playing ? '⏸' : '▶';
+            });
 
-                            const k = 128 / s.z;
-                            const px = s.x * k + w / 2;
-                            const py = s.y * k + h / 2;
+            // Swipe Support (Mobile)
+            let startX = 0;
 
-                            if (px >= 0 && px <= w && py >= 0 && py <= h) {
-                                const size = (1 - s.z / w) * 2;
-                                ctx.fillStyle = `rgba(122,252,255,${s.o})`;
-                                ctx.beginPath();
-                                ctx.arc(px, py, size, 0, Math.PI * 2);
-                                ctx.fill();
-                            }
-                        }
+            slidesEl.addEventListener('touchstart', e => {
+                startX = e.touches[0].clientX;
+            });
 
-                        requestAnimationFrame(update);
-                    }
+            slidesEl.addEventListener('touchend', e => {
+                const diff = startX - e.changedTouches[0].clientX;
+                if (diff > 50) showSlide(current + 1);
+                else if (diff < -50) showSlide(current - 1);
+            });
 
-                    // Warp-Effekt bei Scroll
-                    window.addEventListener('scroll', () => {
-                        speed = 1 + window.scrollY * 0.002;
-                        speed = Math.min(speed, 12);
-                    });
+            showSlide(0);
+        });
+    </script>
 
-                    update();
-                </script>
-                <script type="text/javascript">
-                    (function (d, t) {
-                        var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-                        v.onload = function () {
-                            window.voiceflow.chat.load({
-                                verify: { projectID: '69712f3f394d4cc164741123' },
-                                url: 'https://general-runtime.voiceflow.com',
-                                versionID: 'production',
-                                voice: {
-                                    url: "https://runtime-api.voiceflow.com"
-                                }
-                            });
-                        }
-                        v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-                    })(document, 'script');
-                </script>
+    <!-- FAQ / Q&A -->
+    <section class="section faq" id="faq">
+        <h2>Häufige Fragen</h2>
+
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Kostenstruktur</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>
+                        Unsere Projekte werden individuell kalkuliert. Die Kosten setzen sich aus Konzeption,
+                        Implementierung und laufendem Betrieb zusammen. Abgerechnet wird in der Regel projektbasiert
+                        oder als monatliches Service-Modell – abhängig vom Umfang und der Komplexität.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Projektzeit & Ablauf</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>
+                        Ein typisches Projekt gliedert sich in Analyse, Konzeption, Umsetzung und Testphase.
+                        Erste Ergebnisse sind oft bereits nach wenigen Wochen sichtbar. Die Gesamtdauer ist
+                        projektabhängig und richtet sich nach Integrationsgrad und Funktionsumfang.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Wartung & Maintenance</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>
+                        Die laufende Wartung und Optimierung der Systeme wird vollständig von uns übernommen.
+                        Dazu gehören Monitoring, Performance-Optimierung, Sicherheitsupdates und Anpassungen
+                        an veränderte Geschäftsprozesse.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Integration & IT-Infrastruktur</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>
+                        Eine solide IT-Infrastruktur ist Voraussetzung für eine stabile Integration.
+                        Der Umfang der Anbindung an bestehende Systeme (z. B. ERP, CRM oder Datenbanken)
+                        ist projektabhängig und wird transparent geplant und entsprechend verrechnet.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FAQ SCRIPT -->
+    <script>
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.parentElement;
+                const openItem = document.querySelector('.faq-item.active');
+
+                // Optional: Nur eine Frage gleichzeitig offen
+                if (openItem && openItem !== item) {
+                    openItem.classList.remove('active');
+                }
+
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+
+    <!-- FOOTER -->
+    <footer class="cta visible" id="contact">
+        <div style="text-align:center; padding: 4rem;">
+            <h2>Bereit für Automatisierung?</h2>
+            <p>Sprich mit uns über dein Projekt</p>
+            <a href="#" class="cta-button">Kontakt aufnehmen</a>
+        </div>
+    </footer>
+
+
 </body>

@@ -1,1252 +1,699 @@
-html,
-body {
-    width: 100%;
-    overflow-x: hidden;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-
-:root {
-    --bg: #0b0f1a;
-    --bg-soft: #12172a;
-    --primary: #5b8cff;
-    --secondary: #7afcff;
-    --text: #e8ecf1;
-    --muted: #9aa4b2;
-    --radius: 14px;
-    --glow: 0 0 25px rgba(91, 140, 255, 0.35);
-}
-
-* {
-    box-sizing: border-box;
-}
-
-/*BODY*/
-body {
-    margin: 0;
-    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
-    background: linear-gradient(180deg, var(--bg), #06080f);
-    color: var(--text);
-    scroll-behavior: smooth;
-    padding-top: 80px;
-    /* Höhe deines Headers */
-}
-
-/* HEADER/NAVIGATOR*/
-.site-header {
-    position: fixed;
-    /* fixiert dauerhaft oben */
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 9999;
-    background: rgba(11, 15, 26, 0.85);
-    /* leicht transparent */
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    transition: background 0.3s ease;
-}
-
-.header-inner {
-    max-width: 1200px;
-    margin: auto;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: var(--primary);
-}
-
-/* NAV */
-.nav {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
-
-.nav a {
-    position: relative;
-    color: var(--muted);
-    text-decoration: none;
-    padding: 0.5rem 0;
-    transition: color 0.3s ease;
-}
-
-
-/* NAV-CTA wie CTA-BUTTON stylen */
-.nav-cta {
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    border-radius: var(--radius);
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: black !important;
-    font-weight: bold;
-    text-decoration: none;
-    box-shadow: var(--glow);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    cursor: pointer;
-}
-
-.nav-cta:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 40px rgba(122, 252, 255, 0.6);
-}
-
-/* ACTIVE INDICATOR */
-.nav-indicator {
-    position: absolute;
-    bottom: -6px;
-    height: 2px;
-    width: 0;
-    background: var(--primary);
-    transition: all 0.3s ease;
-}
-
-#starfield {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-}
-
-/* =========================
-   HERO – CORE LAYOUT
-========================= */
-
-.hero {
-    position: relative;
-    min-height: 80vh;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-}
-
-.hero-layer {
-    position: absolute;
-    inset: 0;
-}
-
-/* =========================
-   BACKGROUND EFFECTS
-========================= */
-
-/* GRADIENT FLOW */
-.hero-gradient {
-    background:
-        radial-gradient(circle at 30% 30%, #5b8cff44, transparent 40%),
-        radial-gradient(circle at 70% 70%, #7afcff33, transparent 40%);
-    animation: gradientMove 20s ease-in-out infinite alternate;
-}
-
-/* PARTICLES */
-.hero-particles {
-    background-image:
-        radial-gradient(#7afcff33 1px, transparent 1px),
-        radial-gradient(#5b8cff33 1px, transparent 1px);
-    background-size: 80px 80px;
-    animation: particlesFloat 60s linear infinite;
-    opacity: 0.2;
-}
-
-/* =========================
-   HERO CONTENT
-========================= */
-
-.hero-center {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    max-width: 900px;
-    padding: 2rem;
-}
-
-.hero-minimal {
-    position: relative;
-}
-
-/* Subtile Lichtlinie */
-.hero-glow-line {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    width: 60%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #7afcff, transparent);
-    transform: translateX(-50%);
-    opacity: 0.4;
-    filter: blur(2px);
-}
-
-/* =========================
-   TYPOGRAPHY
-========================= */
-
-.hero-title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-}
-
-.hero-title .highlight {
-    background: linear-gradient(90deg, #07b0ff, #7efcff);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: highlightGlow 2s infinite alternate;
-}
-
-.hero-subtitle {
-    font-size: 1.25rem;
-    color: var(--muted);
-    max-width: 600px;
-    margin: 0 auto 3rem auto;
-    line-height: 1.6;
-}
-
-/* =========================
-   CTA BUTTON
-========================= */
-
-.hero-cta {
-    position: relative;
-    display: inline-block;
-    color: #7afcff;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 1rem 2rem;
-    transition: color 0.3s ease;
-}
-
-.hero-cta span {
-    position: relative;
-    z-index: 2;
-}
-
-.hero-cta .cta-line {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #7afcff, transparent);
-    transform: scaleX(0.4);
-    transform-origin: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.hero-cta:hover {
-    color: white;
-}
-
-.hero-cta:hover .cta-line {
-    transform: scaleX(1);
-    box-shadow: 0 0 12px #7afcff;
-}
-
-/* =========================
-   ANIMATIONS
-========================= */
-
-@keyframes gradientMove {
-    0% {
-        background-position: 0% 0%, 100% 100%;
-    }
-
-    100% {
-        background-position: 100% 100%, 0% 0%;
-    }
-}
-
-@keyframes particlesFloat {
-    from {
-        background-position: 0 0, 0 0;
-    }
-
-    to {
-        background-position: 1000px 1000px, -1000px -1000px;
-    }
-}
-
-@keyframes highlightGlow {
-    0% {
-        filter: drop-shadow(0 0 5px #07b0ff);
-    }
-
-    100% {
-        filter: drop-shadow(0 0 20px #7efcff);
-    }
-}
-
-
-
-
-/*CONTENT*/
-.section,
-.cta {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s ease;
-    min-height: 35vh;
-}
-
-.section.visible,
-.cta.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-
-/*MAIN*/
-.main-nav {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    padding: 1.5rem;
-    background: rgba(18, 23, 42, 0.8);
-    backdrop-filter: blur(10px);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-.main-nav a {
-    position: relative;
-    text-decoration: none;
-    color: var(--muted);
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.main-nav a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 0;
-    height: 2px;
-    background: var(--primary);
-    transition: width 0.3s ease;
-}
-
-.main-nav a:hover {
-    color: var(--text);
-}
-
-.main-nav a:hover::after,
-.main-nav a.active::after {
-    width: 100%;
-}
-
-/*CTA*/
-.cta-button {
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    border-radius: var(--radius);
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: black;
-    font-weight: bold;
-    text-decoration: none;
-    box-shadow: var(--glow);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.cta-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 40px rgba(122, 252, 255, 0.6);
-}
-
-/* GRID */
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 2.5rem;
-    margin-top: 3rem;
-}
-
-/* CARD BASE */
-.card {
-    background: linear-gradient(180deg, var(--bg-soft), #0c1224);
-    padding: 2.5rem;
-    border-radius: var(--radius);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    position: relative;
-    overflow: hidden;
-
-    opacity: 0;
-    transform: translateY(40px);
-}
-
-/* SCROLL REVEAL */
-.card.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* LIGHT GLOW */
-.card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at top left, rgba(122, 252, 255, 0.15), transparent 60%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-/* HOVER EFFECT */
-.card:hover {
-    transform: translateY(-12px) scale(1.02);
-    box-shadow: 0 30px 80px rgba(91, 140, 255, 0.35);
-}
-
-.card:hover::before {
-    opacity: 1;
-}
-
-/*LOGO*/
-/* LOGO STRIP */
-.logo-strip {
-    padding: 1.5rem 0;
-    display: flex;
-    justify-content: center;
-}
-
-/* FOCUS WINDOW */
-.logo-window {
-    position: relative;
-    width: 70%;
-    /* <- DAS ist die begrenzte horizontale Zone */
-    max-width: 1000px;
-    overflow: hidden;
-}
-
-/* FADE MASKS */
-.logo-window::before,
-.logo-window::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 160px;
-    height: 100%;
-    z-index: 2;
-    pointer-events: none;
-}
-
-.logo-window::before {
-    left: 0;
-    background: linear-gradient(to right, var(--bg), transparent);
-}
-
-.logo-window::after {
-    right: 0;
-    background: linear-gradient(to left, var(--bg), transparent);
-}
-
-/* TRACK */
-.logo-track {
-    display: flex;
-    align-items: center;
-    gap: 4rem;
-    width: max-content;
-    animation: scrollLogos 35s linear infinite;
-}
-
-/* LOGOS */
-.logo-track img {
-    height: 60px;
-    opacity: 0.7;
-    filter: grayscale(100%);
-    transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
-}
-
-.logo-track img:hover {
-    opacity: 1;
-    filter: grayscale(0%);
-    transform: scale(1.1);
-}
-
-/* PAUSE ON HOVER */
-.logo-window:hover .logo-track {
-    animation-play-state: paused;
-}
-
-/* ANIMATION */
-@keyframes scrollLogos {
-    from {
-        transform: translateX(0);
-    }
-
-    to {
-        transform: translateX(-50%);
-    }
-}
-
-/* SLIDER SECTION */
-.slider {
-    max-width: 1100px;
-    /* Breite größer */
-    /*height: 80vh; */
-    margin: 0 auto;
-    position: relative;
-    overflow: hidden;
-    /* weiterhin wichtig gegen horizontales Scrollen */
-}
-
-
-.slides {
-    display: flex;
-    transition: transform 0.6s ease;
-    will-change: transform;
-    width: 100%;
-}
-
-/*
-.slide {
-    flex: 0 0 100%;
-    fixiert die Breite jeder Slide auf 100% des Containers
-    padding: 40px;
-    background: rgba(26, 204, 177, 0.05);
-    border-radius: 16px;
-    backdrop-filter: blur(8px);
-}
-*/
-
-.slide {
-    flex: 0 0 100%;
-    padding: 40px;
-    max-width: 100%;
-}
-
-
-.slide.active {
-    display: block;
-}
-
-/* Controls */
-.slider-controls {
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-}
-
-/* Dots */
-.dots {
-    display: flex;
-    gap: 10px;
-}
-
-.dot {
-    width: 12px;
-    height: 12px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.dot.active {
-    background: #7afcff;
-    transform: scale(1.2);
-}
-
-/* Pause Button */
-.pause-btn {
-    background: none;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    border-radius: 50%;
-    width: 42px;
-    height: 42px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: 0.2s;
-}
-
-.pause-btn:hover {
-    border-color: #7afcff;
-    color: #7afcff;
-}
-
-
-
-
-/*SLIDE-BILDER*/
-/* SLIDE LAYOUT 
-.slide-layout {
-    display: flex;
-    align-items: stretch;
-    gap: 2rem;
-    min-height: 380px;
-}
-*/
-
-.slide-layout {
-    display: flex;
-    align-items: stretch;
-    gap: 2rem;
-    min-height: 380px;
-    height: 100%;
-    /* <-- optional, falls Parent eine feste Höhe hat */
-}
-
-
-/* LEFT VISUAL 
-.slide-visual {
-    flex: 0 0 62%;
-    position: relative;
-    overflow: hidden;
-    border-radius: var(--radius);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-}
-    */
-
-.slide-visual {
-    flex: 0 0 62%;
-    position: relative;
-    overflow: hidden;
-    border-radius: var(--radius);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    height: 100%;
-    /* <-- sorgt dafür, dass Bild die gesamte Höhe nutzt */
-}
-
-
-.slide-visual img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-}
-
-/* Subtle hover zoom */
-.slide:hover .slide-visual img {
-    transform: scale(1.05);
-}
-
-/* RIGHT TEXT */
-.slide-text {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: left;
-}
-
-.slide-text h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-    color: var(--secondary);
-}
-
-.slide-lead {
-    color: var(--muted);
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    font-size: 0.95rem;
-}
-
-.slide-text ul {
-    padding-left: 1.2rem;
-    margin: 0;
-}
-
-.slide-text li {
-    margin-bottom: 0.6rem;
-    position: relative;
-}
-
-/* Accent bullets */
-.slide-text li::marker {
-    color: var(--primary);
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    .slide-layout {
-        flex-direction: column;
-    }
-
-    .slide-visual {
-        flex: none;
-        height: 220px;
-    }
-
-    .slide-text {
-        text-align: center;
-    }
-
-    .slide-text ul {
-        padding-left: 1rem;
-    }
-}
-
-/*DEVELEPOR MODE*/
-.dev-mode * {
-    outline: 1px solid rgba(237, 22, 32, 0.4);
-}
-
-.dev-mode::before {
-    content: "DEV MODE AKTIV";
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background: #0ff;
-    color: #000;
-    padding: 6px 12px;
-    font-weight: bold;
-    z-index: 9999;
-    border-radius: 6px;
-}
-
-
-/* PROJEKTSEKTION */
-
-.timeline-section {
-    position: relative;
-    padding: 100px 20px;
-    background-color: #071847;
-    color: white;
-    overflow: hidden;
-}
-
-.timeline-title {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 60px;
-}
-
-.timeline-container {
-    position: relative;
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-}
-
-.timeline-line {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    width: 4px;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    /* Hintergrundlinie */
-    transform: translateX(-50%);
-}
-
-.timeline-line-fill {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 0%;
-    background: #07b0ff;
-    /* Farbe der Füllung */
-}
-
-.timeline-item {
-    display: flex;
-    position: relative;
-    margin: 40px 0;
-    z-index: 2;
-}
-
-.timeline-item:nth-child(odd) .timeline-content {
-    margin-left: 40px;
-}
-
-.timeline-item:nth-child(even) .timeline-content {
-    margin-right: 40px;
-    text-align: right;
-}
-
-.timeline-icon {
-    width: 56px;
-    height: 56px;
-    background: #07b0ff;
-    color: #ffffff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
-}
-
-.timeline-content {
-    max-width: 300px;
-    padding: 10px 20px;
-}
-
-.timeline-item h3 {
-    margin: 0 0 10px 0;
-    font-size: 1.5rem;
-}
-
-.timeline-item p {
-    margin: 0;
-    opacity: 0.7;
-}
-
-/* Scroll-Fill für Linie */
-.timeline-line::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 0%;
-    background: #fff;
-    transition: height 0.3s ease;
-}
-
-/* FAQ / Q&A SECTION */
-.faq {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 4rem 2rem;
-}
-
-.faq h2 {
-    text-align: center;
-    margin-bottom: 3rem;
-    color: var(--secondary);
-}
-
-.faq-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-/* ITEM */
-.faq-item {
-    background: linear-gradient(180deg, var(--bg-soft), #0c1224);
-    border-radius: var(--radius);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-    overflow: hidden;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.faq-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 30px 80px rgba(91, 140, 255, 0.35);
-}
-
-/* QUESTION BUTTON */
-.faq-question {
-    width: 100%;
-    background: none;
-    border: none;
-    color: var(--text);
-    padding: 1.5rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
-    text-align: left;
-}
-
-/* ICON */
-.faq-icon {
-    color: var(--secondary);
-    font-size: 1.5rem;
-    transition: transform 0.3s ease;
-}
-
-/* ANSWER */
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, opacity 0.3s ease;
-    opacity: 0;
-    padding: 0 2rem;
-}
-
-.faq-answer p {
-    margin: 1.5rem 0 2rem;
-    color: var(--muted);
-    line-height: 1.6;
-}
-
-/* ACTIVE STATE */
-.faq-item.active .faq-answer {
-    max-height: 300px;
-    opacity: 1;
-}
-
-.faq-item.active .faq-icon {
-    transform: rotate(45deg);
-}
-
-/* MOBILE */
-@media (max-width: 600px) {
-    .faq-question {
-        padding: 1.2rem 1.5rem;
-    }
-
-    .faq-answer {
-        padding: 0 1.5rem;
-    }
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-.site-footer {
-    background: #050d2b;
-    color: #ffffff;
-    margin-top: 120px;
-}
-
-.footer-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 4rem;
-    padding: 80px 0;
-}
-
-.footer-col h4 {
-    font-size: 0.9rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    position: relative;
-}
-
-.footer-col h4::after {
-    content: "";
-    display: block;
-    width: 40px;
-    height: 2px;
-    background: rgba(255, 255, 255, 0.3);
-    margin-top: 0.75rem;
-}
-
-.footer-col ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.footer-col li {
-    margin-bottom: 0.75rem;
-}
-
-.footer-col a {
-    color: rgba(255, 255, 255, 0.75);
-    text-decoration: none;
-    transition: color 0.2s ease, transform 0.2s ease;
-}
-
-.footer-col a:hover {
-    color: #0ff;
-    transform: translateX(4px);
-}
-
-/* Brand */
-.footer-brand .footer-logo {
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    margin-bottom: 1rem;
-}
-
-.footer-claim {
-    color: rgba(255, 255, 255, 0.6);
-    max-width: 280px;
-    margin-bottom: 2rem;
-}
-
-/* Social */
-.footer-social {
-    display: flex;
-    gap: 1rem;
-}
-
-.footer-social a {
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    transition: all 0.2s ease;
-}
-
-.footer-social a:hover {
-    background: #0ff;
-    border-color: #0ff;
-    color: #050d2b;
-}
-
-/* Contact */
-.footer-names {
-    color: rgba(255, 255, 255, 0.85);
-    margin-bottom: 1.5rem;
-}
-
-.footer-names span {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.9rem;
-}
-
-.footer-cta {
-    display: inline-block;
-    background: #0ff;
-    color: #050d2b !important;
-    padding: 12px 24px;
-    border-radius: 12px;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.footer-cta:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(245, 176, 28, 0.4);
-}
-
-.footer-contacts a {
-    display: block;
-    margin-bottom: 0.75rem;
-    font-size: 0.95rem;
-}
-
-/* Bottom Bar */
-.footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 1.5rem 0;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.5);
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-    .footer-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 3rem;
-    }
-}
-
-@media (max-width: 500px) {
-    .footer-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* =========================
-DATENSCHUTZ
-========================= */
-
-.privacy {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 6rem 2rem;
-}
-
-.privacy h1 {
-    color: var(--secondary);
-    margin-bottom: 2.5rem;
-}
-
-.privacy h2 {
-    margin-top: 3rem;
-    margin-bottom: 1rem;
-    color: var(--text);
-}
-
-.privacy h3 {
-    margin-top: 2rem;
-    margin-bottom: 0.75rem;
-    color: var(--muted);
-}
-
-.privacy p,
-.privacy li {
-    color: var(--muted);
-    line-height: 1.7;
-    font-size: 0.95rem;
-}
-
-.privacy ul {
-    padding-left: 1.5rem;
-    margin: 1.5rem 0;
-}
-
-.privacy a {
-    color: var(--secondary);
-    text-decoration: none;
-}
-
-.privacy a:hover {
-    text-decoration: underline;
-}
-
-/* =========================
-   IMPRESSUM
-========================= */
-
-.imprint {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 6rem 2rem;
-}
-
-.imprint h1 {
-    color: var(--secondary);
-    margin-bottom: 2.5rem;
-}
-
-.imprint h2 {
-    margin-top: 3rem;
-    margin-bottom: 1rem;
-    color: var(--text);
-}
-
-.imprint p {
-    color: var(--muted);
-    line-height: 1.7;
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
-}
-
-.imprint a {
-    color: var(--secondary);
-    text-decoration: none;
-}
-
-.imprint a:hover {
-    text-decoration: underline;
-}
-
-
-.cta-section {
-    background: linear-gradient(135deg, #5b8cff22, #7afcff22);
-    padding: 6rem 2rem;
-    text-align: center;
-    border-radius: var(--radius);
-    max-width: 900px;
-    margin: 0 auto 6rem auto;
-    box-shadow: var(--glow);
-}
-
-.cta-section h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: var(--secondary);
-}
-
-.cta-section p {
-    margin-bottom: 3rem;
-    color: var(--muted);
-    line-height: 1.6;
-}
-
-/* Flex-Container für Formular + Buchung */
-.cta-content {
-    display: flex;
-    justify-content: space-between;
-    gap: 2rem;
-    flex-wrap: wrap;
-    align-items: flex-start;
-}
-
-/* Kontaktformular */
-.cta-form {
-    flex: 1 1 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.cta-form input,
-.cta-form textarea {
-    padding: 0.75rem 1rem;
-    border-radius: var(--radius);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: var(--bg-soft);
-    color: var(--text);
-    font-size: 1rem;
-    resize: none;
-}
-
-.cta-form input:focus,
-.cta-form textarea:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: var(--glow);
-}
-
-/* Buchungsbereich */
-.cta-booking {
-    flex: 1 1 250px;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    justify-content: center;
-    align-items: center;
-}
-
-.cta-booking p {
-    color: var(--muted);
-}
-
-/* Buttons */
-.cta-button {
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    border-radius: var(--radius);
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: black;
-    font-weight: bold;
-    text-decoration: none;
-    box-shadow: var(--glow);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    cursor: pointer;
-}
-
-.cta-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 40px rgba(122, 252, 255, 0.6);
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    .cta-content {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .cta-booking {
-        flex: none;
-        text-align: center;
-    }
-}
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>AIzen Automation – KI & Prozessautomatisierung</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="AIzen Automation – Wir entwickeln KI- und Automatisierungslösungen für Unternehmen. Effizient, skalierbar und messbar." />
+
+    <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+
+
+<body>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="logo">AIzen</div>
+
+            <nav class="nav">
+                <a href="#services" data-link>Leistungen</a>
+                <a href="#process" data-link>Vorgehen</a>
+                <a href="#proof" data-link>Referenzen</a>
+                <a href="#faq" data-link>FAQ</a>
+                <a href="index.html">Home</a>
+                <a href="#contact" class="nav-cta" data-link>Erstgespräch</a>
+                <span class="nav-indicator"></span>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- HERO 
+        <section class="hero" id="hero">
+            <canvas id="starfield"></canvas>
+            <div class="hero-layer hero-gradient"></div>
+            <div class="hero-layer hero-particles"></div>
+
+            <div class="hero-center">
+                <h1>
+                    Wir bauen Systeme,<br>
+                    <span>die Unternehmen skalieren</span>
+                </h1>
+                <p>KI & Automatisierung für messbaren Business-Impact</p>
+                <a href="#contact" class="btn-primary">Erstgespräch buchen</a>
+            </div>
+        </section>
+    -->
+
+        <!-- HERO -->
+        <section class="hero" id="hero">
+            <canvas id="starfield"></canvas>
+            <div class="hero-layer hero-gradient"></div>
+            <div class="hero-layer hero-particles"></div>
+
+            <div class="hero-center hero-minimal">
+                <div class="hero-glow-line"></div>
+
+                <h1 class="hero-title">
+                    Wir bauen <span class="highlight">smarte Systeme</span><br>
+                    für Unternehmen, die <span class="highlight">skalieren</span>
+                </h1>
+
+                <p class="hero-subtitle">
+                    KI- & Prozessautomatisierung für nachhaltigen, messbaren Business-Impact
+                </p>
+
+                <a href="#contact" class="hero-cta">
+                    <span>Erstgespräch buchen</span>
+                    <div class="cta-line"></div>
+                </a>
+            </div>
+
+        </section>
+
+
+        <h2>Unsere Kunden und Partner</h2>
+
+        <!-- LOGO MARQUEE -->
+        <section class="logo-strip">
+            <div class="logo-window">
+                <div class="logo-track">
+                    <img src="assets/img/logo-bmw.svg" alt="BMW">
+                    <img src="assets/img/logo_sap.png" alt="SAP">
+                    <img src="assets/img/logo_office.png" alt="Office">
+                    <img src="assets/img/logo_azure.png" alt="Azure">
+                    <img src="assets/img/logo_google.png" alt="Google">
+                    <img src="assets/img/logo_vibracoustic.png" alt="Vibracoustic">
+                    <img src="assets/img/logo_n8n.png" alt="N8N">
+
+                    <!-- DUPLIKAT -->
+                    <img src="assets/img/logo-bmw.svg" alt="BMW">
+                    <img src="assets/img/logo_sap.png" alt="SAP">
+                    <img src="assets/img/logo_office.png" alt="Office">
+                    <img src="assets/img/logo_azure.png" alt="Azure">
+                    <img src="assets/img/logo_google.png" alt="Google">
+                    <img src="assets/img/logo_vibracoustic.png" alt="Vibracoustic">
+                    <img src="assets/img/logo_n8n.png" alt="N8N">
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES -->
+        <section class="section" id="aboutus">
+            <h2>Unsere Leistungen</h2>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Prozessanalyse</h3>
+                    <p>Identifikation von Automatisierungs- und KI-Potenzialen in bestehenden Abläufen.</p>
+                </div>
+
+                <div class="card">
+                    <h3>KI-Integration</h3>
+                    <p>Implementierung von LLMs, Agenten und Entscheidungslogiken in operative Systeme.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Automatisierung</h3>
+                    <p>End-to-End Workflows mit n8n, ERP, CRM und internen IT-Systemen.</p>
+                </div>
+            </div>
+        </section>
+
+        <!--SLIDING CONTENT-->
+        <section id="services" class="section visible">
+            <div class="slider">
+
+                <!-- SLIDES TRACK -->
+                <div class="slides">
+
+                    <!-- SLIDE 1 -->
+                    <div class="slide">
+                        <div class="slide-layout">
+                            <div class="slide-visual">
+                                <img src="assets/img/dashboard.jpg" alt="Dashboard">
+                            </div>
+                            <div class="slide-text">
+                                <h2>Intelligente Geschäftsprozessautomatisierung</h2>
+                                <p class="slide-lead">
+                                    Maßgeschneiderte KI-Automatisierung für operative Unternehmensprozesse.
+                                </p>
+                                <p>
+                                    Wir automatisieren wiederkehrende Abläufe rund um Dokumente, Daten und Systeme – von
+                                    Angebotserstellung über Excel-Workflows bis zur intelligenten Ordner- und
+                                    Systemintegration. Individuell entwickelt, skalierbar umgesetzt.
+                                </p>
+                                <ul>
+                                    <li>Dokumentenbasierte KI (RAG)</li>
+                                    <li>CRM & Helpdesk Integration</li>
+                                    <li>Mehrsprachige Agenten</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- SLIDE 2 -->
+                    <div class="slide">
+                        <div class="slide-layout">
+                            <div class="slide-visual">
+                                <img src="assets/img/chatbot1.png" alt="Chatbots">
+                            </div>
+                            <div class="slide-text">
+                                <h2>KI-Chatbots & Knowledge Systems</h2>
+                                <p class="slide-lead">
+                                    Wissen, Support & Kundenkommunikation – automatisiert und präzise
+                                </p>
+                                <p>
+                                    Vom Website-Chatbot bis zum internen RAG-Wissenssystem: Wir bauen KI, die
+                                    Informationen
+                                    versteht, kontextuell beantwortet und direkt mit euren Datenquellen arbeitet.
+                                </p>
+                                <ul>
+                                    <li>Website- & Kundenservice-Chatbots</li>
+                                    <li>RAG-Wissenssysteme für Unternehmen</li>
+                                    <li>Interne FAQ- & Dokumentenassistenten</li>
+                                    <li>Mehrsprachige KI-Kommunikation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SLIDE 3 -->
+                    <div class="slide">
+                        <div class="slide-layout">
+                            <div class="slide-visual">
+                                <img src="assets/img/digcoworker.png" alt="Agenten">
+                            </div>
+                            <div class="slide-text">
+                                <h2>KI-Agenten & Assistenzsysteme</h2>
+                                <p class="slide-lead">
+                                    Digitale Assistenten für E-Mail, Systeme & tägliche Arbeitsabläufe
+                                </p>
+                                <p class="slide-lead">
+                                    KI-Agenten, die nicht nur antworten – sondern handeln: E-Mails vorbereiten, Aufgaben
+                                    steuern, Systeme bedienen und Prozesse aktiv vorantreiben.
+                                </p>
+                                <ul>
+                                    <li>Outlook- & E-Mail-Agenten</li>
+                                    <li>Aufgaben- & Termin-Automatisierung</li>
+                                    <li>Interne Workflow-Steuerung</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SLIDE 4 -->
+                    <div class="slide">
+                        <div class="slide-layout">
+                            <div class="slide-visual">
+                                <img src="assets/img/sales.jpg" alt="Sales">
+                            </div>
+                            <div class="slide-text">
+                                <h2>Leadgewinnung & Growth Automation</h2>
+                                <p class="slide-lead">
+                                    Automatisierte Lead-Pipelines & digitale Vertriebsprozesse
+                                </p>
+                                <p>
+                                    Wir entwickeln intelligente Systeme zur Lead-Generierung, Qualifizierung und
+                                    Übergabe –
+                                    von Web Scraping bis CRM-Integration.
+                                </p>
+                                <ul>
+                                    <li>Web-Datenextraktion (z. B. Apify)</li>
+                                    <li>Lead-Scoring & Qualifizierung</li>
+                                    <li>CRM-Automatisierung</li>
+                                    <li>Outreach-Workflows</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SLIDE 5 -->
+                    <div class="slide">
+                        <div class="slide-layout">
+                            <div class="slide-visual">
+                                <img src="assets/img/marketing.png" alt="Marketing">
+                            </div>
+                            <div class="slide-text">
+                                <h2>Content & Social Media Automation</h2>
+                                <p class="slide-lead">
+                                    Skalierte Inhalte für Marketing & digitale Präsenz
+                                </p>
+                                <p>
+                                    Automatisierte Content-Workflows für Social Media, Websites und Kampagnen – von
+                                    Planung
+                                    bis Veröffentlichung.
+                                </p>
+                                <ul>
+                                    <li>Posting-Automatisierung</li>
+                                    <li>Content-Generierung</li>
+                                    <li>Plattform-Workflows</li>
+                                    <li>Performance-Tracking</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- CONTROLS -->
+                <div class="slider-controls">
+                    <button id="pauseBtn" class="pause-btn">⏸</button>
+
+                    <div class="dots">
+                        <div class="dot active"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="project-timeline" class="timeline-section">
+            <h2 class="timeline-title">Unser Projektprozess</h2>
+            <div class="timeline-container">
+                <!-- Linie in der Mitte -->
+                <div class="timeline-line">
+                    <div class="timeline-line-fill"></div>
+                </div>
+
+                <!-- Timeline Items -->
+                <div class="timeline-item">
+                    <div class="timeline-icon">1</div>
+                    <div class="timeline-content">
+                        <h3>Erstgespräch</h3>
+                        <p>Im Erstgespräch lernen wir uns kennen und besprechen, wie wir Ihr Unternehmen am besten
+                            unterstützen können.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">2</div>
+                    <div class="timeline-content">
+                        <h3>Prozessanalyse</h3>
+                        <p>Wir analysieren Ihre bestehenden Prozesse und zeigen Ihnen Optimierungspotenziale auf.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">3</div>
+                    <div class="timeline-content">
+                        <h3>Umsetzung</h3>
+                        <p>Basierend auf einem individuellen Konzept setzen wir die Lösung um und betreuen Sie danach
+                            als Partner.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">4</div>
+                    <div class="timeline-content">
+                        <h3>Review & Optimierung</h3>
+                        <p>Wir prüfen die Ergebnisse, optimieren Prozesse kontinuierlich und sichern den Erfolg
+                            nachhaltig.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- FAQ / Q&A -->
+        <section class="section faq" id="faq">
+            <h2>Häufige Fragen</h2>
+
+            <div class="faq-list">
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Kostenstruktur</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            Unsere Projekte werden individuell kalkuliert. Die Kosten setzen sich aus Konzeption,
+                            Implementierung und laufendem Betrieb zusammen. Abgerechnet wird in der Regel projektbasiert
+                            oder als monatliches Service-Modell – abhängig vom Umfang und der Komplexität.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Projektzeit & Ablauf</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            Ein typisches Projekt gliedert sich in Analyse, Konzeption, Umsetzung und Testphase.
+                            Erste Ergebnisse sind oft bereits nach wenigen Wochen sichtbar. Die Gesamtdauer ist
+                            projektabhängig und richtet sich nach Integrationsgrad und Funktionsumfang.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Wartung & Maintenance</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            Die laufende Wartung und Optimierung der Systeme wird vollständig von uns übernommen.
+                            Dazu gehören Monitoring, Performance-Optimierung, Sicherheitsupdates und Anpassungen
+                            an veränderte Geschäftsprozesse.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Integration & IT-Infrastruktur</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            Eine solide IT-Infrastruktur ist Voraussetzung für eine stabile Integration.
+                            Der Umfang der Anbindung an bestehende Systeme (z. B. ERP, CRM oder Datenbanken)
+                            ist projektabhängig und wird transparent geplant und entsprechend verrechnet.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- CTA / Kontakt Section -->
+        <section class="cta-section visible" id="contact">
+            <div class="cta-container">
+                <h2>Bereit für Automatisierung?</h2>
+                <p>Sprich mit uns über dein Projekt oder buche direkt einen Termin.</p>
+
+                <div class="cta-content">
+
+                    <!-- Kontaktformular -->
+                    <form class="cta-form" action="#" method="POST">
+                        <input type="text" name="name" placeholder="Dein Name" required>
+                        <input type="email" name="email" placeholder="Deine E-Mail" required>
+                        <textarea name="message" rows="5" placeholder="Deine Nachricht" required></textarea>
+                        <button type="submit" class="cta-button">Nachricht senden</button>
+                    </form>
+
+                    <!-- Optional: Direkt Buchungsbutton -->
+                    <div class="cta-booking">
+                        <p>Oder buche direkt ein kostenloses Erstgespräch:</p>
+                        <a href="https://cal.com/jonas-schnellbach/erstgesprach" target="_blank"
+                            class="cta-button">Termin
+                            buchen</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= SCRIPTS ================= -->
+
+    <!-- Scroll Reveal -->
+    <script>
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        function observeAll() {
+            document.querySelectorAll('.section, .card, .cta')
+                .forEach(el => observer.observe(el));
+        }
+
+        // Initial
+        observeAll();
+
+        // Falls später neue Sections kommen (z. B. FAQ)
+        window.addEventListener('load', observeAll);
+    </script>
+
+
+    <!-- STARFIELD -->
+    <script>
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+
+        let w, h;
+        function resize() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = document.querySelector('.hero').offsetHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const STAR_COUNT = 600;
+        const stars = [];
+
+        for (let i = 0; i < STAR_COUNT; i++) {
+            stars.push({
+                x: Math.random() * w - w / 2,
+                y: Math.random() * h - h / 2,
+                z: Math.random() * w,
+                o: Math.random()
+            });
+        }
+
+        let speed = 1;
+
+        function update() {
+            ctx.fillStyle = '#0b0f1a';
+            ctx.fillRect(0, 0, w, h);
+
+            for (const s of stars) {
+                s.z -= speed;
+                if (s.z <= 0) {
+                    s.x = Math.random() * w - w / 2;
+                    s.y = Math.random() * h - h / 2;
+                    s.z = w;
+                }
+
+                const k = 128 / s.z;
+                const px = s.x * k + w / 2;
+                const py = s.y * k + h / 2;
+
+                if (px >= 0 && px <= w && py >= 0 && py <= h) {
+                    const size = (1 - s.z / w) * 2;
+                    ctx.fillStyle = `rgba(122,252,255,${s.o})`;
+                    ctx.beginPath();
+                    ctx.arc(px, py, size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        window.addEventListener('scroll', () => {
+            speed = Math.min(1 + window.scrollY * 0.002, 12);
+        });
+
+        update();
+    </script>
+
+    <!-- VOICEFLOW -->
+    <script>
+        (function (d, t) {
+            var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            v.onload = function () {
+                window.voiceflow.chat.load({
+                    verify: { projectID: '69712f3f394d4cc164741123' },
+                    url: 'https://general-runtime.voiceflow.com',
+                    versionID: 'production',
+                    voice: {
+                        url: "https://runtime-api.voiceflow.com"
+                    }
+                });
+            }
+            v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+            v.type = "text/javascript";
+            s.parentNode.insertBefore(v, s);
+        })(document, 'script');
+    </script>
+
+    <!--DEVELOPER MODE-->
+    <script>
+        document.addEventListener('keydown', e => {
+            if (e.key.toLowerCase() === 'd') {
+                document.body.classList.toggle('dev-mode');
+            }
+        });
+    </script>
+
+    <!-- SLIDER SCRIPT -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            const pauseBtn = document.getElementById('pauseBtn');
+            const slidesEl = document.querySelector('.slides');
+
+            let current = 0;
+            let playing = true;
+            const total = slides.length;
+
+            function showSlide(index) {
+                current = (index + total) % total;
+                slidesEl.style.transform = `translateX(-${current * 100}%)`;
+
+                dots.forEach(d => d.classList.remove('active'));
+                if (dots[current]) dots[current].classList.add('active');
+            }
+
+            function nextSlide() {
+                if (!playing) return;
+                showSlide(current + 1);
+            }
+
+            let interval = setInterval(nextSlide, 8000);
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => showSlide(index));
+            });
+
+            pauseBtn.addEventListener('click', () => {
+                playing = !playing;
+                pauseBtn.textContent = playing ? '⏸' : '▶';
+            });
+
+            // Swipe Support (Mobile)
+            let startX = 0;
+
+            slidesEl.addEventListener('touchstart', e => {
+                startX = e.touches[0].clientX;
+            });
+
+            slidesEl.addEventListener('touchend', e => {
+                const diff = startX - e.changedTouches[0].clientX;
+                if (diff > 50) showSlide(current + 1);
+                else if (diff < -50) showSlide(current - 1);
+            });
+
+            showSlide(0);
+        });
+    </script>
+
+    <!-- FAQ SCRIPT -->
+    <script>
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.parentElement;
+                const openItem = document.querySelector('.faq-item.active');
+
+                // Optional: Nur eine Frage gleichzeitig offen
+                if (openItem && openItem !== item) {
+                    openItem.classList.remove('active');
+                }
+
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+
+    <!-- PROJEKT SKRIPT -->
+    <script>
+        const timelineSection = document.querySelector('.timeline-section');
+        const timelineLineFill = document.querySelector('.timeline-line-fill');
+
+        window.addEventListener('scroll', () => {
+            const sectionTop = timelineSection.offsetTop;
+            const sectionHeight = timelineSection.offsetHeight;
+            const scrollY = window.scrollY + window.innerHeight / 2;
+
+            let progress = (scrollY - sectionTop) / sectionHeight;
+            progress = Math.min(Math.max(progress, 0), 1); // zwischen 0 und 1
+
+            timelineLineFill.style.height = (progress * 100) + '%';
+        });
+
+    </script>
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container footer-grid">
+
+            <!-- Brand / About -->
+            <div class="footer-col footer-brand">
+                <div class="footer-logo">AIzen Automation Agency</div>
+                <p class="footer-claim">
+                    Ihr Partner für individuelle KI-Lösungen und Automatisierungen.
+                </p>
+
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/company/aizen-automation" aria-label="LinkedIn"
+                        target="_blank">in</a>
+                    <a href="https://youtube.com" aria-label="YouTube" target="_blank">yt</a>
+                </div>
+            </div>
+
+            <!-- Unternehmen -->
+            <div class="footer-col">
+                <h4>Unternehmen</h4>
+                <ul>
+                    <li><a href="#services">Leistungen</a></li>
+                    <li><a href="#vorteile">Vorteile</a></li>
+                    <li><a href="#prozess">Prozess</a></li>
+                    <li><a href="#projekte">Kundenprojekte</a></li>
+                    <li><a href="#faq">FAQs</a></li>
+                </ul>
+            </div>
+
+            <!-- Rechtliches -->
+            <div class="footer-col">
+                <h4>Rechtsdokumente</h4>
+                <ul>
+                    <li><a href="/impressum.html">Impressum</a></li>
+                    <li><a href="/datenschutz.html">Datenschutzerklärung</a></li>
+                </ul>
+            </div>
+
+            <!-- Kontakt -->
+            <div class="footer-col footer-contact">
+                <h4>Kontakt</h4>
+
+                <p class="footer-names">
+                    Kaan Yuyucu &amp; Kaan Yuyucu<br />
+                    <span>Gründer &amp; Geschäftsführer</span>
+                </p>
+
+                <a class="footer-cta" href="https://cal.com/jonas-schnellbach/erstgesprach" target="_blank">
+                    Kostenloses Erstgespräch
+                </a>
+
+                <div class="footer-contacts">
+                    <a href="tel:+4711">📞 +4711</a>
+                    <a href="mailto:kaan.yuyucu@aizen-automation.com">✉️ kaan.yuyucu@aizen-automation.com</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="footer-bottom">
+            <div class="container">
+                <span>© 2026 AIzen Automation Agency. Alle Rechte vorbehalten.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/navigation.js"></script>
+
+</body>

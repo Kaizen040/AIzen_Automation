@@ -113,6 +113,100 @@ body {
     transition: all 0.3s ease;
 }
 
+/* HEADER NAV HOVER – wie Footer */
+.nav a:not(.nav-cta) {
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.nav a:not(.nav-cta):hover {
+    color: #0ff;
+    transform: translateX(4px);
+}
+
+/* LOGO BRANDING 
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.logo-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-size: 1.2rem;
+    box-shadow: 0 0 15px rgba(91, 140, 255, 0.4);
+}
+
+.logo-text {
+    color: var(--text);
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+.logo-ai {
+    color: #0ff;
+}
+*/
+/* LOGO LINK WRAPPER */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* WHITE LOGO BADGE */
+.logo-badge {
+    width: 52px;
+    height: 52px;
+    background: white;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+}
+
+/* LOGO IMAGE */
+.logo-badge img {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+}
+
+/* TEXT */
+.logo-text {
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    white-space: nowrap;
+}
+
+.logo-ai {
+    color: #0ff;
+}
+
+/* REMOVE HOVER EFFECTS */
+.logo:hover {
+    transform: none;
+    color: inherit;
+}
+
+
+
+
+/* STARFIELD */
 #starfield {
     position: absolute;
     inset: 0;
@@ -203,11 +297,105 @@ body {
 }
 
 .hero-title .highlight {
-    background: linear-gradient(90deg, #07b0ff, #7efcff);
+    position: relative;
+    color: #7afcff;
+    background: linear-gradient(110deg,
+            #7afcff 40%,
+            #ffffff 50%,
+            #7afcff 60%);
+    background-size: 200% 100%;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: highlightGlow 2s infinite alternate;
+}
+
+/* Shine Animation */
+.hero-title .highlight {
+    position: relative;
+    color: #7afcff;
+    background: linear-gradient(90deg,
+            #7afcff 0%,
+            #7afcff 40%,
+            #ffffff 50%,
+            #7afcff 60%,
+            #7afcff 100%);
+    background-size: 300% 100%;
+    background-position: 0% 0%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Langsamer, cleaner Sweep */
+.shine {
+    animation: shineSweep 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    /*Geschwindigkeit konf.*/
+}
+
+/* Zeitversatz */
+.delay-1 {
+    animation-delay: 0s;
+}
+
+.delay-2 {
+    animation-delay: 4s;
+}
+
+/* Keyframes: LINKS → RECHTS */
+@keyframes shineSweep {
+    0% {
+        background-position: 150% 0;
+    }
+
+    40% {
+        background-position: -150% 0;
+    }
+
+    100% {
+        background-position: -150% 0;
+    }
+}
+
+/* HERO SWIPE ANIMATION*/
+.hero-title .highlight::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+            transparent 40%,
+            rgba(255, 255, 255, 0.4) 50%,
+            transparent 60%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.shine::after {
+    animation: shineOverlay 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.delay-1::after {
+    animation-delay: 0s;
+}
+
+.delay-2::after {
+    animation-delay: 2.5s;
+}
+
+@keyframes shineOverlay {
+    0% {
+        opacity: 0;
+        transform: translateX(-150%);
+    }
+
+    40% {
+        opacity: 1;
+        transform: translateX(150%);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(150%);
+    }
 }
 
 .hero-subtitle {
@@ -283,17 +471,6 @@ body {
         background-position: 1000px 1000px, -1000px -1000px;
     }
 }
-
-@keyframes highlightGlow {
-    0% {
-        filter: drop-shadow(0 0 5px #07b0ff);
-    }
-
-    100% {
-        filter: drop-shadow(0 0 20px #7efcff);
-    }
-}
-
 
 
 
@@ -502,7 +679,7 @@ body {
 .slider {
     max-width: 1100px;
     /* Breite größer */
-    /*height: 80vh; */
+    height: 80vh;
     margin: 0 auto;
     position: relative;
     overflow: hidden;
@@ -517,26 +694,10 @@ body {
     width: 100%;
 }
 
-/*
-.slide {
-    flex: 0 0 100%;
-    fixiert die Breite jeder Slide auf 100% des Containers
-    padding: 40px;
-    background: rgba(26, 204, 177, 0.05);
-    border-radius: 16px;
-    backdrop-filter: blur(8px);
-}
-*/
-
 .slide {
     flex: 0 0 100%;
     padding: 40px;
     max-width: 100%;
-}
-
-
-.slide.active {
-    display: block;
 }
 
 /* Controls */
@@ -587,18 +748,6 @@ body {
 }
 
 
-
-
-/*SLIDE-BILDER*/
-/* SLIDE LAYOUT 
-.slide-layout {
-    display: flex;
-    align-items: stretch;
-    gap: 2rem;
-    min-height: 380px;
-}
-*/
-
 .slide-layout {
     display: flex;
     align-items: stretch;
@@ -607,17 +756,6 @@ body {
     height: 100%;
     /* <-- optional, falls Parent eine feste Höhe hat */
 }
-
-
-/* LEFT VISUAL 
-.slide-visual {
-    flex: 0 0 62%;
-    position: relative;
-    overflow: hidden;
-    border-radius: var(--radius);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-}
-    */
 
 .slide-visual {
     flex: 0 0 62%;

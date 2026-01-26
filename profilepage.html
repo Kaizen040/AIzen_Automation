@@ -1,0 +1,498 @@
+<!--
+PREMIUM PROFIL WEBSITE – ADAPTIVE IDENTITY SYSTEM
+Version 2.0
+
+Features:
+- Mode Switch: Professional / Tech / Academic
+- Neutrales, skalierbares Design-System
+- Geeignet für: Wohnungssuche, Startup, Uni, Business, Portfolio
+
+Dateien:
+- index.html
+- main.css
+-->
+
+<!-- =========================
+     index.html
+========================== -->
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Premium Profil – München</title>
+
+    <!-- SEO & Vorschau -->
+    <meta name="description"
+        content="Persönliches Profil für Management, Technologie und KI. Akademisch fundiert, professionell strukturiert, digital präsentiert.">
+
+    <meta property="og:title" content="Digitales Profil – Management · Technologie · KI">
+    <meta property="og:description"
+        content="Akademisches und professionelles Profil für Vermieter, Universitäten und Geschäftspartner.">
+    <meta property="og:image" content="assets/preview.jpg">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="pmain.css" />
+</head>
+
+
+<body data-mode="professional">
+
+    <!-- =========================
+     TOP BAR / MODE SWITCH
+========================== -->
+    <div class="topbar">
+        <div class="container topbar-inner">
+            <!-- Brand -->
+            <div class="brand">
+                <span class="brand-title">Digitales Profil</span>
+                <span class="brand-sub">Management · Technologie · KI</span>
+            </div>
+
+            <!-- Actions: Startup-Link + Mode Switch -->
+            <div class="topbar-actions">
+                <a href="https://kaizen040.github.io/AIzen_Automation/AIzenAut.html" target="_blank"
+                    class="startup-link">
+                    KI Startup
+                </a>
+
+                <div class="mode-switch">
+                    <button data-mode="professional" class="active">Professional</button>
+                    <button data-mode="tech">Tech</button>
+                    <button data-mode="academic">Academic</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- =========================
+         SECTIONS NAVIGATION
+    ========================== -->
+        <nav class="section-nav">
+            <div class="container section-nav-inner">
+                <a href="#profil">Persönliches Profil</a>
+                <a href="#anwendungsbereiche">Anwendungsbereiche</a>
+                <a href="#cv-timeline">Mein Lebenslauf</a>
+                <a href="#dokumente">Dokumente & Nachweise</a>
+                <a href="#kontakt">Kontakt</a>
+            </div>
+        </nav>
+    </div>
+
+
+
+    <!-- =========================
+     HERO
+========================== -->
+    <header class="hero" id="top">
+        <div class="container hero-grid">
+            <div class="hero-text">
+                <span class="badge">Persönliches Profil · München</span>
+                <h1>
+                    Akademisch fundiert. Technologisch stark.<br />
+                    Langfristig orientiert.
+                </h1>
+                <p>
+                    Ich bin Wirtschaftsingenieur (B.Sc. TUHH) und beginne demnächst
+                    meinen Master in <strong>Management & Technology</strong> an der
+                    <strong>Technischen Universität München</strong>. Mit Erfahrung im
+                    Projekteinkauf bei Vibracoustic und eigener KI-Automation im
+                    Startup-Umfeld verbinde ich Struktur, Verantwortung und
+                    Innovationsdenken.
+                </p>
+
+
+                <div class="hero-actions">
+                    <a href="#profil" class="btn-primary">Profil ansehen</a>
+                    <a href="#kontakt" class="btn-secondary">Kontakt</a>
+                </div>
+            </div>
+
+            <div class="hero-card">
+                <img src="assets/img/ppicture.jpeg" alt="Profilfoto" />
+                <div class="hero-card-info">
+                    <h3>Kurzprofil</h3>
+                    <ul>
+                        <li>B.Sc. Wirtschaftsingenieur – TUHH</li>
+                        <li>M.Sc. Management & Technology – TUM</li>
+                        <li>Projekteinkauf – Vibracoustic (2 Jahre)</li>
+                        <li>KI-Automation & Startup</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- =========================
+     TRUST BAR
+========================== -->
+
+    <section class="trust-bar">
+        <div class="container trust-grid">
+            <div>TUM</div>
+            <div>TUHH</div>
+            <div>Vibracoustic</div>
+            <div>KI Startup</div>
+            <div>Zertifikate</div>
+        </div>
+    </section>
+
+
+    <!-- =========================
+     PROFIL
+========================== -->
+    <section class="section" id="profil">
+        <div class="container">
+            <h2>Persönliches Profil</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Über mich</h3>
+                    <p>
+                        Ich bin ein engagierter und ehrgeiziger Student mit einer
+                        ausgeprägten Affinität für Technologie und Künstliche
+                        Intelligenz. Mein akademischer Fokus liegt an der
+                        Schnittstelle zwischen Management, Automatisierung und
+                        digitalen Systemen.
+                    </p>
+                    <p>
+                        Durch meine Erfahrung im industriellen und technologischen
+                        Umfeld arbeite ich strukturiert, lösungsorientiert und
+                        vorausschauend. Zuverlässigkeit, klare Kommunikation und
+                        langfristiges Denken prägen sowohl mein Studium als auch
+                        mein berufliches Handeln.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Steckbrief</h3>
+                    <table>
+                        <tr>
+                            <td>Alter</td>
+                            <td>21 Jahre</td>
+                        </tr>
+                        <tr>
+                            <td>Studium</td>
+                            <td>M.Sc. Management & Technology – TUM</td>
+                        </tr>
+                        <tr>
+                            <td>Abschluss</td>
+                            <td>B.Sc. Wirtschaftsingenieur – TUHH</td>
+                        </tr>
+                        <tr>
+                            <td>Berufserfahrung</td>
+                            <td>2 Jahre Projekteinkauf – Vibracoustic</td>
+                        </tr>
+                        <tr>
+                            <td>Fokus</td>
+                            <td>Technologie, Management, Automatisierung</td>
+                        </tr>
+                        <tr>
+                            <td>Ausrichtung</td>
+                            <td>Langfristig & professionell</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================
+     ANWENDUNGEN
+========================== -->
+    <section class="section alt" id="anwendungsbereiche">
+        <div class="container">
+            <h2>Anwendungsbereiche</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Wohnung & Vermieter</h3>
+                    <p>
+                        Strukturierte Mietbewerbungen, vollständige Dokumente
+                        und transparente Kommunikation für ein
+                        langfristiges Mietverhältnis.
+                    </p>
+                </div>
+                <div class="card">
+                    <h3>Startup & Business</h3>
+                    <p>
+                        Professionelles Profil für Geschäftspartner,
+                        Investoren und Kooperationsanfragen
+                        im Technologieumfeld.
+                    </p>
+                </div>
+                <div class="card">
+                    <h3>Akademisch & Karriere</h3>
+                    <p>
+                        Digitale Visitenkarte für Universitäten,
+                        Forschungsprojekte und berufliche
+                        Netzwerke.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =========================
+        LEBENSLAUF 
+========================== -->
+
+    <section id="cv-timeline" class="timeline-section">
+        <h2 class="timeline-title">Mein Lebenslauf</h2>
+        <div class="timeline-container">
+
+            <!-- Linie in der Mitte -->
+            <div class="timeline-line">
+                <div class="timeline-line-fill"></div>
+            </div>
+
+            <!-- Timeline Items -->
+            <div class="timeline-item">
+                <div class="timeline-icon">08/2016</div>
+                <div class="timeline-content">
+                    <h3>Allgemeinbildende Schule</h3>
+                    <p>Abitur am Friedrich-Ebert-Gymnasium Hamburg, Schwerpunkt Mathematik & Physik.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon">10/2022</div>
+                <div class="timeline-content">
+                    <h3>B.Sc. Wirtschaftsingenieurwesen - Fachrichtung: Logistik und Mobilität</h3>
+                    <p>Technische Universität Hamburg – Abschluss: 2025, Schwerpunkt Produktion & Management.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon">04/2024</div>
+                <div class="timeline-content">
+                    <h3>Berufserfahrung</h3>
+                    <p>Operativer Projekteinkauf bei Vibracoustic SE & Co KG – 2 Jahre Erfahrung in
+                        Lieferantenmanagement &
+                        Prozessoptimierung.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon">10/2026</div>
+                <div class="timeline-content">
+                    <h3>Masterstudium</h3>
+                    <p>M.Sc. Management & Technology an der Technischen Universität München – Beginn 2026.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-icon">11/2025</div>
+                <div class="timeline-content">
+                    <h3>Startup & KI-Automation</h3>
+                    <p>Eigenes Projekt: Entwicklung KI-basierter Automatisierungslösungen im Startup-Umfeld.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================
+     PROJEKTE UND UNTERNEHMUNGEN
+========================== -->
+    <section class="section" id="projekte">
+        <div class="container">
+            <h2>Projekte & Unternehmungen</h2>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>KI Automation Startup</h3>
+                    <p>
+                        Entwicklung intelligenter Automatisierungslösungen
+                        für Geschäftsprozesse, Datenanalyse und
+                        Entscheidungsunterstützung. Fokus auf skalierbare
+                        Systeme und effiziente Integration in bestehende
+                        IT-Infrastrukturen.
+                    </p>
+
+                    <ul class="project-list">
+                        <li>Rolle: Gründer & Entwickler</li>
+                        <li>Fokus: KI-Workflows & Prozessautomatisierung</li>
+                        <li>Technologien: Python, APIs, Cloud, LLM-Systeme</li>
+                    </ul>
+
+                    <a href="https://dein-startup.de" target="_blank" class="btn-secondary">
+                        Projekt ansehen
+                    </a>
+                </div>
+
+                <div class="card">
+                    <h3>Akademische & Industrielle Projekte</h3>
+                    <p>
+                        Projektarbeiten an der Schnittstelle zwischen
+                        Technologie, Management und industrieller
+                        Anwendung. Fokus auf Prozessoptimierung,
+                        Digitalisierung und datengetriebene Analyse.
+                    </p>
+
+                    <ul class="project-list">
+                        <li>Industrieprojekte – TUHH & TUM</li>
+                        <li>Prozessoptimierung & Einkaufssysteme</li>
+                        <li>Datenanalyse & Entscheidungsmodelle</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =========================
+     DOKUMENTE
+========================== -->
+    <section class="section" id="dokumente">
+        <div class="container">
+            <h2>Dokumente & Nachweise</h2>
+
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header">Profil-PDF</button>
+                    <div class="accordion-content">
+                        <div class="doc-row">
+                            <span>Lebenslauf (CV)</span>
+                            <a href="assets/files/cv.pdf" class="download-btn" download>Download</a>
+                        </div>
+                        <div class="doc-row">
+                            <span>Motivationsprofil</span>
+                            <a href="assets/motivation.pdf" class="download-btn" download>Download</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">Nachweise</button>
+                    <div class="accordion-content">
+                        <div class="doc-row">
+                            <span>Englisch-Zertifikat</span>
+                            <a href="assets/english.pdf" class="download-btn" download>Download</a>
+                        </div>
+                        <div class="doc-row">
+                            <span>Wettbewerbsauszeichnungen</span>
+                            <a href="assets/awards.pdf" class="download-btn" download>Download</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">Geschützter Bereich</button>
+                    <div class="accordion-content">
+                        <div class="doc-row">
+                            <span>Finanznachweise</span>
+                            <a href="assets/finance.pdf" class="download-btn" download>Download</a>
+                        </div>
+                        <div class="doc-row">
+                            <span>Referenzen</span>
+                            <a href="assets/references.pdf" class="download-btn" download>Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =========================
+     KONTAKT
+========================== -->
+    <section class="section alt" id="kontakt">
+        <div class="container">
+            <h2>Kontakt</h2>
+            <div class="contact-card">
+                <p>
+                    Für Anfragen, Kooperationen oder Besichtigungen
+                    stehen wir jederzeit gerne zur Verfügung.
+                </p>
+
+                <div class="contact-grid">
+                    <div>
+                        <strong>E-Mail</strong>
+                        <p>kyuyucu@hotmail.de</p>
+                    </div>
+                    <div>
+                        <strong>Telefon</strong>
+                        <p>+49 176 81238109</p>
+                    </div>
+                    <div>
+                        <strong>Standort</strong>
+                        <p>München</p>
+                    </div>
+
+                    <div class="linkedin-box">
+                        <a href="https://linkedin.com/in/kaan-yuyucu-239536295" target="_blank" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" class="linkedin-icon">
+                                <path
+                                    d="M4.98 3.5c0 1.38-1.11 2.5-2.48 2.5C1.11 6 0 4.88 0 3.5S1.11 1 2.5 1 4.98 2.12 4.98 3.5zM.22 8.09h4.56V24H.22V8.09zM8.09 8.09h4.37v2.17h.06c.61-1.16 2.1-2.38 4.32-2.38 4.62 0 5.48 3.04 5.48 6.99V24h-4.56v-7.61c0-1.81-.03-4.14-2.52-4.14-2.53 0-2.92 1.97-2.92 4.01V24H8.09V8.09z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+     FOOTER
+========================== -->
+    <footer class="footer">
+        <p>© 2026 Digitales Premium-Profil · München</p>
+    </footer>
+
+    <!-- =========================
+     MODE SWITCH SCRIPT
+========================== -->
+    <script>
+        const buttons = document.querySelectorAll(".mode-switch button");
+        const body = document.body;
+
+        buttons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                buttons.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                body.setAttribute("data-mode", btn.dataset.mode);
+            });
+        });
+    </script>
+
+
+    <script>
+        const headers = document.querySelectorAll('.accordion-header');
+
+        headers.forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                content.classList.toggle('open');
+            });
+        });
+    </script>
+
+    <!-- =========================
+    FILLING LINE
+========================== -->
+
+    <script>
+        const timelineSection = document.querySelector('#cv-timeline');
+        const timelineLineFill = timelineSection.querySelector('.timeline-line-fill');
+
+        window.addEventListener('scroll', () => {
+            const sectionTop = timelineSection.offsetTop;
+            const sectionHeight = timelineSection.offsetHeight;
+            const scrollY = window.scrollY + window.innerHeight / 2;
+
+            let progress = (scrollY - sectionTop) / sectionHeight;
+            progress = Math.min(Math.max(progress, 0), 1);
+
+            timelineLineFill.style.height = (progress * 100) + '%';
+        });
+    </script>
+
+</body>
+
+</html>

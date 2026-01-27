@@ -198,40 +198,30 @@ body {
 }
 
 /* RESPONSIVE */
-/* TOPBAR MOBILE */
+/* MOBILE TOPBAR FIX */
 @media (max-width: 768px) {
+    .topbar {
+        position: relative; /* nur outer Container relativ */
+    }
+
     .topbar-inner {
-        flex-direction: column;
-        align-items: flex-start;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--bg-soft);
         height: auto;
-        gap: 0.5rem;
         padding: 0.5rem 1rem;
-    }
-
-    .topbar-actions {
-        width: 100%;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-
-    .mode-switch {
-        flex-wrap: wrap;
+        display: flex;
+        flex-direction: column;
         gap: 0.3rem;
     }
 
-    .section-nav-inner {
-        flex-direction: column;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        align-items: flex-start;
-    }
-
-    .section-nav-inner a {
-        font-size: 0.95rem;
+    .section-nav {
+        position: relative; /* scrollt mit */
+        border-top: 1px solid rgba(0,0,0,0.05);
+        border-bottom: 1px solid rgba(0,0,0,0.05);
     }
 }
-
 
 
 /* =========================
@@ -562,40 +552,40 @@ body {
     transition: height 0.3s ease;
 }
 
+/* TIMELINE MOBILE FIX: Linie durch die Kreise */
 @media (max-width: 768px) {
     .timeline-container {
-        padding-left: 20px;
-        padding-right: 20px;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0 10px;
+        position: relative;
     }
 
     .timeline-line {
-        left: 20px;
-        transform: none;
+        left: 50%;
+        transform: translateX(-50%);
         width: 4px;
     }
 
-    .timeline-item,
-    .timeline-item:nth-child(odd),
-    .timeline-item:nth-child(even) {
+    .timeline-item {
         justify-content: flex-start !important;
-        margin: 40px 0 !important;
+        margin: 40px 0;
     }
 
     .timeline-item .timeline-content {
-        margin-left: 60px !important;
-        text-align: left !important;
-        max-width: calc(100% - 80px);
-        padding: 10px 15px;
+        margin-left: 70px !important;
+        /* Abstand vom Icon */
+        max-width: calc(100% - 90px);
     }
 
     .timeline-icon {
+        left: 50%;
+        transform: translateX(-50%);
         width: 50px;
         height: 50px;
-        font-size: 0.8rem;
-        left: 0;
-        transform: none;
     }
 }
+
 
 /* RESPONSIVE 
 @media (max-width: 900px) {

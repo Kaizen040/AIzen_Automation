@@ -200,28 +200,31 @@ body {
 /* RESPONSIVE */
 /* MOBILE TOPBAR FIX */
 @media (max-width: 768px) {
+    /* gesamter Topbar-Container nicht sticky */
     .topbar {
-        position: relative; /* nur outer Container relativ */
+        position: relative;
+        overflow-x: hidden; /* verhindert horizontales Scrollen */
     }
 
+    /* obere Leiste: scrollt normal */
     .topbar-inner {
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        background: var(--bg-soft);
-        height: auto;
-        padding: 0.5rem 1rem;
+        position: relative;
+        top: auto;
         display: flex;
         flex-direction: column;
-        gap: 0.3rem;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
     }
 
+    /* untere Sektionen-Navigation */
     .section-nav {
-        position: relative; /* scrollt mit */
+        position: relative; /* scrollt normal */
         border-top: 1px solid rgba(0,0,0,0.05);
         border-bottom: 1px solid rgba(0,0,0,0.05);
     }
 }
+
 
 
 /* =========================
@@ -552,7 +555,7 @@ body {
     transition: height 0.3s ease;
 }
 
-/* TIMELINE MOBILE FIX: Linie durch die Kreise */
+/* TIMELINE MOBILE: Linie durch Kreise linksbündig */
 @media (max-width: 768px) {
     .timeline-container {
         max-width: 100%;
@@ -561,28 +564,35 @@ body {
         position: relative;
     }
 
+    /* Linie links positionieren, aber durch Icon */
     .timeline-line {
-        left: 50%;
-        transform: translateX(-50%);
+        left: 40px; /* linksbündig wie Kreise */
         width: 4px;
+        transform: none;
     }
 
     .timeline-item {
-        justify-content: flex-start !important;
+        justify-content: flex-start !important; /* Items bleiben links */
         margin: 40px 0;
     }
 
     .timeline-item .timeline-content {
-        margin-left: 70px !important;
-        /* Abstand vom Icon */
-        max-width: calc(100% - 90px);
+        margin-left: 100px !important; /* Abstand vom Icon */
+        text-align: left !important;
+        max-width: calc(100% - 120px);
     }
 
     .timeline-icon {
-        left: 50%;
-        transform: translateX(-50%);
+        left: 40px; /* Kreise linksbündig */
+        transform: none;
         width: 50px;
         height: 50px;
+        z-index: 3;
+    }
+
+    .timeline-line-fill {
+        left: 0;
+        width: 100%;
     }
 }
 

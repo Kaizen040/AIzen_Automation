@@ -59,11 +59,18 @@ body {
 }
 
 /* =========================
-   TOPBAR
+   ABSTÄNDE
 ========================= */
 
+@media (max-width: 768px) {
+
+    #mieterprofil {
+        padding-top: 3.5rem;
+    }
+}
+
 /* =========================
-   TOPBAR FIXED
+   TOPBAR 
 ========================= */
 
 .topbar {
@@ -179,7 +186,10 @@ body {
 @media (max-width: 768px) {
 
     .topbar {
-        position: relative;
+        position: sticky;
+        top: 0;
+        background: var(--bg-soft);
+        backdrop-filter: blur(6px);
     }
 
     .topbar-inner {
@@ -224,8 +234,6 @@ body {
         font-size: 0.85rem;
     }
 }
-
-
 
 
 /* =========================
@@ -413,6 +421,10 @@ body {
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+/* =========================
+   MOBILE: Persönliches Profil etc.
+========================= */
+
 @media (max-width: 768px) {
 
     .grid-2,
@@ -425,6 +437,29 @@ body {
     .section h2 {
         font-size: 1.8rem;
         margin-bottom: 2rem;
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    .card table {
+        width: 100%;
+        table-layout: fixed;
+        word-wrap: break-word;
+    }
+
+    .card td {
+        font-size: 0.9rem;
     }
 }
 
@@ -540,42 +575,45 @@ body {
 @media (max-width: 768px) {
 
     .timeline-container {
-        padding-left: 20px;
+        padding-left: 24px;
     }
 
+    /* Kreis etwas größer */
+    .timeline-icon {
+        width: 54px;
+        height: 54px;
+        font-size: 0.8rem;
+        left: 24px;
+        transform: none;
+    }
+
+    /* Linie exakt durch Mittelpunkt des Kreises */
     .timeline-line {
-        left: 56px;
+        left: calc(24px + 27px);
+        /* left + halbe Kreisbreite */
         width: 4px;
         transform: none;
     }
 
     .timeline-item {
         justify-content: flex-start !important;
-        margin: 40px 0;
-    }
-
-    .timeline-icon {
-        left: 32px;
-        transform: none;
-        width: 48px;
-        height: 48px;
-        font-size: 0.75rem;
+        margin: 36px 0;
     }
 
     .timeline-content {
         margin-left: 96px !important;
         max-width: calc(100% - 110px);
         text-align: left !important;
-        padding: 12px 20px;
+        padding: 12px 18px;
     }
 
     .timeline-item h3 {
-        font-size: 1.2rem;
+        font-size: 1.15rem;
     }
 
     .timeline-item p {
         font-size: 0.95rem;
-        line-height: 1.6;
+        line-height: 1.55;
     }
 }
 

@@ -367,48 +367,95 @@
 ========================== -->
     <section class="section alt" id="kontakt">
         <div class="container">
-            <h2>Kontakt</h2>
+            <h2>Kontakt & Verfügbarkeit</h2>
+
             <div class="contact-card">
-                <p>
-                    Für Anfragen, Kooperationen oder Besichtigungen
-                    stehen wir jederzeit gerne zur Verfügung.
+                <p class="contact-intro">
+                    Für Rückfragen oder Besichtigungstermine bin ich jederzeit gut erreichbar.
+                    Eine zeitnahe und verlässliche Kommunikation ist für mich selbstverständlich.
                 </p>
 
+                <!-- Primäre Kontaktdaten -->
                 <div class="contact-grid">
-                    <div>
+                    <div class="contact-item">
                         <strong>E-Mail</strong>
-                        <p>kyuyucu@hotmail.de</p>
-                    </div>
-                    <div>
-                        <strong>Telefon</strong>
-                        <p>+49 176 81238109</p>
-                    </div>
-                    <div>
-                        <strong>Standort</strong>
-                        <p>München</p>
+                        <p>
+                            <a href="mailto:kyuyucu@hotmail.de" class="contact-link">
+                                kyuyucu@hotmail.de
+                            </a>
+                        </p>
+                        <span class="microcopy">Antwort i. d. R. innerhalb von 24 h</span>
                     </div>
 
-                    <div class="linkedin-box">
-                        <a href="https://linkedin.com/in/kaan-yuyucu-239536295" target="_blank" aria-label="LinkedIn">
-                            <svg viewBox="0 0 24 24" class="linkedin-icon">
-                                <path
-                                    d="M4.98 3.5c0 1.38-1.11 2.5-2.48 2.5C1.11 6 0 4.88 0 3.5S1.11 1 2.5 1 4.98 2.12 4.98 3.5zM.22 8.09h4.56V24H.22V8.09zM8.09 8.09h4.37v2.17h.06c.61-1.16 2.1-2.38 4.32-2.38 4.62 0 5.48 3.04 5.48 6.99V24h-4.56v-7.61c0-1.81-.03-4.14-2.52-4.14-2.53 0-2.92 1.97-2.92 4.01V24H8.09V8.09z" />
-                            </svg>
-                        </a>
+                    <div class="contact-item">
+                        <strong>Telefon</strong>
+                        <p>
+                            <a href="tel:+4917681238109" class="contact-link">
+                                +49&nbsp;176&nbsp;81238109
+                            </a>
+                        </p>
+                        <span class="microcopy">Auch abends & am Wochenende erreichbar</span>
                     </div>
+
+                    <div class="contact-item">
+                        <strong>Standort</strong>
+                        <p>München</p>
+                        <span class="microcopy">Flexible Terminvereinbarung vor Ort</span>
+                    </div>
+                </div>
+
+                <!-- Vertrauens-Microcopy -->
+                <div class="contact-trust">
+                    <span>Nichtraucher</span>
+                    <span>Keine Haustiere</span>
+                    <span>Langfristiges Mietinteresse</span>
+                    <span>Ruhige & zuverlässige Lebensweise</span>
+                </div>
+
+                <!-- Optional: LinkedIn sehr dezent -->
+                <div class="contact-social">
+                    <a href="https://linkedin.com/in/kaan-yuyucu-239536295" target="_blank" aria-label="LinkedIn Profil"
+                        class="linkedin-box">
+                        <svg viewBox="0 0 24 24" class="linkedin-icon">
+                            <path
+                                d="M4.98 3.5c0 1.38-1.11 2.5-2.48 2.5C1.11 6 0 4.88 0 3.5S1.11 1 2.5 1 4.98 2.12 4.98 3.5zM.22 8.09h4.56V24H.22V8.09zM8.09 8.09h4.37v2.17h.06c.61-1.16 2.1-2.38 4.32-2.38 4.62 0 5.48 3.04 5.48 6.99V24h-4.56v-7.61c0-1.81-.03-4.14-2.52-4.14-2.53 0-2.92 1.97-2.92 4.01V24H8.09V8.09z" />
+                        </svg>
+                    </a>
                 </div>
             </div>
         </div>
-
     </section>
-
 
     <!-- =========================
      FOOTER
 ========================== -->
     <footer class="footer">
-        <p>© 2026 Digitales Premium-Profil · München</p>
+        <div class="container footer-inner">
+
+            <div class="footer-meta">
+                <p>
+                    Digitales Profil zur Wohnungsbewerbung · München
+                </p>
+                <p class="footer-micro">
+                    Nichtraucher · keine Haustiere · langfristiges Mietinteresse
+                </p>
+            </div>
+
+            <div class="footer-note">
+                <p>
+                    Ziel ist eine zentrale, ruhige Wohnung, die es ermöglicht,
+                    sich vollständig auf das Masterstudium an der TUM und eine
+                    spätere Werkstudententätigkeit zu konzentrieren.
+                </p>
+            </div>
+
+            <div class="footer-copy">
+                <p>© 2026 · Persönliches Profil</p>
+            </div>
+
+        </div>
     </footer>
+
 
     <script>
         const headers = document.querySelectorAll('.accordion-header');

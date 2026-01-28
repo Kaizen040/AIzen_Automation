@@ -21,24 +21,23 @@ body[data-mode="professional"] {
     --accent-soft: rgba(31, 58, 95, 0.1);
 }
 
-body[data-mode="tech"] {
-    --bg-main: #0b0f1a;
-    --bg-soft: #12172a;
-    --card: #161c33;
-    --text-main: #e8ecf1;
-    --muted: #9aa4b2;
-    --accent: #5b8cff;
-    --accent-soft: rgba(91, 140, 255, 0.15);
-}
 
-body[data-mode="academic"] {
-    --bg-main: #fbf7f2;
+body[data-mode="housing"] {
+    --bg-main: #f6f8f6;
     --bg-soft: #ffffff;
     --card: #ffffff;
-    --text-main: #2b2b2b;
-    --muted: #6b6b6b;
-    --accent: #6b1f1f;
-    --accent-soft: rgba(107, 31, 31, 0.1);
+
+    --text-main: #1f2d2a;
+    --muted: #6a7a75;
+    /* Kernfarbe: gedämpftes Slate-Green */
+    --accent: #2f5d50;
+    /* sehr weich, wohnlich */
+    --accent-soft: rgba(47, 93, 80, 0.08);
+}
+
+body[data-mode="housing"] .badge {
+    font-weight: 500;
+    letter-spacing: 0.03em;
 }
 
 * {
@@ -132,28 +131,6 @@ body {
     background: var(--accent-soft);
 }
 
-/* Mode Switch Buttons */
-.mode-switch {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.mode-switch button {
-    background: none;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    padding: 0.4rem 1rem;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.mode-switch button.active,
-.mode-switch button:hover {
-    background: var(--accent-soft);
-}
-
 /* Sektionen-Navigation */
 .section-nav {
     background: var(--bg-soft);
@@ -200,30 +177,54 @@ body {
 /* RESPONSIVE */
 /* MOBILE TOPBAR FIX */
 @media (max-width: 768px) {
-    /* gesamter Topbar-Container nicht sticky */
+
     .topbar {
         position: relative;
-        overflow-x: hidden; /* verhindert horizontales Scrollen */
     }
 
-    /* obere Leiste: scrollt normal */
     .topbar-inner {
-        position: relative;
-        top: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 1rem;
+        height: auto;
     }
 
-    /* untere Sektionen-Navigation */
-    .section-nav {
-        position: relative; /* scrollt normal */
-        border-top: 1px solid rgba(0,0,0,0.05);
-        border-bottom: 1px solid rgba(0,0,0,0.05);
+    .brand {
+        flex-direction: column;
+    }
+
+    .brand-title {
+        font-size: 1rem;
+    }
+
+    .brand-sub {
+        font-size: 0.75rem;
+    }
+
+    .topbar-actions {
+        gap: 0.5rem;
+    }
+
+    .startup-link {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.8rem;
+        height: auto;
+    }
+
+    .section-nav-inner {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding: 0.5rem 1rem;
+        gap: 1.5rem;
+    }
+
+    .section-nav-inner a {
+        white-space: nowrap;
+        font-size: 0.85rem;
     }
 }
+
 
 
 
@@ -326,6 +327,11 @@ body {
 }
 
 @media (max-width: 768px) {
+    .hero {
+        min-height: auto;
+        padding: 4rem 0;
+    }
+
     .hero-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -424,20 +430,6 @@ body {
 
 
 /* =========================
-   PROJECTS
-========================= */
-
-.project-list {
-    margin: 1rem 0 2rem;
-    padding-left: 1.2rem;
-    color: var(--muted);
-}
-
-.project-list li {
-    margin-bottom: 0.5rem;
-}
-
-/* =========================
    TIMELINE / CV
 ========================= */
 
@@ -483,6 +475,7 @@ body {
     height: 0%;
     background: var(--accent);
 }
+
 
 .timeline-item {
     display: flex;
@@ -543,76 +536,49 @@ body {
     opacity: 0.8;
 }
 
-/* Scroll-Fill für Linie */
-.timeline-line::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 0%;
-    background: var(--accent);
-    transition: height 0.3s ease;
-}
-
 /* TIMELINE MOBILE: Linie durch Kreise linksbündig */
 @media (max-width: 768px) {
+
     .timeline-container {
-        max-width: 100%;
-        margin: 0 auto;
-        padding: 0 10px;
-        position: relative;
+        padding-left: 20px;
     }
 
-    /* Linie links positionieren, aber durch Icon */
     .timeline-line {
-        left: 40px; /* linksbündig wie Kreise */
+        left: 32px;
         width: 4px;
         transform: none;
     }
 
     .timeline-item {
-        justify-content: flex-start !important; /* Items bleiben links */
+        justify-content: flex-start !important;
         margin: 40px 0;
     }
 
-    .timeline-item .timeline-content {
-        margin-left: 100px !important; /* Abstand vom Icon */
-        text-align: left !important;
-        max-width: calc(100% - 120px);
-    }
-
     .timeline-icon {
-        left: 40px; /* Kreise linksbündig */
+        left: 32px;
         transform: none;
-        width: 50px;
-        height: 50px;
-        z-index: 3;
+        width: 48px;
+        height: 48px;
+        font-size: 0.75rem;
     }
 
-    .timeline-line-fill {
-        left: 0;
-        width: 100%;
-    }
-}
-
-
-/* RESPONSIVE 
-@media (max-width: 900px) {
-
-    .timeline-item,
-    .timeline-item:nth-child(even),
-    .timeline-item:nth-child(odd) {
-        justify-content: flex-start !important;
-    }
-
-    .timeline-item .timeline-content {
-        margin: 20px 0 0 90px !important;
+    .timeline-content {
+        margin-left: 96px !important;
+        max-width: calc(100% - 110px);
         text-align: left !important;
-        max-width: calc(100% - 100px);
+        padding: 12px 20px;
+    }
+
+    .timeline-item h3 {
+        font-size: 1.2rem;
+    }
+
+    .timeline-item p {
+        font-size: 0.95rem;
+        line-height: 1.6;
     }
 }
-*/
+
 
 /* =========================
    DOCUMENTS

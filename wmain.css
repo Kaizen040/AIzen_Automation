@@ -544,7 +544,7 @@ body {
     }
 
     .timeline-line {
-        left: 32px;
+        left: 56px;
         width: 4px;
         transform: none;
     }
@@ -741,6 +741,63 @@ body {
 }
 
 /* =========================
+   CONTACT – MICROCOPY
+========================= */
+
+.contact-intro {
+    max-width: 700px;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.contact-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.contact-link:hover {
+    text-decoration: underline;
+}
+
+.microcopy {
+    font-size: 0.8rem;
+    color: var(--muted);
+    opacity: 0.85;
+}
+
+.contact-trust {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem 1.2rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+.contact-trust span {
+    background: var(--accent-soft);
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+}
+
+.contact-social {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+
+/* =========================
    LINKEDIN ICON
 ========================= */
 
@@ -777,27 +834,47 @@ body {
 ========================= */
 
 .footer {
-    text-align: center;
-    padding: 2rem;
+    background: var(--bg-soft);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 3rem 0;
     color: var(--muted);
 }
 
+.footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.footer-meta p {
+    margin: 0;
+    font-weight: 500;
+}
+
+.footer-micro {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.footer-note {
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.footer-copy {
+    font-size: 0.8rem;
+    opacity: 0.6;
+}
+
 @media (max-width: 768px) {
-    .contact-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .contact-card {
-        padding: 2rem;
-    }
-
-    .trust-grid {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
     .footer {
-        padding: 1.5rem;
+        padding: 2rem 0;
+    }
+
+    .footer-note {
         font-size: 0.9rem;
     }
 }

@@ -17,7 +17,7 @@
     <meta property="og:title" content="Digitales Profil – Management · Technologie · KI">
     <meta property="og:description"
         content="Akademisches und professionelles Profil für Vermieter, Universitäten und Geschäftspartner.">
-    <meta property="og:image" content="assets/preview.jpg">
+    <meta property="og:image" content="preview.jpg">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -30,7 +30,7 @@
 <body data-mode="housing">
 
     <!-- =========================
-     TOP BAR / MODE SWITCH
+     TOP BAR
 ========================== -->
     <div class="topbar">
         <div class="container topbar-inner">
@@ -42,7 +42,7 @@
 
             <!-- Actions: Startup-Link + Mode Switch -->
             <div class="topbar-actions">
-                <a href="profilepage.html" target="_blank" class="startup-link">
+                <a href="profilepage.html" class="startup-link">
                     HOME
                 </a>
 
@@ -62,8 +62,8 @@
         <nav class="section-nav">
             <div class="container section-nav-inner">
                 <a href="#profil">Persönliches Profil</a>
-                <a href="#anwendungsbereiche">Anwendungsbereiche</a>
-                <a href="#cv-timeline">Mein Lebenslauf</a>
+                <a href="#eignung">Eignung</a>
+                <a href="#cv-timeline">Lebenslauf</a>
                 <a href="#dokumente">Dokumente & Nachweise</a>
                 <a href="#kontakt">Kontakt</a>
             </div>
@@ -79,7 +79,7 @@
                 <span class="badge">Wohnungsbewerbung · München</span>
                 <h1>
                     Zuverlässiger Masterstudent sucht 1-Zimmer-Wohnung in München.<br>
-                    Zentral & ab April 2026 verfügbar.
+                    Zentral & sofort verfügbar.
                 </h1>
                 <p>
                 <p>
@@ -98,7 +98,7 @@
             </div>
 
             <div class="hero-card">
-                <img src="assets/img/ppicture.jpeg" alt="Profilfoto" />
+                <img src="ppicture.jpeg" alt="Profilfoto" />
                 <div class="hero-card-info">
                     <h3>Kurzprofil</h3>
                     <ul>
@@ -118,15 +118,15 @@
 ========================== -->
 
     <section class="trust-bar">
-        <div class="container trust-grid">
-            <div>TUM</div>
-            <div>TUHH</div>
-            <div>Vibracoustic</div>
-            <div>KI Startup</div>
-            <div>Zertifikate</div>
+        <div class="container">
+            <div class="trust-grid">
+                <span class="trust-item">Nichtraucher</span>
+                <span class="trust-item">Keine Haustiere</span>
+                <span class="trust-item">Langfristiges Mietinteresse</span>
+                <span class="trust-item">Zuverlässige Kommunikation</span>
+            </div>
         </div>
     </section>
-
 
     <!-- =========================
      PROFIL
@@ -199,7 +199,7 @@
         EIGNUNG
 ========================== -->
 
-    <section class="section alt" id="mieterprofil">
+    <section class="section alt" id="eignung">
         <div class="container">
             <h2>Warum ich ein guter Mieter bin</h2>
 
@@ -238,11 +238,14 @@
 
     <section id="cv-timeline" class="timeline-section">
         <h2 class="timeline-title">Mein Lebenslauf</h2>
+
         <div class="timeline-container">
 
-            <!-- Linie in der Mitte -->
-            <div class="timeline-line">
-                <div class="timeline-line-fill"></div>
+            <!-- MOBILE LINE WRAPPER (exakt an Kreise gekoppelt) -->
+            <div class="timeline-line-wrapper">
+                <div class="timeline-line">
+                    <div class="timeline-line-fill"></div>
+                </div>
             </div>
 
             <!-- Timeline Items -->
@@ -257,8 +260,8 @@
             <div class="timeline-item">
                 <div class="timeline-icon">10/2022</div>
                 <div class="timeline-content">
-                    <h3>B.Sc. Wirtschaftsingenieurwesen - Fachrichtung: Logistik und Mobilität</h3>
-                    <p>Technische Universität Hamburg – Abschluss: 2025, Schwerpunkt Produktion & Management.</p>
+                    <h3>B.Sc. Wirtschaftsingenieurwesen – Logistik & Mobilität</h3>
+                    <p>Technische Universität Hamburg – Abschluss 2025.</p>
                 </div>
             </div>
 
@@ -266,9 +269,7 @@
                 <div class="timeline-icon">04/2024</div>
                 <div class="timeline-content">
                     <h3>Berufserfahrung</h3>
-                    <p>Operativer Projekteinkauf bei Vibracoustic SE & Co KG – 2 Jahre Erfahrung in
-                        Lieferantenmanagement &
-                        Prozessoptimierung.</p>
+                    <p>Operativer Projekteinkauf bei Vibracoustic SE & Co KG.</p>
                 </div>
             </div>
 
@@ -276,7 +277,7 @@
                 <div class="timeline-icon">10/2026</div>
                 <div class="timeline-content">
                     <h3>Masterstudium</h3>
-                    <p>M.Sc. Management & Technology an der Technischen Universität München – Beginn 2026.</p>
+                    <p>M.Sc. Management & Technology – TU München.</p>
                 </div>
             </div>
 
@@ -284,12 +285,10 @@
                 <div class="timeline-icon">11/2025</div>
                 <div class="timeline-content">
                     <h3>Eigene Projekte & Automatisierung</h3>
-                    <p>
-                        Entwicklung kleiner digitaler Automatisierungsprojekte neben dem Studium
-                        mit Fokus auf effiziente Prozesse und strukturierte Arbeitsweise.
-                    </p>
+                    <p>Digitale Automatisierungsprojekte mit Fokus auf Effizienz.</p>
                 </div>
             </div>
+
         </div>
     </section>
 
@@ -327,7 +326,7 @@
                 <div class="accordion-content">
                     <div class="doc-row">
                         <span>Lebenslauf (CV)</span>
-                        <a href="assets/files/cv.pdf" class="download-btn" download>Download</a>
+                        <a href="cv.pdf" class="download-btn" download>Download</a>
                     </div>
                     <div class="doc-row">
                         <span>Motivationsprofil</span>
@@ -503,6 +502,16 @@
 
             timelineLineFill.style.height = (progress * 100) + '%';
         });
+    </script>
+
+    <!--PASSWORTSCHUTZ-->
+    <script>
+        const password = "4711";
+        const userPass = prompt("Bitte Passwort eingeben:");
+
+        if (userPass !== password) {
+            document.body.innerHTML = "<h1 style='text-align:center;margin-top:20vh;'>Zugriff verweigert</h1>";
+        }
     </script>
 
 </body>

@@ -571,27 +571,47 @@ body {
     opacity: 0.8;
 }
 
-/* TIMELINE MOBILE: Linie durch Kreise linksbündig */
 @media (max-width: 768px) {
 
     .timeline-container {
+        position: relative;
         padding-left: 24px;
+    }
+
+    /* Wrapper richtet sich am Kreis aus */
+    .timeline-line-wrapper {
+        position: absolute;
+        top: 0;
+        left: 24px;
+        height: 100%;
+        width: 56px; /* = Kreisdurchmesser */
+        pointer-events: none;
+    }
+
+    /* Linie exakt durch Kreismitte */
+    .timeline-line {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 100%;
+        background: rgba(31, 58, 95, 0.2);
+    }
+
+    .timeline-line-fill {
+        width: 100%;
+        height: 0%;
+        background: var(--accent);
     }
 
     /* Kreis */
     .timeline-icon {
         width: 56px;
         height: 56px;
-        font-size: 0.8rem;
         left: 24px;
         transform: none;
-    }
-
-    /* Linie: exakt durch Kreismitte */
-    .timeline-line {
-        width: 4px;
-        left: calc(24px + 28px); /* Kreis-left + halber Kreis */
-        transform: translateX(-50%);
+        font-size: 0.8rem;
     }
 
     .timeline-item {
@@ -602,11 +622,10 @@ body {
     .timeline-content {
         margin-left: 104px !important;
         max-width: calc(100% - 120px);
-        text-align: left !important;
         padding: 12px 18px;
+        text-align: left !important;
     }
 }
-
 
 /* =========================
    DOCUMENTS
@@ -743,19 +762,45 @@ body {
 
 .trust-bar {
     background: var(--bg-soft);
-    padding: 2rem 0;
+    padding: 1.8rem 0;
 }
 
 .trust-grid {
     display: flex;
     justify-content: space-between;
+    gap: 1.5rem;
     text-align: center;
     font-weight: 600;
     color: var(--muted);
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
+    flex-wrap: wrap;
+}
+.trust-item {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+    transition: color 0.25s ease;
+    cursor: default;
 }
 
+/* Subtiles Vertrauen beim Hover */
+.trust-item:hover {
+    color: var(--accent);
+}
 
+/* Mobile: tap feedback */
+@media (max-width: 768px) {
+    .trust-grid {
+        justify-content: center;
+        gap: 1rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .trust-grid div:active {
+        color: var(--accent);
+    }
+}
 
 /* =========================
    CONTACT
@@ -877,6 +922,25 @@ body {
     fill: var(--accent);
 }
 
+@media (max-width: 768px) {
+
+    .contact-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .contact-intro {
+        padding: 0 0.5rem;
+    }
+
+    .contact-trust {
+        gap: 0.6rem 0.8rem;
+    }
+}
 
 /* =========================
    FOOTER
@@ -947,4 +1011,4 @@ body {
     .hero h1 {
         font-size: 2.2rem;
     }
-}
+}Ï

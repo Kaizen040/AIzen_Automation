@@ -181,6 +181,18 @@ body {
     width: 100%;
 }
 
+/* TOPBAR ADDITION */
+.brand-title {
+    font-weight: 600;
+    font-size: 1.15rem;
+}
+
+.brand-sub {
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+
 /* RESPONSIVE */
 /* MOBILE TOPBAR FIX */
 @media (max-width: 768px) {
@@ -571,47 +583,31 @@ body {
     opacity: 0.8;
 }
 
+/* TIMELINE MOBILE: Linie durch Kreise linksbündig */
 @media (max-width: 768px) {
 
+    /* Basis */
     .timeline-container {
-        position: relative;
         padding-left: 24px;
-    }
-
-    /* Wrapper richtet sich am Kreis aus */
-    .timeline-line-wrapper {
-        position: absolute;
-        top: 0;
-        left: 24px;
-        height: 100%;
-        width: 56px; /* = Kreisdurchmesser */
-        pointer-events: none;
-    }
-
-    /* Linie exakt durch Kreismitte */
-    .timeline-line {
-        position: absolute;
-        left: 50%;
-        top: 0;
-        transform: translateX(-50%);
-        width: 4px;
-        height: 100%;
-        background: rgba(31, 58, 95, 0.2);
-    }
-
-    .timeline-line-fill {
-        width: 100%;
-        height: 0%;
-        background: var(--accent);
     }
 
     /* Kreis */
     .timeline-icon {
-        width: 56px;
-        height: 56px;
+        width: 54px;
+        height: 54px;
+        font-size: 0.8rem;
         left: 24px;
         transform: none;
-        font-size: 0.8rem;
+    }
+
+    /* Linie: exakt durch den Kreismittelpunkt */
+    .timeline-line {
+        width: 4px;
+        left: calc(24px + 27px - 2px);
+        /* 24 = Kreis-left
+           27 = halbe Kreisbreite
+            2 = halbe Linienbreite */
+        transform: none;
     }
 
     .timeline-item {
@@ -620,12 +616,13 @@ body {
     }
 
     .timeline-content {
-        margin-left: 104px !important;
-        max-width: calc(100% - 120px);
-        padding: 12px 18px;
+        margin-left: 96px !important;
+        max-width: calc(100% - 110px);
         text-align: left !important;
+        padding: 12px 18px;
     }
 }
+
 
 /* =========================
    DOCUMENTS
@@ -755,6 +752,57 @@ body {
     }
 }
 
+/* =========================
+    SECURITY BONITÄT
+========================= */
+
+#pw-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+#pw-modal.show {
+    display: flex;
+}
+
+.pw-box {
+    background: var(--card);
+    padding: 2rem;
+    border-radius: var(--radius);
+    width: 300px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.pw-box input {
+    width: 100%;
+    padding: 0.6rem;
+    margin-top: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.pw-box button {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0.6rem;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+#pw-error {
+    color: red;
+    display: none;
+    margin-top: 0.5rem;
+}
 
 /* =========================
    TRUST BAR
@@ -767,14 +815,12 @@ body {
 
 .trust-grid {
     display: flex;
-    justify-content: space-between;
-    gap: 1.5rem;
-    text-align: center;
-    font-weight: 600;
-    color: var(--muted);
-    letter-spacing: 0.04em;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem 2rem;
+    text-align: center;
 }
+
 .trust-item {
     font-size: 0.85rem;
     font-weight: 500;
@@ -789,18 +835,6 @@ body {
     color: var(--accent);
 }
 
-/* Mobile: tap feedback */
-@media (max-width: 768px) {
-    .trust-grid {
-        justify-content: center;
-        gap: 1rem 1.5rem;
-        font-size: 0.9rem;
-    }
-
-    .trust-grid div:active {
-        color: var(--accent);
-    }
-}
 
 /* =========================
    CONTACT
@@ -922,25 +956,6 @@ body {
     fill: var(--accent);
 }
 
-@media (max-width: 768px) {
-
-    .contact-card {
-        padding: 2rem 1.5rem;
-    }
-
-    .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .contact-intro {
-        padding: 0 0.5rem;
-    }
-
-    .contact-trust {
-        gap: 0.6rem 0.8rem;
-    }
-}
 
 /* =========================
    FOOTER
@@ -1011,4 +1026,4 @@ body {
     .hero h1 {
         font-size: 2.2rem;
     }
-}Ï
+}

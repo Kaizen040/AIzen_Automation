@@ -8,9 +8,12 @@
     <meta name="description"
         content="AIzen Automation – Wir entwickeln KI- und Automatisierungslösungen für Unternehmen. Effizient, skalierbar und messbar." />
 
-    <link rel="stylesheet" href="main.css" />
-</head>
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="assets/img/AIzen.png" />
+    <link rel="apple-touch-icon" href="assets/img/AIzen.png" />
 
+    <link rel="stylesheet" href="main3.css" />
+</head>
 
 <body>
     <!-- TOP -->
@@ -19,10 +22,9 @@
     <!-- HEADER LEISTE -->
     <header class="site-header">
         <div class="header-inner">
-            <!--<div class="logo">AIzen</div>-->
             <a href="#top" class="logo">
                 <span class="logo-badge">
-                    <img src="AIzen.png" alt="AIzen">
+                    <img src="assets/img/AIzen.png" alt="AIzen">
                 </span>
                 <span class="logo-text">
                     <span class="logo-ai">AI</span>zen Automation
@@ -31,11 +33,11 @@
 
             <nav class="nav">
                 <a href="#services" data-link>Leistungen</a>
-                <a href="#process" data-link>Vorgehen</a>
-                <a href="#proof" data-link>Referenzen</a>
+                <a href="#project-timeline" data-link>Projektablauf</a>
                 <a href="#faq" data-link>FAQ</a>
                 <a href="index.html">Home</a>
                 <a href="profilepage.html">KY</a>
+                <a href="MMT2.html">MMT</a>
                 <a href="#contact" class="nav-cta" data-link>Erstgespräch</a>
                 <span class="nav-indicator"></span>
             </nav>
@@ -59,7 +61,6 @@
                     <span class="highlight shine delay-2">skalieren</span>
                 </h1>
 
-
                 <p class="hero-subtitle">
                     KI- & Prozessautomatisierung für nachhaltigen, messbaren Business-Impact
                 </p>
@@ -69,60 +70,95 @@
                     <div class="cta-line"></div>
                 </a>
             </div>
-
         </section>
 
+        <!-- LOGO MARQUEE (KOMPAKT) -->
+        <section class="logo-strip-section">
+            <h2 class="section-title">Unsere Kunden und Partner</h2>
+            <div class="logo-strip">
+                <div class="logo-window">
+                    <div class="logo-track">
+                        <img src="assets/img/logo-bmw.svg" alt="BMW">
+                        <img src="assets/img/logo_sap.png" alt="SAP">
+                        <img src="assets/img/logo_office.png" alt="Office">
+                        <img src="assets/img/logo_azure.png" alt="Azure">
+                        <img src="assets/img/logo_google.png" alt="Google">
+                        <img src="assets/img/logo_vibracoustic.png" alt="Vibracoustic">
+                        <img src="assets/img/logo_n8n.png" alt="N8N">
 
-        <h2>Unsere Kunden und Partner</h2>
-
-        <!-- LOGO MARQUEE -->
-        <section class="logo-strip">
-            <div class="logo-window">
-                <div class="logo-track">
-                    <img src="logo-bmw.svg" alt="BMW">
-                    <img src="logo_sap.png" alt="SAP">
-                    <img src="logo_office.png" alt="Office">
-                    <img src="alogo_azure.png" alt="Azure">
-                    <img src="logo_google.png" alt="Google">
-                    <img src="logo_vibracoustic.png" alt="Vibracoustic">
-                    <img src="logo_n8n.png" alt="N8N">
-
-                    <!-- DUPLIKAT -->
-                    <img src="logo-bmw.svg" alt="BMW">
-                    <img src="logo_sap.png" alt="SAP">
-                    <img src="logo_office.png" alt="Office">
-                    <img src="alogo_azure.png" alt="Azure">
-                    <img src="logo_google.png" alt="Google">
-                    <img src="logo_vibracoustic.png" alt="Vibracoustic">
-                    <img src="logo_n8n.png" alt="N8N">
+                        <!-- DUPLIKAT -->
+                        <img src="assets/img/logo-bmw.svg" alt="BMW">
+                        <img src="assets/img/logo_sap.png" alt="SAP">
+                        <img src="assets/img/logo_office.png" alt="Office">
+                        <img src="assets/img/logo_azure.png" alt="Azure">
+                        <img src="assets/img/logo_google.png" alt="Google">
+                        <img src="assets/img/logo_vibracoustic.png" alt="Vibracoustic">
+                        <img src="assets/img/logo_n8n.png" alt="N8N">
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- SERVICES -->
-        <section class="section" id="aboutus">
-            <h2>Unsere Leistungen</h2>
+        <!-- IHRE VORTEILE (APPLE STYLE) -->
+        <section class="section benefits-section" id="aboutus">
+            <h2 class="section-title">Ihre Vorteile durch Automatisierung</h2>
+            <p class="section-subtitle">Messbare Effizienzsteigerung für Ihr Unternehmen</p>
 
-            <div class="card-grid">
-                <div class="card">
-                    <h3>Prozessanalyse</h3>
-                    <p>Identifikation von Automatisierungs- und KI-Potenzialen in bestehenden Abläufen.</p>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon-wrapper">
+                        <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="benefit-stat">bis zu 70%</div>
+                    <h3>Zeitersparnis</h3>
+                    <p>Automatisierung wiederkehrender Prozesse spart wertvolle Arbeitszeit für strategische Aufgaben
+                    </p>
                 </div>
 
-                <div class="card">
-                    <h3>KI-Integration</h3>
-                    <p>Implementierung von LLMs, Agenten und Entscheidungslogiken in operative Systeme.</p>
+                <div class="benefit-card">
+                    <div class="benefit-icon-wrapper">
+                        <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="benefit-stat">30-50%</div>
+                    <h3>Kostensenkung</h3>
+                    <p>Reduzierung operativer Kosten durch effiziente Workflow-Optimierung und Fehlerminimierung</p>
                 </div>
 
-                <div class="card">
-                    <h3>Automatisierung</h3>
-                    <p>End-to-End Workflows mit n8n, ERP, CRM und internen IT-Systemen.</p>
+                <div class="benefit-card">
+                    <div class="benefit-icon-wrapper">
+                        <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="benefit-stat">3x schneller</div>
+                    <h3>Skalierbarkeit</h3>
+                    <p>Wachsen Sie ohne zusätzliche Ressourcen – unsere Systeme skalieren mit Ihrem Geschäft</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon-wrapper">
+                        <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="12" r="10" stroke-width="2" />
+                            <path d="M12 6v6l4 2" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div class="benefit-stat">99,5%</div>
+                    <h3>Genauigkeit</h3>
+                    <p>KI-gestützte Prozesse eliminieren menschliche Fehler und erhöhen die Datenqualität</p>
                 </div>
             </div>
         </section>
 
-        <!--SLIDING CONTENT-->
+        <!-- SLIDING CONTENT -->
         <section id="services" class="section visible">
+            <h2 class="section-title">Unsere Leistungen</h2>
             <div class="slider">
 
                 <!-- SLIDES TRACK -->
@@ -132,7 +168,7 @@
                     <div class="slide">
                         <div class="slide-layout">
                             <div class="slide-visual">
-                                <img src="dashboard.jpg" alt="Dashboard">
+                                <img src="assets/img/dashboard.jpg" alt="Dashboard">
                             </div>
                             <div class="slide-text">
                                 <h2>Intelligente Geschäftsprozessautomatisierung</h2>
@@ -153,12 +189,11 @@
                         </div>
                     </div>
 
-
                     <!-- SLIDE 2 -->
                     <div class="slide">
                         <div class="slide-layout">
                             <div class="slide-visual">
-                                <img src="chatbot1.png" alt="Chatbots">
+                                <img src="assets/img/chatbot1.png" alt="Chatbots">
                             </div>
                             <div class="slide-text">
                                 <h2>KI-Chatbots & Knowledge Systems</h2>
@@ -184,7 +219,7 @@
                     <div class="slide">
                         <div class="slide-layout">
                             <div class="slide-visual">
-                                <img src="digcoworker.png" alt="Agenten">
+                                <img src="assets/img/digcoworker.png" alt="Agenten">
                             </div>
                             <div class="slide-text">
                                 <h2>KI-Agenten & Assistenzsysteme</h2>
@@ -208,7 +243,7 @@
                     <div class="slide">
                         <div class="slide-layout">
                             <div class="slide-visual">
-                                <img src="sales.jpg" alt="Sales">
+                                <img src="assets/img/sales.jpg" alt="Sales">
                             </div>
                             <div class="slide-text">
                                 <h2>Leadgewinnung & Growth Automation</h2>
@@ -234,7 +269,7 @@
                     <div class="slide">
                         <div class="slide-layout">
                             <div class="slide-visual">
-                                <img src="marketing.png" alt="Marketing">
+                                <img src="assets/img/marketing.png" alt="Marketing">
                             </div>
                             <div class="slide-text">
                                 <h2>Content & Social Media Automation</h2>
@@ -274,18 +309,17 @@
             </div>
         </section>
 
-        <!-- PROJEKT LINIE -->
-
+        <!-- PROJEKT TIMELINE -->
         <section id="project-timeline" class="timeline-section">
-            <h2 class="timeline-title">Unser Projektprozess</h2>
+            <h2 class="section-title">Unser Projektprozess</h2>
             <div class="timeline-container">
-                <!-- Linie in der Mitte -->
+                <!-- Zentrale Linie -->
                 <div class="timeline-line">
                     <div class="timeline-line-fill"></div>
                 </div>
 
-                <!-- Timeline Items -->
-                <div class="timeline-item">
+                <!-- Timeline Items (alternierend) -->
+                <div class="timeline-item timeline-right">
                     <div class="timeline-icon">1</div>
                     <div class="timeline-content">
                         <h3>Erstgespräch</h3>
@@ -294,7 +328,7 @@
                     </div>
                 </div>
 
-                <div class="timeline-item">
+                <div class="timeline-item timeline-left">
                     <div class="timeline-icon">2</div>
                     <div class="timeline-content">
                         <h3>Prozessanalyse</h3>
@@ -302,7 +336,7 @@
                     </div>
                 </div>
 
-                <div class="timeline-item">
+                <div class="timeline-item timeline-right">
                     <div class="timeline-icon">3</div>
                     <div class="timeline-content">
                         <h3>Umsetzung</h3>
@@ -311,7 +345,7 @@
                     </div>
                 </div>
 
-                <div class="timeline-item">
+                <div class="timeline-item timeline-left">
                     <div class="timeline-icon">4</div>
                     <div class="timeline-content">
                         <h3>Review & Optimierung</h3>
@@ -322,10 +356,9 @@
             </div>
         </section>
 
-
         <!-- FAQ / Q&A -->
         <section class="section faq" id="faq">
-            <h2>Häufige Fragen</h2>
+            <h2 class="section-title">Häufige Fragen</h2>
 
             <div class="faq-list">
 
@@ -388,8 +421,7 @@
             </div>
         </section>
 
-
-        <!-- CTA / Kontakt Section -->
+        <!-- CTA / Kontakt Section (MIT LIVE VALIDATION) -->
         <section class="cta-section visible" id="contact">
             <div class="cta-container">
                 <h2>Bereit für Automatisierung?</h2>
@@ -398,25 +430,33 @@
                 <div class="cta-content">
 
                     <!-- Kontaktformular -->
-                    <form class="cta-form" action="#" method="POST">
-                        <input type="text" name="name" placeholder="Dein Name" required>
-                        <input type="email" name="email" placeholder="Deine E-Mail" required>
-                        <textarea name="message" rows="5" placeholder="Deine Nachricht" required></textarea>
-                        <button type="submit" class="cta-button">Nachricht senden</button>
+                    <form class="cta-form" id="contactForm">
+                        <input type="text" name="name" id="nameInput" placeholder="Dein Name" required>
+                        <input type="email" name="email" id="emailInput" placeholder="Deine E-Mail" required>
+                        <textarea name="message" id="messageInput" rows="6"
+                            placeholder="Beschreibe dein Projekt (mind. 20 Zeichen)" required></textarea>
+
+                        <!-- AI Hint Message -->
+                        <div class="ai-hint" id="aiHint"></div>
+
+                        <!-- Upload Progress Bar -->
+                        <div class="upload-progress-container" id="progressContainer" style="display: none;">
+                            <div class="upload-progress" id="uploadProgress"></div>
+                        </div>
+
+                        <button type="submit" class="cta-button" id="submitBtn">Nachricht senden</button>
                     </form>
 
                     <!-- Direkt Buchungsbutton -->
                     <div class="cta-booking">
                         <p>Oder buche direkt ein kostenloses Erstgespräch:</p>
                         <a href="https://cal.com/jonas-schnellbach/erstgesprach" target="_blank"
-                            class="cta-button">Termin
-                            buchen</a>
+                            class="cta-button">Termin buchen</a>
                     </div>
 
                 </div>
             </div>
         </section>
-
 
         <!-- FOOTER -->
         <footer class="site-footer">
@@ -424,7 +464,9 @@
 
                 <!-- Brand / About -->
                 <div class="footer-col footer-brand">
-                    <div class="footer-logo">AIzen Automation Agency</div>
+                    <div class="footer-logo">
+                        <span class="logo-ai">AI</span>zen Automation Agency
+                    </div>
                     <p class="footer-claim">
                         Ihr Partner für individuelle KI-Lösungen und Automatisierungen.
                     </p>
@@ -441,9 +483,8 @@
                     <h4>Unternehmen</h4>
                     <ul>
                         <li><a href="#services">Leistungen</a></li>
-                        <li><a href="#vorteile">Vorteile</a></li>
-                        <li><a href="#prozess">Prozess</a></li>
-                        <li><a href="#projekte">Kundenprojekte</a></li>
+                        <li><a href="#aboutus">Vorteile</a></li>
+                        <li><a href="#project-timeline">Prozess</a></li>
                         <li><a href="#faq">FAQs</a></li>
                     </ul>
                 </div>
@@ -452,8 +493,8 @@
                 <div class="footer-col">
                     <h4>Rechtsdokumente</h4>
                     <ul>
-                        <li><a href="/impressum.html">Impressum</a></li>
-                        <li><a href="/datenschutz.html">Datenschutzerklärung</a></li>
+                        <li><a href="impressum.html">Impressum</a></li>
+                        <li><a href="datenschutz.html">Datenschutzerklärung</a></li>
                     </ul>
                 </div>
 
@@ -486,7 +527,6 @@
             </div>
         </footer>
 
-
     </main>
 
     <!-- ================= SCRIPTS ================= -->
@@ -503,17 +543,13 @@
         }, { threshold: 0.15 });
 
         function observeAll() {
-            document.querySelectorAll('.section, .card, .cta')
+            document.querySelectorAll('.section, .card, .cta, .benefit-card')
                 .forEach(el => observer.observe(el));
         }
 
-        // Initial
         observeAll();
-
-        // Falls später neue Sections kommen (z. B. FAQ)
         window.addEventListener('load', observeAll);
     </script>
-
 
     <!-- STARFIELD -->
     <script>
@@ -606,7 +642,7 @@
         });
     </script>
 
-    <!-- SLIDER SCRIPT 
+    <!-- SLIDER SCRIPT -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const slides = document.querySelectorAll('.slide');
@@ -642,61 +678,7 @@
                 pauseBtn.textContent = playing ? '⏸' : '▶';
             });
 
-            // Swipe Support (Mobile)
-            let startX = 0;
-
-            slidesEl.addEventListener('touchstart', e => {
-                startX = e.touches[0].clientX;
-            });
-
-            slidesEl.addEventListener('touchend', e => {
-                const diff = startX - e.changedTouches[0].clientX;
-                if (diff > 50) showSlide(current + 1);
-                else if (diff < -50) showSlide(current - 1);
-            });
-
-            showSlide(0);
-        });
-    </script> -->
-
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const slides = document.querySelectorAll('.slide');
-            const dots = document.querySelectorAll('.dot');
-            const pauseBtn = document.getElementById('pauseBtn');
-            const slidesEl = document.querySelector('.slides');
-
-            let current = 0;
-            let playing = true;
-            const total = slides.length;
-
-            function showSlide(index) {
-                current = (index + total) % total;
-                slidesEl.style.transform = `translateX(-${current * 100}%)`;
-
-                dots.forEach(d => d.classList.remove('active'));
-                if (dots[current]) dots[current].classList.add('active');
-            }
-
-            function nextSlide() {
-                if (!playing) return;
-                showSlide(current + 1);
-            }
-
-            let interval = setInterval(nextSlide, 8000);
-
-            dots.forEach((dot, index) => {
-                dot.addEventListener('click', () => showSlide(index));
-            });
-
-            pauseBtn.addEventListener('click', () => {
-                playing = !playing;
-                pauseBtn.textContent = playing ? '⏸' : '▶';
-            });
-
-            // ==============================
             // MOBILE TOUCH SWIPE
-            // ==============================
             let startX = 0;
 
             slidesEl.addEventListener('touchstart', e => {
@@ -709,9 +691,7 @@
                 else if (diff < -50) showSlide(current - 1);
             });
 
-            // ==============================
             // TRACKPAD / MOUSE SWIPE
-            // ==============================
             let wheelCooldown = false;
 
             slidesEl.addEventListener('wheel', e => {
@@ -722,12 +702,9 @@
 
                 let direction = 0;
 
-                // Bevorzuge echte horizontale Gesten
                 if (absX > absY && absX > 20) {
                     direction = e.deltaX > 0 ? 1 : -1;
-                }
-                // Fallback: vertikale Geste als Slide-Navigation
-                else if (absY > 40) {
+                } else if (absY > 40) {
                     direction = e.deltaY > 0 ? 1 : -1;
                 }
 
@@ -738,11 +715,9 @@
                 }
             }, { passive: true });
 
-
             showSlide(0);
         });
     </script>
-
 
     <!-- FAQ SCRIPT -->
     <script>
@@ -751,7 +726,6 @@
                 const item = btn.parentElement;
                 const openItem = document.querySelector('.faq-item.active');
 
-                // Optional: Nur eine Frage gleichzeitig offen
                 if (openItem && openItem !== item) {
                     openItem.classList.remove('active');
                 }
@@ -761,24 +735,178 @@
         });
     </script>
 
-    <!-- PROJEKT SKRIPT -->
+    <!-- TIMELINE SCROLL FILL (PRÄZISE) -->
     <script>
-        const timelineSection = document.querySelector('.timeline-section');
-        const timelineLineFill = document.querySelector('.timeline-line-fill');
+        (() => {
+            const timelineSection = document.querySelector('.timeline-section');
+            const timelineLineFill = document.querySelector('.timeline-line-fill');
 
-        window.addEventListener('scroll', () => {
-            const sectionTop = timelineSection.offsetTop;
-            const sectionHeight = timelineSection.offsetHeight;
-            const scrollY = window.scrollY + window.innerHeight / 2;
+            if (!timelineSection || !timelineLineFill) return;
 
-            let progress = (scrollY - sectionTop) / sectionHeight;
-            progress = Math.min(Math.max(progress, 0), 1); // zwischen 0 und 1
+            let ticking = false;
 
-            timelineLineFill.style.height = (progress * 100) + '%';
-        });
+            function calculate() {
+                const rect = timelineSection.getBoundingClientRect();
+                const viewportMid = window.innerHeight * 0.5;
 
+                let progress = (viewportMid - rect.top) / rect.height;
+                progress = Math.min(Math.max(progress, 0), 1);
+
+                timelineLineFill.style.height = (progress * 100) + "%";
+                ticking = false;
+            }
+
+            function onScroll() {
+                if (!ticking) {
+                    ticking = true;
+                    requestAnimationFrame(calculate);
+                }
+            }
+
+            window.addEventListener("scroll", onScroll, { passive: true });
+            window.addEventListener("resize", calculate);
+
+            calculate();
+        })();
     </script>
 
-    <script src="navigation.js"></script>
+    <!-- CONTACT FORM WITH LIVE VALIDATION -->
+    <script>
+        (() => {
+            const form = document.getElementById('contactForm');
+            const messageInput = document.getElementById('messageInput');
+            const aiHint = document.getElementById('aiHint');
+            const progressContainer = document.getElementById('progressContainer');
+            const uploadProgress = document.getElementById('uploadProgress');
+            const submitBtn = document.getElementById('submitBtn');
+
+            // ⚠️ BITTE ERSETZEN MIT EUREN ECHTEN n8n WEBHOOK URLs
+            const webhookUrl = 'https://n8n.srv1220381.hstgr.cloud/webhook/40212262-ca22-46a0-8fb8-f2d192c4697c';
+            const aiHintUrl = 'https://n8n.srv1220381.hstgr.cloud/webhook/ai-hint';
+
+            let aiTimeout;
+
+            // LIVE VALIDATION
+            messageInput.addEventListener("input", () => {
+                const text = messageInput.value.trim();
+
+                if (text.length < 20) {
+                    aiHint.textContent = "⚠ Bitte etwas genauer beschreiben (mind. 20 Zeichen)";
+                    aiHint.style.color = "#ff6b6b";
+                    aiHint.style.display = "block";
+                    return;
+                }
+
+                aiHint.textContent = "🤖 AIzen analysiert dein Projekt...";
+                aiHint.style.color = "#a0b3d9";
+                aiHint.style.display = "block";
+
+                clearTimeout(aiTimeout);
+
+                aiTimeout = setTimeout(() => {
+                    fetch(aiHintUrl, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "x-aizen-key": "AIZEN-SECURE-2026"
+                        },
+                        body: JSON.stringify({ text })
+                    })
+                        .then(res => res.text()) // erst als TEXT lesen
+                        .then(raw => {
+                            let hint = null;
+
+                            try {
+                                const data = JSON.parse(raw);
+
+                                // FORMAT 1: {"hint":"..."}
+                                if (data.hint) {
+                                    hint = data.hint;
+                                }
+
+                                // FORMAT 2: Array-Response von n8n / LLM
+                                else if (
+                                    Array.isArray(data) &&
+                                    data[0]?.content?.parts?.[0]?.text
+                                ) {
+                                    hint = data[0].content.parts[0].text;
+                                }
+                            } catch (e) {
+                                console.warn("AI Hint Parse Fehler:", raw);
+                            }
+
+                            if (hint) {
+                                aiHint.textContent = "💡 " + hint;
+                                aiHint.style.color = "#7afcff";
+                            } else {
+                                aiHint.textContent = "✔ Sieht gut aus – unser Team prüft das intern";
+                                aiHint.style.color = "#7afcff";
+                            }
+                        })
+                        .catch(() => {
+                            aiHint.textContent = "✔ Sieht gut aus – unser Team prüft das intern";
+                            aiHint.style.color = "#7afcff";
+                        });
+                }, 900);
+            });
+
+            // FORM SUBMIT WITH PROGRESS
+            form.addEventListener("submit", e => {
+                e.preventDefault();
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Wird gesendet...";
+                progressContainer.style.display = "block";
+
+                const xhr = new XMLHttpRequest();
+                const formData = new FormData(form);
+
+                xhr.open("POST", webhookUrl, true);
+
+                xhr.upload.onprogress = e => {
+                    if (e.lengthComputable) {
+                        const percent = (e.loaded / e.total) * 100;
+                        uploadProgress.style.width = percent + "%";
+                    }
+                };
+
+                xhr.onload = () => {
+                    if (xhr.status === 200) {
+                        showSuccess();
+                    } else {
+                        alert("❌ Fehler beim Senden. Bitte versuche es erneut.");
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = "Nachricht senden";
+                        progressContainer.style.display = "none";
+                    }
+                };
+
+                xhr.onerror = () => {
+                    alert("❌ Netzwerkfehler. Bitte versuche es erneut.");
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = "Nachricht senden";
+                    progressContainer.style.display = "none";
+                };
+
+                xhr.send(formData);
+            });
+
+            // SUCCESS SCREEN
+            function showSuccess() {
+                form.innerHTML = `
+                    <div class="success-screen">
+                        <div class="success-icon">✓</div>
+                        <h3>🚀 Erfolgreich gesendet</h3>
+                        <p>Danke! Euer Projekt wurde an unser Automation-System übergeben.</p>
+                        <p class="success-subtext">Wir melden uns innerhalb von 24 Stunden bei dir.</p>
+                    </div>
+                `;
+            }
+        })();
+    </script>
+
+    <script src="assets/js/navigation.js"></script>
 
 </body>
+
+</html>

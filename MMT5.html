@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMT AI Study Assistant</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="MMT5.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+
+    <!-- AUTH MODAL -->
+    <div id="authModal" class="modal active">
+        <div class="modal-content auth-modal">
+            <div class="auth-header">
+                <i class="fas fa-brain"></i>
+                <h1>MMT AI Study Assistant</h1>
+                <p>Dein intelligenter Begleiter durchs Masterstudium</p>
+            </div>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Login</button>
+                <button class="auth-tab" data-tab="register">Registrieren</button>
+            </div>
+
+            <div id="loginForm" class="auth-form active">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="loginEmail" placeholder="E-Mail">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="loginPassword" placeholder="Passwort">
+                </div>
+                <button class="btn-primary" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i> Anmelden
+                </button>
+            </div>
+
+            <div id="registerForm" class="auth-form">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="regName" placeholder="Name">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="regEmail" placeholder="E-Mail">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="regPassword" placeholder="Passwort">
+                </div>
+                <button class="btn-primary" id="registerBtn">
+                    <i class="fas fa-user-plus"></i> Account erstellen
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP -->
+    <div class="app">
+
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="user-profile" id="userProfile">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name" id="userName">User</span>
+                        <span class="user-status">Online</span>
+                    </div>
+                </div>
+                <button class="icon-btn" id="logoutBtn" title="Logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchChats" placeholder="Chats durchsuchen...">
+            </div>
+
+            <div class="sidebar-tabs">
+                <button class="sidebar-tab active" data-view="chats">
+                    <i class="fas fa-comments"></i>
+                    <span>Chats</span>
+                </button>
+                <button class="sidebar-tab" data-view="favorites">
+                    <i class="fas fa-star"></i>
+                    <span>Favoriten</span>
+                </button>
+                <button class="sidebar-tab" data-view="stats">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Stats</span>
+                </button>
+            </div>
+
+            <div id="chatsView" class="sidebar-view active">
+                <div class="chat-list" id="chatList"></div>
+                <button class="new-chat" id="newChat">
+                    <i class="fas fa-plus"></i>
+                    Neuer Chat
+                </button>
+            </div>
+
+            <div id="favoritesView" class="sidebar-view">
+                <div class="chat-list" id="favoritesList"></div>
+            </div>
+
+            <div id="statsView" class="sidebar-view">
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <i class="fas fa-message"></i>
+                        <div>
+                            <h3 id="totalMessages">0</h3>
+                            <p>Nachrichten</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-comments"></i>
+                        <div>
+                            <h3 id="totalChats">0</h3>
+                            <p>Chats</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h3 id="avgResponse">0s</h3>
+                            <p>Ø Antwortzeit</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHAT AREA -->
+        <div class="chat-area">
+            <canvas id="starfield"></canvas>
+
+            <div class="chat-header">
+                <div class="chat-title">
+                    <h2 id="activeChatName">MMT AI Assistant</h2>
+                    <span class="chat-subtitle" id="messageCount">0 Nachrichten</span>
+                </div>
+                <div class="chat-actions">
+                    <button class="icon-btn" id="favoriteBtn" title="Favorit">
+                        <i class="far fa-star"></i>
+                    </button>
+                    <button class="icon-btn" id="exportBtn" title="Exportieren">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button class="icon-btn" id="settingsBtn" title="Einstellungen">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <button class="icon-btn" id="themeToggle" title="Theme wechseln">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="messages" id="messages">
+                <div class="welcome-screen" id="welcomeScreen">
+                    <i class="fas fa-robot"></i>
+                    <h2>Willkommen zurück!</h2>
+                    <p>Wie kann ich dir heute beim Studium helfen?</p>
+                    <div class="quick-actions">
+                        <button class="quick-action" data-prompt="Erstelle einen Lernplan für diese Woche">
+                            <i class="fas fa-calendar-alt"></i>
+                            Lernplan erstellen
+                        </button>
+                        <button class="quick-action" data-prompt="Erkläre mir das Konzept von...">
+                            <i class="fas fa-lightbulb"></i>
+                            Konzept erklären
+                        </button>
+                        <button class="quick-action" data-prompt="Fasse dieses Paper zusammen:">
+                            <i class="fas fa-file-alt"></i>
+                            Paper zusammenfassen
+                        </button>
+                        <button class="quick-action" data-prompt="Erstelle Übungsfragen zu...">
+                            <i class="fas fa-question-circle"></i>
+                            Quiz generieren
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <div class="input-tools">
+                    <button class="tool-btn" id="attachBtn" title="Datei anhängen">
+                        <i class="fas fa-paperclip"></i>
+                    </button>
+                    <button class="tool-btn" id="voiceBtn" title="Spracheingabe">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button class="tool-btn" id="codeBtn" title="Code einfügen">
+                        <i class="fas fa-code"></i>
+                    </button>
+                    <input type="file" id="fileInput" style="display:none" accept=".pdf,.txt,.doc,.docx,.jpg,.png">
+                </div>
+                <div class="input-bar">
+                    <textarea id="input" placeholder="Nachricht schreiben..." rows="1"></textarea>
+                    <button id="send" class="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TOAST NOTIFICATIONS -->
+    <div id="toastContainer"></div>
+
+    <!-- COMMAND PALETTE (Strg+K) -->
+    <div id="commandPalette" class="modal">
+        <div class="modal-content command-palette">
+            <input type="text" id="commandInput" placeholder="Aktion suchen...">
+            <div id="commandResults"></div>
+        </div>
+    </div>
+
+    <!-- EXPORT MODAL -->
+    <div id="exportModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Chat exportieren</h3>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="export-options">
+                <button class="export-btn" id="exportPDF">
+                    <i class="fas fa-file-pdf"></i>
+                    Als PDF
+                </button>
+                <button class="export-btn" id="exportMD">
+                    <i class="fas fa-file-alt"></i>
+                    Als Markdown
+                </button>
+                <button class="export-btn" id="exportJSON">
+                    <i class="fas fa-file-code"></i>
+                    Als JSON
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Context Menu for Messages -->
+    <div id="contextMenu" class="context-menu">
+        <button data-action="copy"><i class="fas fa-copy"></i> Kopieren</button>
+        <button data-action="edit"><i class="fas fa-edit"></i> Bearbeiten</button>
+        <button data-action="delete"><i class="fas fa-trash"></i> Löschen</button>
+        <button data-action="regenerate"><i class="fas fa-redo"></i> Neu generieren</button>
+    </div>
+
+    <script src="MMT5.js"></script>
+
+</body>
+
+</html>

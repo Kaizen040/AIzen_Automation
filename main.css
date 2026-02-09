@@ -1620,3 +1620,125 @@ body {
 .imprint a:hover {
     text-decoration: underline;
 }
+
+/* =====================
+   LANGUAGE SWITCHER
+===================== */
+.lang-switcher {
+    position: relative;
+}
+
+.lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.lang-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(122, 252, 255, 0.3);
+}
+
+.lang-icon {
+    width: 18px;
+    height: 18px;
+}
+
+#currentLang {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.lang-arrow {
+    width: 12px;
+    height: 12px;
+    transition: transform 0.3s ease;
+}
+
+.lang-switcher.active .lang-arrow {
+    transform: rotate(180deg);
+}
+
+.lang-dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background: rgba(18, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 0.5rem;
+    min-width: 160px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.lang-switcher.active .lang-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.lang-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.lang-option:hover {
+    background: rgba(122, 252, 255, 0.1);
+    color: var(--tertiary);
+}
+
+.lang-option .flag {
+    font-size: 1.3rem;
+}
+
+.lang-option.active {
+    background: rgba(122, 252, 255, 0.15);
+    color: var(--tertiary);
+    font-weight: 600;
+}
+
+/* FIX: SLIDER CONTROLS SICHTBARKEIT (TABLET/IPAD) */
+.slider-controls {
+    position: relative;
+    z-index: 10;
+    margin-top: 30px !important;
+    padding: 20px 0;
+}
+
+/* Mobile Language Switcher */
+@media (max-width: 768px) {
+    .lang-btn {
+        padding: 0.4rem 0.8rem;
+    }
+
+    #currentLang {
+        font-size: 0.85rem;
+    }
+
+    .lang-dropdown {
+        min-width: 140px;
+    }
+}

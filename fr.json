@@ -1,0 +1,160 @@
+{
+    "nav": {
+        "services": "Services",
+        "process": "Processus",
+        "contact": "Contact",
+        "cta": "Consultation initiale"
+    },
+    "hero": {
+        "title": "Nous construisons des <span class=\"highlight shine delay-1\">systèmes intelligents</span><br>pour les entreprises qui <span class=\"highlight shine delay-2\">évoluent</span>",
+        "subtitle": "Automatisation IA & processus pour un impact commercial durable et mesurable",
+        "cta": "Réserver une consultation"
+    },
+    "clients": {
+        "title": "Nos Clients et Partenaires"
+    },
+    "benefits": {
+        "title": "Vos Avantages grâce à l'Automatisation",
+        "subtitle": "Gains d'efficacité mesurables pour votre entreprise",
+        "time": {
+            "title": "Gain de Temps",
+            "desc": "L'automatisation des processus récurrents libère du temps précieux pour les tâches stratégiques"
+        },
+        "cost": {
+            "title": "Réduction des Coûts",
+            "desc": "Réduction des coûts opérationnels grâce à l'optimisation efficace des workflows et à la minimisation des erreurs"
+        },
+        "scale": {
+            "title": "Évolutivité",
+            "desc": "Croissez sans ressources supplémentaires – nos systèmes évoluent avec votre entreprise"
+        },
+        "accuracy": {
+            "title": "Précision",
+            "desc": "Les processus basés sur l'IA éliminent les erreurs humaines et augmentent la qualité des données"
+        }
+    },
+    "services": {
+        "title": "Nos Services",
+        "automation": {
+            "title": "Automatisation Intelligente des Processus Métier",
+            "lead": "Automatisation IA sur mesure pour les processus opérationnels.",
+            "desc": "Nous automatisons les flux de travail récurrents autour des documents, des données et des systèmes – de la génération de devis aux workflows Excel jusqu'à l'intégration intelligente des dossiers et des systèmes. Développé individuellement, mis en œuvre de manière évolutive.",
+            "features": [
+                "IA basée sur les documents (RAG)",
+                "Intégration CRM & Helpdesk",
+                "Agents multilingues"
+            ]
+        },
+        "chatbots": {
+            "title": "Chatbots IA & Systèmes de Connaissances",
+            "lead": "Connaissances, support & communication client – automatisés et précis",
+            "desc": "Du chatbot de site Web au système de connaissances RAG interne : Nous construisons une IA qui comprend les informations, répond de manière contextuelle et travaille directement avec vos sources de données.",
+            "features": [
+                "Chatbots site Web & service client",
+                "Systèmes de connaissances RAG pour entreprises",
+                "Assistants FAQ & documents internes",
+                "Communication IA multilingue"
+            ]
+        },
+        "agents": {
+            "title": "Agents IA & Systèmes d'Assistance",
+            "lead": "Assistants numériques pour emails, systèmes & flux de travail quotidiens",
+            "desc": "Des agents IA qui ne se contentent pas de répondre – ils agissent : Préparent les emails, contrôlent les tâches, gèrent les systèmes et font avancer activement les processus.",
+            "features": [
+                "Agents Outlook & Email",
+                "Automatisation des tâches & rendez-vous",
+                "Contrôle des workflows internes"
+            ]
+        },
+        "leads": {
+            "title": "Génération de Leads & Automatisation de la Croissance",
+            "lead": "Pipelines de leads automatisés & processus de vente numériques",
+            "desc": "Nous développons des systèmes intelligents pour la génération, la qualification et le transfert de leads – du web scraping à l'intégration CRM.",
+            "features": [
+                "Extraction de données Web (ex : Apify)",
+                "Scoring & qualification des leads",
+                "Automatisation CRM",
+                "Workflows de prospection"
+            ]
+        },
+        "content": {
+            "title": "Automatisation de Contenu & Réseaux Sociaux",
+            "lead": "Contenu évolutif pour le marketing & la présence numérique",
+            "desc": "Workflows de contenu automatisés pour les réseaux sociaux, les sites Web et les campagnes – de la planification à la publication.",
+            "features": [
+                "Automatisation de publication",
+                "Génération de contenu",
+                "Workflows de plateforme",
+                "Suivi des performances"
+            ]
+        }
+    },
+    "timeline": {
+        "title": "Notre Processus de Projet",
+        "step1": {
+            "title": "Consultation Initiale",
+            "desc": "Lors de la consultation initiale, nous apprenons à nous connaître et discutons de la meilleure façon de soutenir votre entreprise."
+        },
+        "step2": {
+            "title": "Analyse des Processus",
+            "desc": "Nous analysons vos processus existants et vous montrons le potentiel d'optimisation."
+        },
+        "step3": {
+            "title": "Mise en Œuvre",
+            "desc": "Sur la base d'un concept individuel, nous mettons en œuvre la solution et vous accompagnons ensuite en tant que partenaire."
+        },
+        "step4": {
+            "title": "Révision & Optimisation",
+            "desc": "Nous vérifions les résultats, optimisons continuellement les processus et assurons un succès durable."
+        }
+    },
+    "faq": {
+        "title": "Questions Fréquentes",
+        "pricing": {
+            "question": "Structure Tarifaire",
+            "answer": "Nos projets sont calculés individuellement. Les coûts comprennent la conception, la mise en œuvre et les opérations courantes. La facturation se fait généralement par projet ou sous forme de modèle de service mensuel – selon la portée et la complexité."
+        },
+        "timeline": {
+            "question": "Délai & Déroulement du Projet",
+            "answer": "Un projet typique se compose de phases d'analyse, de conception, de mise en œuvre et de test. Les premiers résultats sont souvent visibles en quelques semaines. La durée totale dépend du projet et est déterminée par le degré d'intégration et la portée des fonctions."
+        },
+        "maintenance": {
+            "question": "Maintenance & Support",
+            "answer": "La maintenance et l'optimisation continues des systèmes sont entièrement prises en charge par nous. Cela comprend la surveillance, l'optimisation des performances, les mises à jour de sécurité et les ajustements aux processus métier modifiés."
+        },
+        "integration": {
+            "question": "Intégration & Infrastructure IT",
+            "answer": "Une infrastructure informatique solide est une condition préalable à une intégration stable. La portée de la connexion aux systèmes existants (par exemple ERP, CRM ou bases de données) dépend du projet et est planifiée de manière transparente et facturée en conséquence."
+        }
+    },
+    "cta": {
+        "title": "Prêt pour l'Automatisation?",
+        "subtitle": "Parlez-nous de votre projet ou prenez directement rendez-vous.",
+        "booking": "Ou réservez directement une consultation initiale gratuite:",
+        "bookButton": "Prendre rendez-vous"
+    },
+    "form": {
+        "name": "Votre Nom",
+        "email": "Votre Email",
+        "message": "Décrivez votre projet (min. 20 caractères)",
+        "submit": "Envoyer le message"
+    },
+    "booking": {
+        "title": "Réservez Votre Consultation Initiale Gratuite",
+        "subtitle": "Choisissez un rendez-vous directement dans notre calendrier en direct."
+    },
+    "footer": {
+        "claim": "Votre partenaire pour des solutions IA personnalisées et l'automatisation.",
+        "company": "Entreprise",
+        "services": "Services",
+        "benefits": "Avantages",
+        "process": "Processus",
+        "legal": "Documents Juridiques",
+        "imprint": "Mentions Légales",
+        "privacy": "Politique de Confidentialité",
+        "contact": "Contact",
+        "founders": "Fondateurs & Directeurs Généraux",
+        "meeting": "Consultation Initiale Gratuite",
+        "copyright": "© 2026 AIzen Automation Agency. Tous droits réservés."
+    }
+}

@@ -1,0 +1,160 @@
+{
+    "nav": {
+        "services": "Services",
+        "process": "Process",
+        "contact": "Contact",
+        "cta": "Initial Consultation"
+    },
+    "hero": {
+        "title": "We build <span class=\"highlight shine delay-1\">smart systems</span><br>for companies that <span class=\"highlight shine delay-2\">scale</span>",
+        "subtitle": "AI & process automation for sustainable, measurable business impact",
+        "cta": "Book consultation"
+    },
+    "clients": {
+        "title": "Our Clients and Partners"
+    },
+    "benefits": {
+        "title": "Your Benefits Through Automation",
+        "subtitle": "Measurable efficiency gains for your business",
+        "time": {
+            "title": "Time Savings",
+            "desc": "Automating recurring processes saves valuable working time for strategic tasks"
+        },
+        "cost": {
+            "title": "Cost Reduction",
+            "desc": "Reduction of operational costs through efficient workflow optimization and error minimization"
+        },
+        "scale": {
+            "title": "Scalability",
+            "desc": "Grow without additional resources – our systems scale with your business"
+        },
+        "accuracy": {
+            "title": "Accuracy",
+            "desc": "AI-powered processes eliminate human errors and increase data quality"
+        }
+    },
+    "services": {
+        "title": "Our Services",
+        "automation": {
+            "title": "Intelligent Business Process Automation",
+            "lead": "Tailored AI automation for operational business processes.",
+            "desc": "We automate recurring workflows around documents, data, and systems – from quote generation through Excel workflows to intelligent folder and system integration. Individually developed, scalably implemented.",
+            "features": [
+                "Document-based AI (RAG)",
+                "CRM & Helpdesk Integration",
+                "Multilingual Agents"
+            ]
+        },
+        "chatbots": {
+            "title": "AI Chatbots & Knowledge Systems",
+            "lead": "Knowledge, support & customer communication – automated and precise",
+            "desc": "From website chatbots to internal RAG knowledge systems: We build AI that understands information, answers contextually, and works directly with your data sources.",
+            "features": [
+                "Website & Customer Service Chatbots",
+                "RAG Knowledge Systems for Enterprises",
+                "Internal FAQ & Document Assistants",
+                "Multilingual AI Communication"
+            ]
+        },
+        "agents": {
+            "title": "AI Agents & Assistant Systems",
+            "lead": "Digital assistants for email, systems & daily workflows",
+            "desc": "AI agents that don't just respond – they act: Prepare emails, control tasks, operate systems, and actively drive processes forward.",
+            "features": [
+                "Outlook & Email Agents",
+                "Task & Appointment Automation",
+                "Internal Workflow Control"
+            ]
+        },
+        "leads": {
+            "title": "Lead Generation & Growth Automation",
+            "lead": "Automated lead pipelines & digital sales processes",
+            "desc": "We develop intelligent systems for lead generation, qualification, and handoff – from web scraping to CRM integration.",
+            "features": [
+                "Web Data Extraction (e.g., Apify)",
+                "Lead Scoring & Qualification",
+                "CRM Automation",
+                "Outreach Workflows"
+            ]
+        },
+        "content": {
+            "title": "Content & Social Media Automation",
+            "lead": "Scaled content for marketing & digital presence",
+            "desc": "Automated content workflows for social media, websites, and campaigns – from planning to publication.",
+            "features": [
+                "Posting Automation",
+                "Content Generation",
+                "Platform Workflows",
+                "Performance Tracking"
+            ]
+        }
+    },
+    "timeline": {
+        "title": "Our Project Process",
+        "step1": {
+            "title": "Initial Consultation",
+            "desc": "In the initial consultation, we get to know each other and discuss how we can best support your company."
+        },
+        "step2": {
+            "title": "Process Analysis",
+            "desc": "We analyze your existing processes and show you optimization potential."
+        },
+        "step3": {
+            "title": "Implementation",
+            "desc": "Based on an individual concept, we implement the solution and support you as a partner afterwards."
+        },
+        "step4": {
+            "title": "Review & Optimization",
+            "desc": "We review the results, continuously optimize processes, and ensure sustainable success."
+        }
+    },
+    "faq": {
+        "title": "Frequently Asked Questions",
+        "pricing": {
+            "question": "Pricing Structure",
+            "answer": "Our projects are individually calculated. Costs consist of conception, implementation, and ongoing operations. Billing is typically project-based or as a monthly service model – depending on scope and complexity."
+        },
+        "timeline": {
+            "question": "Project Timeline & Process",
+            "answer": "A typical project consists of analysis, conception, implementation, and testing phases. Initial results are often visible within a few weeks. The overall duration depends on the project and is determined by the degree of integration and scope of functions."
+        },
+        "maintenance": {
+            "question": "Maintenance & Support",
+            "answer": "Ongoing maintenance and optimization of systems is fully handled by us. This includes monitoring, performance optimization, security updates, and adjustments to changed business processes."
+        },
+        "integration": {
+            "question": "Integration & IT Infrastructure",
+            "answer": "A solid IT infrastructure is a prerequisite for stable integration. The scope of connection to existing systems (e.g., ERP, CRM, or databases) is project-dependent and is transparently planned and billed accordingly."
+        }
+    },
+    "cta": {
+        "title": "Ready for Automation?",
+        "subtitle": "Talk to us about your project or book an appointment directly.",
+        "booking": "Or book a free initial consultation directly:",
+        "bookButton": "Book appointment"
+    },
+    "form": {
+        "name": "Your Name",
+        "email": "Your Email",
+        "message": "Describe your project (min. 20 characters)",
+        "submit": "Send message"
+    },
+    "booking": {
+        "title": "Book Your Free Initial Consultation",
+        "subtitle": "Choose an appointment directly in our live calendar."
+    },
+    "footer": {
+        "claim": "Your partner for custom AI solutions and automation.",
+        "company": "Company",
+        "services": "Services",
+        "benefits": "Benefits",
+        "process": "Process",
+        "legal": "Legal Documents",
+        "imprint": "Imprint",
+        "privacy": "Privacy Policy",
+        "contact": "Contact",
+        "founders": "Founders & Managing Directors",
+        "meeting": "Free Initial Consultation",
+        "copyright": "© 2026 AIzen Automation Agency. All rights reserved."
+    }
+}

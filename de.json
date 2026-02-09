@@ -1,0 +1,160 @@
+{
+    "nav": {
+        "services": "Leistungen",
+        "process": "Projektablauf",
+        "contact": "Kontakt",
+        "cta": "Erstgespräch"
+    },
+    "hero": {
+        "title": "Wir bauen <span class=\"highlight shine delay-1\">smarte Systeme</span><br>für Unternehmen, die <span class=\"highlight shine delay-2\">skalieren</span>",
+        "subtitle": "KI- & Prozessautomatisierung für nachhaltigen, messbaren Business-Impact",
+        "cta": "Erstgespräch buchen"
+    },
+    "clients": {
+        "title": "Unsere Kunden und Partner"
+    },
+    "benefits": {
+        "title": "Ihre Vorteile durch Automatisierung",
+        "subtitle": "Messbare Effizienzsteigerung für Ihr Unternehmen",
+        "time": {
+            "title": "Zeitersparnis",
+            "desc": "Automatisierung wiederkehrender Prozesse spart wertvolle Arbeitszeit für strategische Aufgaben"
+        },
+        "cost": {
+            "title": "Kostensenkung",
+            "desc": "Reduzierung operativer Kosten durch effiziente Workflow-Optimierung und Fehlerminimierung"
+        },
+        "scale": {
+            "title": "Skalierbarkeit",
+            "desc": "Wachsen Sie ohne zusätzliche Ressourcen – unsere Systeme skalieren mit Ihrem Geschäft"
+        },
+        "accuracy": {
+            "title": "Genauigkeit",
+            "desc": "KI-gestützte Prozesse eliminieren menschliche Fehler und erhöhen die Datenqualität"
+        }
+    },
+    "services": {
+        "title": "Unsere Leistungen",
+        "automation": {
+            "title": "Intelligente Geschäftsprozessautomatisierung",
+            "lead": "Maßgeschneiderte KI-Automatisierung für operative Unternehmensprozesse.",
+            "desc": "Wir automatisieren wiederkehrende Abläufe rund um Dokumente, Daten und Systeme – von Angebotserstellung über Excel-Workflows bis zur intelligenten Ordner- und Systemintegration. Individuell entwickelt, skalierbar umgesetzt.",
+            "features": [
+                "Dokumentenbasierte KI (RAG)",
+                "CRM & Helpdesk Integration",
+                "Mehrsprachige Agenten"
+            ]
+        },
+        "chatbots": {
+            "title": "KI-Chatbots & Knowledge Systems",
+            "lead": "Wissen, Support & Kundenkommunikation – automatisiert und präzise",
+            "desc": "Vom Website-Chatbot bis zum internen RAG-Wissenssystem: Wir bauen KI, die Informationen versteht, kontextuell beantwortet und direkt mit euren Datenquellen arbeitet.",
+            "features": [
+                "Website- & Kundenservice-Chatbots",
+                "RAG-Wissenssysteme für Unternehmen",
+                "Interne FAQ- & Dokumentenassistenten",
+                "Mehrsprachige KI-Kommunikation"
+            ]
+        },
+        "agents": {
+            "title": "KI-Agenten & Assistenzsysteme",
+            "lead": "Digitale Assistenten für E-Mail, Systeme & tägliche Arbeitsabläufe",
+            "desc": "KI-Agenten, die nicht nur antworten – sondern handeln: E-Mails vorbereiten, Aufgaben steuern, Systeme bedienen und Prozesse aktiv vorantreiben.",
+            "features": [
+                "Outlook- & E-Mail-Agenten",
+                "Aufgaben- & Termin-Automatisierung",
+                "Interne Workflow-Steuerung"
+            ]
+        },
+        "leads": {
+            "title": "Leadgewinnung & Growth Automation",
+            "lead": "Automatisierte Lead-Pipelines & digitale Vertriebsprozesse",
+            "desc": "Wir entwickeln intelligente Systeme zur Lead-Generierung, Qualifizierung und Übergabe – von Web Scraping bis CRM-Integration.",
+            "features": [
+                "Web-Datenextraktion (z. B. Apify)",
+                "Lead-Scoring & Qualifizierung",
+                "CRM-Automatisierung",
+                "Outreach-Workflows"
+            ]
+        },
+        "content": {
+            "title": "Content & Social Media Automation",
+            "lead": "Skalierte Inhalte für Marketing & digitale Präsenz",
+            "desc": "Automatisierte Content-Workflows für Social Media, Websites und Kampagnen – von Planung bis Veröffentlichung.",
+            "features": [
+                "Posting-Automatisierung",
+                "Content-Generierung",
+                "Plattform-Workflows",
+                "Performance-Tracking"
+            ]
+        }
+    },
+    "timeline": {
+        "title": "Unser Projektprozess",
+        "step1": {
+            "title": "Erstgespräch",
+            "desc": "Im Erstgespräch lernen wir uns kennen und besprechen, wie wir Ihr Unternehmen am besten unterstützen können."
+        },
+        "step2": {
+            "title": "Prozessanalyse",
+            "desc": "Wir analysieren Ihre bestehenden Prozesse und zeigen Ihnen Optimierungspotenziale auf."
+        },
+        "step3": {
+            "title": "Umsetzung",
+            "desc": "Basierend auf einem individuellen Konzept setzen wir die Lösung um und betreuen Sie danach als Partner."
+        },
+        "step4": {
+            "title": "Review & Optimierung",
+            "desc": "Wir prüfen die Ergebnisse, optimieren Prozesse kontinuierlich und sichern den Erfolg nachhaltig."
+        }
+    },
+    "faq": {
+        "title": "Häufige Fragen",
+        "pricing": {
+            "question": "Kostenstruktur",
+            "answer": "Unsere Projekte werden individuell kalkuliert. Die Kosten setzen sich aus Konzeption, Implementierung und laufendem Betrieb zusammen. Abgerechnet wird in der Regel projektbasiert oder als monatliches Service-Modell – abhängig vom Umfang und der Komplexität."
+        },
+        "timeline": {
+            "question": "Projektzeit & Ablauf",
+            "answer": "Ein typisches Projekt gliedert sich in Analyse, Konzeption, Umsetzung und Testphase. Erste Ergebnisse sind oft bereits nach wenigen Wochen sichtbar. Die Gesamtdauer ist projektabhängig und richtet sich nach Integrationsgrad und Funktionsumfang."
+        },
+        "maintenance": {
+            "question": "Wartung & Maintenance",
+            "answer": "Die laufende Wartung und Optimierung der Systeme wird vollständig von uns übernommen. Dazu gehören Monitoring, Performance-Optimierung, Sicherheitsupdates und Anpassungen an veränderte Geschäftsprozesse."
+        },
+        "integration": {
+            "question": "Integration & IT-Infrastruktur",
+            "answer": "Eine solide IT-Infrastruktur ist Voraussetzung für eine stabile Integration. Der Umfang der Anbindung an bestehende Systeme (z. B. ERP, CRM oder Datenbanken) ist projektabhängig und wird transparent geplant und entsprechend verrechnet."
+        }
+    },
+    "cta": {
+        "title": "Bereit für Automatisierung?",
+        "subtitle": "Sprich mit uns über dein Projekt oder buche direkt einen Termin.",
+        "booking": "Oder buche direkt ein kostenloses Erstgespräch:",
+        "bookButton": "Termin buchen"
+    },
+    "form": {
+        "name": "Dein Name",
+        "email": "Deine E-Mail",
+        "message": "Beschreibe dein Projekt (mind. 20 Zeichen)",
+        "submit": "Nachricht senden"
+    },
+    "booking": {
+        "title": "Buche dein kostenloses Erstgespräch",
+        "subtitle": "Wähle direkt einen Termin in unserem Live-Kalender."
+    },
+    "footer": {
+        "claim": "Ihr Partner für individuelle KI-Lösungen und Automatisierungen.",
+        "company": "Unternehmen",
+        "services": "Leistungen",
+        "benefits": "Vorteile",
+        "process": "Prozess",
+        "legal": "Rechtsdokumente",
+        "imprint": "Impressum",
+        "privacy": "Datenschutzerklärung",
+        "contact": "Kontakt",
+        "founders": "Gründer & Geschäftsführer",
+        "meeting": "Kostenloses Erstgespräch",
+        "copyright": "© 2026 AIzen Automation Agency. Alle Rechte vorbehalten."
+    }
+}

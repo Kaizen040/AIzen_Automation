@@ -32,14 +32,45 @@
             </a>
 
             <nav class="nav">
-                <a href="#services" data-link>Leistungen</a>
-                <a href="#project-timeline" data-link>Projektablauf</a>
+                <a href="#services" data-link data-i18n="nav.services">Leistungen</a>
+                <a href="#project-timeline" data-link data-i18n="nav.process">Projektablauf</a>
                 <a href="#faq" data-link>FAQ</a>
                 <a href="index.html">Home</a>
-                <a href="profilepage.html">KY</a>
+                <a href="#contact" data-i18n="nav.contact">Kontakt</a>
                 <a href="MMT5.html">MMT</a>
-                <a href="#contact">Kontakt</a>
-                <a href="http://cal.eu/muhammad-arakji-hnifmr/30min" class="nav-cta" data-link>Erstgespräch</a>
+                <a href="http://cal.eu/muhammad-arakji-hnifmr/30min" class="nav-cta" data-link
+                    data-i18n="nav.cta">Erstgespräch</a>
+
+                <!-- LANGUAGE SWITCHER -->
+                <div class="lang-switcher">
+                    <button class="lang-btn" id="langBtn">
+                        <svg class="lang-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="12" r="10" stroke-width="2" />
+                            <path
+                                d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                                stroke-width="2" />
+                        </svg>
+                        <span id="currentLang">DE</span>
+                        <svg class="lang-arrow" viewBox="0 0 12 8" fill="currentColor">
+                            <path d="M1 1l5 5 5-5" />
+                        </svg>
+                    </button>
+                    <div class="lang-dropdown" id="langDropdown">
+                        <button class="lang-option" data-lang="de">
+                            <span class="flag">🇩🇪</span>
+                            <span>Deutsch</span>
+                        </button>
+                        <button class="lang-option" data-lang="en">
+                            <span class="flag">🇬🇧</span>
+                            <span>English</span>
+                        </button>
+                        <button class="lang-option" data-lang="fr">
+                            <span class="flag">🇫🇷</span>
+                            <span>Français</span>
+                        </button>
+                    </div>
+                </div>
+
                 <span class="nav-indicator"></span>
             </nav>
         </div>
@@ -55,19 +86,19 @@
             <div class="hero-center hero-minimal">
                 <div class="hero-glow-line"></div>
 
-                <h1 class="hero-title">
+                <h1 class="hero-title" data-i18n-html="hero.title">
                     Wir bauen
                     <span class="highlight shine delay-1">smarte Systeme</span><br>
                     für Unternehmen, die
                     <span class="highlight shine delay-2">skalieren</span>
                 </h1>
 
-                <p class="hero-subtitle">
+                <p class="hero-subtitle" data-i18n="hero.subtitle">
                     KI- & Prozessautomatisierung für nachhaltigen, messbaren Business-Impact
                 </p>
 
                 <a href="#contact" class="hero-cta">
-                    <span>Erstgespräch buchen</span>
+                    <span data-i18n="hero.cta">Erstgespräch buchen</span>
                     <div class="cta-line"></div>
                 </a>
             </div>
@@ -75,7 +106,7 @@
 
         <!-- LOGO MARQUEE (KOMPAKT) -->
         <section class="logo-strip-section">
-            <h2 class="section-title">Unsere Kunden und Partner</h2>
+            <h2 class="section-title" data-i18n="clients.title">Unsere Kunden und Partner</h2>
             <div class="logo-strip">
                 <div class="logo-window">
                     <div class="logo-track">
@@ -102,8 +133,9 @@
 
         <!-- IHRE VORTEILE (APPLE STYLE) -->
         <section class="section benefits-section" id="aboutus">
-            <h2 class="section-title">Ihre Vorteile durch Automatisierung</h2>
-            <p class="section-subtitle">Messbare Effizienzsteigerung für Ihr Unternehmen</p>
+            <h2 class="section-title" data-i18n="benefits.title">Ihre Vorteile durch Automatisierung</h2>
+            <p class="section-subtitle" data-i18n="benefits.subtitle">Messbare Effizienzsteigerung für Ihr Unternehmen
+            </p>
 
             <div class="benefits-grid">
                 <div class="benefit-card">
@@ -113,10 +145,10 @@
                                 stroke-linejoin="round" />
                         </svg>
                     </div>
-                    <div class="benefit-stat">bis zu 70%</div>
-                    <h3>Zeitersparnis</h3>
-                    <p>Automatisierung wiederkehrender Prozesse spart wertvolle Arbeitszeit für strategische Aufgaben
-                    </p>
+                    <div class="benefit-stat">70%</div>
+                    <h3 data-i18n="benefits.time.title">Zeitersparnis</h3>
+                    <p data-i18n="benefits.time.desc">Automatisierung wiederkehrender Prozesse spart wertvolle
+                        Arbeitszeit für strategische Aufgaben</p>
                 </div>
 
                 <div class="benefit-card">
@@ -127,8 +159,9 @@
                         </svg>
                     </div>
                     <div class="benefit-stat">30-50%</div>
-                    <h3>Kostensenkung</h3>
-                    <p>Reduzierung operativer Kosten durch effiziente Workflow-Optimierung und Fehlerminimierung</p>
+                    <h3 data-i18n="benefits.cost.title">Kostensenkung</h3>
+                    <p data-i18n="benefits.cost.desc">Reduzierung operativer Kosten durch effiziente
+                        Workflow-Optimierung und Fehlerminimierung</p>
                 </div>
 
                 <div class="benefit-card">
@@ -138,9 +171,10 @@
                                 stroke-linejoin="round" />
                         </svg>
                     </div>
-                    <div class="benefit-stat">3x schneller</div>
-                    <h3>Skalierbarkeit</h3>
-                    <p>Wachsen Sie ohne zusätzliche Ressourcen – unsere Systeme skalieren mit Ihrem Geschäft</p>
+                    <div class="benefit-stat">3x</div>
+                    <h3 data-i18n="benefits.scale.title">Skalierbarkeit</h3>
+                    <p data-i18n="benefits.scale.desc">Wachsen Sie ohne zusätzliche Ressourcen – unsere Systeme
+                        skalieren mit Ihrem Geschäft</p>
                 </div>
 
                 <div class="benefit-card">
@@ -151,15 +185,16 @@
                         </svg>
                     </div>
                     <div class="benefit-stat">99,5%</div>
-                    <h3>Genauigkeit</h3>
-                    <p>KI-gestützte Prozesse eliminieren menschliche Fehler und erhöhen die Datenqualität</p>
+                    <h3 data-i18n="benefits.accuracy.title">Genauigkeit</h3>
+                    <p data-i18n="benefits.accuracy.desc">KI-gestützte Prozesse eliminieren menschliche Fehler und
+                        erhöhen die Datenqualität</p>
                 </div>
             </div>
         </section>
 
         <!-- SLIDING CONTENT -->
         <section id="services" class="section visible">
-            <h2 class="section-title">Unsere Leistungen</h2>
+            <h2 class="section-title" data-i18n="services.title">Unsere Leistungen</h2>
             <div class="slider">
 
                 <!-- SLIDES TRACK -->
@@ -172,19 +207,20 @@
                                 <img src="dashboard.jpg" alt="Dashboard">
                             </div>
                             <div class="slide-text">
-                                <h2>Intelligente Geschäftsprozessautomatisierung</h2>
-                                <p class="slide-lead">
+                                <h2 data-i18n="services.automation.title">Intelligente Geschäftsprozessautomatisierung
+                                </h2>
+                                <p class="slide-lead" data-i18n="services.automation.lead">
                                     Maßgeschneiderte KI-Automatisierung für operative Unternehmensprozesse.
                                 </p>
-                                <p>
+                                <p data-i18n="services.automation.desc">
                                     Wir automatisieren wiederkehrende Abläufe rund um Dokumente, Daten und Systeme – von
                                     Angebotserstellung über Excel-Workflows bis zur intelligenten Ordner- und
                                     Systemintegration. Individuell entwickelt, skalierbar umgesetzt.
                                 </p>
                                 <ul>
-                                    <li>Dokumentenbasierte KI (RAG)</li>
-                                    <li>CRM & Helpdesk Integration</li>
-                                    <li>Mehrsprachige Agenten</li>
+                                    <li data-i18n="services.automation.features.0">Dokumentenbasierte KI (RAG)</li>
+                                    <li data-i18n="services.automation.features.1">CRM & Helpdesk Integration</li>
+                                    <li data-i18n="services.automation.features.2">Mehrsprachige Agenten</li>
                                 </ul>
                             </div>
                         </div>
@@ -197,20 +233,21 @@
                                 <img src="chatbot1.png" alt="Chatbots">
                             </div>
                             <div class="slide-text">
-                                <h2>KI-Chatbots & Knowledge Systems</h2>
-                                <p class="slide-lead">
+                                <h2 data-i18n="services.chatbots.title">KI-Chatbots & Knowledge Systems</h2>
+                                <p class="slide-lead" data-i18n="services.chatbots.lead">
                                     Wissen, Support & Kundenkommunikation – automatisiert und präzise
                                 </p>
-                                <p>
+                                <p data-i18n="services.chatbots.desc">
                                     Vom Website-Chatbot bis zum internen RAG-Wissenssystem: Wir bauen KI, die
                                     Informationen
                                     versteht, kontextuell beantwortet und direkt mit euren Datenquellen arbeitet.
                                 </p>
                                 <ul>
-                                    <li>Website- & Kundenservice-Chatbots</li>
-                                    <li>RAG-Wissenssysteme für Unternehmen</li>
-                                    <li>Interne FAQ- & Dokumentenassistenten</li>
-                                    <li>Mehrsprachige KI-Kommunikation</li>
+                                    <li data-i18n="services.chatbots.features.0">Website- & Kundenservice-Chatbots</li>
+                                    <li data-i18n="services.chatbots.features.1">RAG-Wissenssysteme für Unternehmen</li>
+                                    <li data-i18n="services.chatbots.features.2">Interne FAQ- & Dokumentenassistenten
+                                    </li>
+                                    <li data-i18n="services.chatbots.features.3">Mehrsprachige KI-Kommunikation</li>
                                 </ul>
                             </div>
                         </div>
@@ -223,18 +260,18 @@
                                 <img src="digcoworker.png" alt="Agenten">
                             </div>
                             <div class="slide-text">
-                                <h2>KI-Agenten & Assistenzsysteme</h2>
-                                <p class="slide-lead">
+                                <h2 data-i18n="services.agents.title">KI-Agenten & Assistenzsysteme</h2>
+                                <p class="slide-lead" data-i18n="services.agents.lead">
                                     Digitale Assistenten für E-Mail, Systeme & tägliche Arbeitsabläufe
                                 </p>
-                                <p class="slide-lead">
+                                <p data-i18n="services.agents.desc">
                                     KI-Agenten, die nicht nur antworten – sondern handeln: E-Mails vorbereiten, Aufgaben
                                     steuern, Systeme bedienen und Prozesse aktiv vorantreiben.
                                 </p>
                                 <ul>
-                                    <li>Outlook- & E-Mail-Agenten</li>
-                                    <li>Aufgaben- & Termin-Automatisierung</li>
-                                    <li>Interne Workflow-Steuerung</li>
+                                    <li data-i18n="services.agents.features.0">Outlook- & E-Mail-Agenten</li>
+                                    <li data-i18n="services.agents.features.1">Aufgaben- & Termin-Automatisierung</li>
+                                    <li data-i18n="services.agents.features.2">Interne Workflow-Steuerung</li>
                                 </ul>
                             </div>
                         </div>
@@ -247,20 +284,20 @@
                                 <img src="sales.jpg" alt="Sales">
                             </div>
                             <div class="slide-text">
-                                <h2>Leadgewinnung & Growth Automation</h2>
-                                <p class="slide-lead">
+                                <h2 data-i18n="services.leads.title">Leadgewinnung & Growth Automation</h2>
+                                <p class="slide-lead" data-i18n="services.leads.lead">
                                     Automatisierte Lead-Pipelines & digitale Vertriebsprozesse
                                 </p>
-                                <p>
+                                <p data-i18n="services.leads.desc">
                                     Wir entwickeln intelligente Systeme zur Lead-Generierung, Qualifizierung und
                                     Übergabe –
                                     von Web Scraping bis CRM-Integration.
                                 </p>
                                 <ul>
-                                    <li>Web-Datenextraktion (z. B. Apify)</li>
-                                    <li>Lead-Scoring & Qualifizierung</li>
-                                    <li>CRM-Automatisierung</li>
-                                    <li>Outreach-Workflows</li>
+                                    <li data-i18n="services.leads.features.0">Web-Datenextraktion (z. B. Apify)</li>
+                                    <li data-i18n="services.leads.features.1">Lead-Scoring & Qualifizierung</li>
+                                    <li data-i18n="services.leads.features.2">CRM-Automatisierung</li>
+                                    <li data-i18n="services.leads.features.3">Outreach-Workflows</li>
                                 </ul>
                             </div>
                         </div>
@@ -273,20 +310,20 @@
                                 <img src="marketing.png" alt="Marketing">
                             </div>
                             <div class="slide-text">
-                                <h2>Content & Social Media Automation</h2>
-                                <p class="slide-lead">
+                                <h2 data-i18n="services.content.title">Content & Social Media Automation</h2>
+                                <p class="slide-lead" data-i18n="services.content.lead">
                                     Skalierte Inhalte für Marketing & digitale Präsenz
                                 </p>
-                                <p>
+                                <p data-i18n="services.content.desc">
                                     Automatisierte Content-Workflows für Social Media, Websites und Kampagnen – von
                                     Planung
                                     bis Veröffentlichung.
                                 </p>
                                 <ul>
-                                    <li>Posting-Automatisierung</li>
-                                    <li>Content-Generierung</li>
-                                    <li>Plattform-Workflows</li>
-                                    <li>Performance-Tracking</li>
+                                    <li data-i18n="services.content.features.0">Posting-Automatisierung</li>
+                                    <li data-i18n="services.content.features.1">Content-Generierung</li>
+                                    <li data-i18n="services.content.features.2">Plattform-Workflows</li>
+                                    <li data-i18n="services.content.features.3">Performance-Tracking</li>
                                 </ul>
                             </div>
                         </div>
@@ -294,9 +331,9 @@
 
                 </div>
 
-                <!-- CONTROLS -->
+                <!-- CONTROLS (FIX FÜR TABLET/IPAD) -->
                 <div class="slider-controls">
-                    <button id="pauseBtn" class="pause-btn">⏸</button>
+                    <button id="pauseBtn" class="pause-btn" aria-label="Pause">⏸</button>
 
                     <div class="dots">
                         <div class="dot active"></div>
@@ -312,7 +349,7 @@
 
         <!-- PROJEKT TIMELINE -->
         <section id="project-timeline" class="timeline-section">
-            <h2 class="section-title">Unser Projektprozess</h2>
+            <h2 class="section-title" data-i18n="timeline.title">Unser Projektprozess</h2>
             <div class="timeline-container">
                 <!-- Zentrale Linie -->
                 <div class="timeline-line">
@@ -323,8 +360,9 @@
                 <div class="timeline-item timeline-right">
                     <div class="timeline-icon">1</div>
                     <div class="timeline-content">
-                        <h3>Erstgespräch</h3>
-                        <p>Im Erstgespräch lernen wir uns kennen und besprechen, wie wir Ihr Unternehmen am besten
+                        <h3 data-i18n="timeline.step1.title">Erstgespräch</h3>
+                        <p data-i18n="timeline.step1.desc">Im Erstgespräch lernen wir uns kennen und besprechen, wie wir
+                            Ihr Unternehmen am besten
                             unterstützen können.</p>
                     </div>
                 </div>
@@ -332,16 +370,18 @@
                 <div class="timeline-item timeline-left">
                     <div class="timeline-icon">2</div>
                     <div class="timeline-content">
-                        <h3>Prozessanalyse</h3>
-                        <p>Wir analysieren Ihre bestehenden Prozesse und zeigen Ihnen Optimierungspotenziale auf.</p>
+                        <h3 data-i18n="timeline.step2.title">Prozessanalyse</h3>
+                        <p data-i18n="timeline.step2.desc">Wir analysieren Ihre bestehenden Prozesse und zeigen Ihnen
+                            Optimierungspotenziale auf.</p>
                     </div>
                 </div>
 
                 <div class="timeline-item timeline-right">
                     <div class="timeline-icon">3</div>
                     <div class="timeline-content">
-                        <h3>Umsetzung</h3>
-                        <p>Basierend auf einem individuellen Konzept setzen wir die Lösung um und betreuen Sie danach
+                        <h3 data-i18n="timeline.step3.title">Umsetzung</h3>
+                        <p data-i18n="timeline.step3.desc">Basierend auf einem individuellen Konzept setzen wir die
+                            Lösung um und betreuen Sie danach
                             als Partner.</p>
                     </div>
                 </div>
@@ -349,8 +389,9 @@
                 <div class="timeline-item timeline-left">
                     <div class="timeline-icon">4</div>
                     <div class="timeline-content">
-                        <h3>Review & Optimierung</h3>
-                        <p>Wir prüfen die Ergebnisse, optimieren Prozesse kontinuierlich und sichern den Erfolg
+                        <h3 data-i18n="timeline.step4.title">Review & Optimierung</h3>
+                        <p data-i18n="timeline.step4.desc">Wir prüfen die Ergebnisse, optimieren Prozesse kontinuierlich
+                            und sichern den Erfolg
                             nachhaltig.</p>
                     </div>
                 </div>
@@ -359,17 +400,17 @@
 
         <!-- FAQ / Q&A -->
         <section class="section faq" id="faq">
-            <h2 class="section-title">Häufige Fragen</h2>
+            <h2 class="section-title" data-i18n="faq.title">Häufige Fragen</h2>
 
             <div class="faq-list">
 
                 <div class="faq-item">
                     <button class="faq-question">
-                        <span>Kostenstruktur</span>
+                        <span data-i18n="faq.pricing.question">Kostenstruktur</span>
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>
+                        <p data-i18n="faq.pricing.answer">
                             Unsere Projekte werden individuell kalkuliert. Die Kosten setzen sich aus Konzeption,
                             Implementierung und laufendem Betrieb zusammen. Abgerechnet wird in der Regel projektbasiert
                             oder als monatliches Service-Modell – abhängig vom Umfang und der Komplexität.
@@ -379,11 +420,11 @@
 
                 <div class="faq-item">
                     <button class="faq-question">
-                        <span>Projektzeit & Ablauf</span>
+                        <span data-i18n="faq.timeline.question">Projektzeit & Ablauf</span>
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>
+                        <p data-i18n="faq.timeline.answer">
                             Ein typisches Projekt gliedert sich in Analyse, Konzeption, Umsetzung und Testphase.
                             Erste Ergebnisse sind oft bereits nach wenigen Wochen sichtbar. Die Gesamtdauer ist
                             projektabhängig und richtet sich nach Integrationsgrad und Funktionsumfang.
@@ -393,11 +434,11 @@
 
                 <div class="faq-item">
                     <button class="faq-question">
-                        <span>Wartung & Maintenance</span>
+                        <span data-i18n="faq.maintenance.question">Wartung & Maintenance</span>
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>
+                        <p data-i18n="faq.maintenance.answer">
                             Die laufende Wartung und Optimierung der Systeme wird vollständig von uns übernommen.
                             Dazu gehören Monitoring, Performance-Optimierung, Sicherheitsupdates und Anpassungen
                             an veränderte Geschäftsprozesse.
@@ -407,11 +448,11 @@
 
                 <div class="faq-item">
                     <button class="faq-question">
-                        <span>Integration & IT-Infrastruktur</span>
+                        <span data-i18n="faq.integration.question">Integration & IT-Infrastruktur</span>
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>
+                        <p data-i18n="faq.integration.answer">
                             Eine solide IT-Infrastruktur ist Voraussetzung für eine stabile Integration.
                             Der Umfang der Anbindung an bestehende Systeme (z. B. ERP, CRM oder Datenbanken)
                             ist projektabhängig und wird transparent geplant und entsprechend verrechnet.
@@ -425,16 +466,18 @@
         <!-- CTA / Kontakt Section (MIT LIVE VALIDATION) -->
         <section class="cta-section visible" id="contact">
             <div class="cta-container">
-                <h2>Bereit für Automatisierung?</h2>
-                <p>Sprich mit uns über dein Projekt oder buche direkt einen Termin.</p>
+                <h2 data-i18n="cta.title">Bereit für Automatisierung?</h2>
+                <p data-i18n="cta.subtitle">Sprich mit uns über dein Projekt oder buche direkt einen Termin.</p>
 
                 <div class="cta-content">
 
                     <!-- Kontaktformular -->
                     <form class="cta-form" id="contactForm">
-                        <input type="text" name="name" id="nameInput" placeholder="Dein Name" required>
-                        <input type="email" name="email" id="emailInput" placeholder="Deine E-Mail" required>
-                        <textarea name="message" id="messageInput" rows="6"
+                        <input type="text" name="name" id="nameInput" data-i18n-placeholder="form.name"
+                            placeholder="Dein Name" required>
+                        <input type="email" name="email" id="emailInput" data-i18n-placeholder="form.email"
+                            placeholder="Deine E-Mail" required>
+                        <textarea name="message" id="messageInput" rows="6" data-i18n-placeholder="form.message"
                             placeholder="Beschreibe dein Projekt (mind. 20 Zeichen)" required></textarea>
 
                         <!-- AI Hint Message -->
@@ -445,14 +488,15 @@
                             <div class="upload-progress" id="uploadProgress"></div>
                         </div>
 
-                        <button type="submit" class="cta-button" id="submitBtn">Nachricht senden</button>
+                        <button type="submit" class="cta-button" id="submitBtn" data-i18n="form.submit">Nachricht
+                            senden</button>
                     </form>
 
                     <!-- Direkt Buchungsbutton -->
                     <div class="cta-booking">
-                        <p>Oder buche direkt ein kostenloses Erstgespräch:</p>
-                        <a href="http://cal.eu/muhammad-arakji-hnifmr/30min" target="_blank" class="cta-button">Termin
-                            buchen</a>
+                        <p data-i18n="cta.booking">Oder buche direkt ein kostenloses Erstgespräch:</p>
+                        <a href="http://cal.eu/muhammad-arakji-hnifmr/30min" target="_blank" class="cta-button"
+                            data-i18n="cta.bookButton">Termin buchen</a>
                     </div>
 
                 </div>
@@ -461,8 +505,8 @@
 
         <!-- ERSTGESPRAECH -->
         <section id="booking">
-            <h2 class="section-title">Buche dein kostenloses Erstgespräch</h2>
-            <p class="section-subtitle">
+            <h2 class="section-title" data-i18n="booking.title">Buche dein kostenloses Erstgespräch</h2>
+            <p class="section-subtitle" data-i18n="booking.subtitle">
                 Wähle direkt einen Termin in unserem Live-Kalender.
             </p>
 
@@ -478,7 +522,7 @@
                     <div class="footer-logo">
                         <span class="logo-ai">AI</span>zen Automation Agency
                     </div>
-                    <p class="footer-claim">
+                    <p class="footer-claim" data-i18n="footer.claim">
                         Ihr Partner für individuelle KI-Lösungen und Automatisierungen.
                     </p>
 
@@ -491,34 +535,35 @@
 
                 <!-- Unternehmen -->
                 <div class="footer-col">
-                    <h4>Unternehmen</h4>
+                    <h4 data-i18n="footer.company">Unternehmen</h4>
                     <ul>
-                        <li><a href="#services">Leistungen</a></li>
-                        <li><a href="#aboutus">Vorteile</a></li>
-                        <li><a href="#project-timeline">Prozess</a></li>
+                        <li><a href="#services" data-i18n="footer.services">Leistungen</a></li>
+                        <li><a href="#aboutus" data-i18n="footer.benefits">Vorteile</a></li>
+                        <li><a href="#project-timeline" data-i18n="footer.process">Prozess</a></li>
                         <li><a href="#faq">FAQs</a></li>
                     </ul>
                 </div>
 
                 <!-- Rechtliches -->
                 <div class="footer-col">
-                    <h4>Rechtsdokumente</h4>
+                    <h4 data-i18n="footer.legal">Rechtsdokumente</h4>
                     <ul>
-                        <li><a href="impressum.html">Impressum</a></li>
-                        <li><a href="datenschutz.html">Datenschutzerklärung</a></li>
+                        <li><a href="impressum.html" data-i18n="footer.imprint">Impressum</a></li>
+                        <li><a href="datenschutz.html" data-i18n="footer.privacy">Datenschutzerklärung</a></li>
                     </ul>
                 </div>
 
                 <!-- Kontakt -->
                 <div class="footer-col footer-contact">
-                    <h4>Kontakt</h4>
+                    <h4 data-i18n="footer.contact">Kontakt</h4>
 
                     <p class="footer-names">
-                        Kaan Yuyucu &amp; Kaan Yuyucu<br />
-                        <span>Gründer &amp; Geschäftsführer</span>
+                        Kaan Yuyucu &amp; Muhammad Arakji<br />
+                        <span data-i18n="footer.founders">Gründer &amp; Geschäftsführer</span>
                     </p>
 
-                    <a class="footer-cta" href="http://cal.eu/muhammad-arakji-hnifmr/30min" target="_blank">
+                    <a class="footer-cta" href="http://cal.eu/muhammad-arakji-hnifmr/30min" target="_blank"
+                        data-i18n="footer.meeting">
                         Kostenloses Erstgespräch
                     </a>
 
@@ -533,7 +578,7 @@
             <!-- Bottom Bar -->
             <div class="footer-bottom">
                 <div class="container">
-                    <span>© 2026 AIzen Automation Agency. Alle Rechte vorbehalten.</span>
+                    <span data-i18n="footer.copyright">© 2026 AIzen Automation Agency. Alle Rechte vorbehalten.</span>
                 </div>
             </div>
         </footer>
@@ -541,6 +586,10 @@
     </main>
 
     <!-- ================= SCRIPTS ================= -->
+    <script src="navigation.js"></script>
+
+    <!-- i18n Translation Engine -->
+    <script src="i18n.js"></script>
 
     <!-- Scroll Reveal -->
     <script>
@@ -791,7 +840,6 @@
             const uploadProgress = document.getElementById('uploadProgress');
             const submitBtn = document.getElementById('submitBtn');
 
-            // ⚠️ BITTE ERSETZEN MIT EUREN ECHTEN n8n WEBHOOK URLs
             const webhookUrl = 'https://n8n.srv1220381.hstgr.cloud/webhook/40212262-ca22-46a0-8fb8-f2d192c4697c';
             const aiHintUrl = 'https://n8n.srv1220381.hstgr.cloud/webhook/ai-hint';
 
@@ -823,19 +871,17 @@
                         },
                         body: JSON.stringify({ text })
                     })
-                        .then(res => res.text()) // erst als TEXT lesen
+                        .then(res => res.text())
                         .then(raw => {
                             let hint = null;
 
                             try {
                                 const data = JSON.parse(raw);
 
-                                // FORMAT 1: {"hint":"..."}
                                 if (data.hint) {
                                     hint = data.hint;
                                 }
 
-                                // FORMAT 2: Array-Response von n8n / LLM
                                 else if (
                                     Array.isArray(data) &&
                                     data[0]?.content?.parts?.[0]?.text
@@ -954,8 +1000,6 @@
             }
         });
     </script>
-
-    <script src="navigation.js"></script>
 
 </body>
 

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Alle Vokabeln</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <header>
+        <strong>🇫🇷 French Trainer</strong>
+        <nav>
+            <a href="vocab2.html">Eingabe</a>
+            <a href="vocab_show.html" class="active">Vokabeln</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2>Alle gespeicherten Vokabeln</h2>
+            <button id="loadVocab">Vokabeln laden</button>
+            <input type="text" id="filterInput" placeholder="Filtern nach Französisch oder Englisch...">
+            <table id="vocabTable">
+                <thead>
+                    <tr>
+                        <th>Français</th>
+                        <th>Anglais</th>
+                        <th>Phrase</th>
+                        <th>Datum</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const WEBHOOK_GET_ALL = "https://n8n.srv1220381.hstgr.cloud/webhook/65902228-7703-4dad-a898-ab8cfd33c107";
+        const tbody = document.querySelector("#vocabTable tbody");
+        const filterInput = document.getElementById('filterInput');
+        let vocabData = [];
+
+        function renderTable(data) {
+            tbody.innerHTML = "";
+            if (!data.length) {
+                tbody.innerHTML = "<tr><td colspan='4'>Keine Einträge gefunden</td></tr>";
+                return;
+            }
+            data.forEach(r => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                <td>${r.francais}</td>
+                <td>${r.anglais}</td>
+                <td>${r.Phrase || ""}</td>
+                <td>${new Date(r.Timestamp).toLocaleDateString()}</td>
+            `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        document.getElementById('loadVocab').addEventListener('click', () => {
+            tbody.innerHTML = "<tr><td colspan='4'>Lade...</td></tr>";
+            fetch(WEBHOOK_GET_ALL)
+                .then(res => res.json())
+                .then(data => {
+                    vocabData = data.rows || [];
+                    renderTable(vocabData);
+                })
+                .catch(err => {
+                    tbody.innerHTML = "<tr><td colspan='4'>Fehler beim Laden</td></tr>";
+                    console.error(err);
+                });
+        });
+
+        filterInput.addEventListener('input', () => {
+            const filter = filterInput.value.toLowerCase();
+            const filtered = vocabData.filter(r =>
+                (r.francais && r.francais.toLowerCase().includes(filter)) ||
+                (r.anglais && r.anglais.toLowerCase().includes(filter))
+            );
+            renderTable(filtered);
+        });
+    </script>
+
+</body>
+
+</html>

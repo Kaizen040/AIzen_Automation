@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIzen – Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="AIzen.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- Topbar Navigation -->
+    <header class="topbar">
+        <div class="topbar-left">
+            <img src="AIzen.png" class="topbar-logo" alt="AIzen Logo">
+            <span class="topbar-title">AIzen Vokabeltrainer</span>
+        </div>
+
+        <nav class="topbar-nav">
+            <a href="vocab3.html" class="nav-link">
+                <span class="nav-icon">✏️</span>
+                <span>Trainer</span>
+            </a>
+            <a href="vocab_show.html" class="nav-link">
+                <span class="nav-icon">📚</span>
+                <span>Alle Vokabeln</span>
+            </a>
+            <a href="dashboard.html" class="nav-link active">
+                <span class="nav-icon">📊</span>
+                <span>Dashboard</span>
+            </a>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <div class="dashboard-header">
+            <h1 class="section-heading">📊 Dein Lernfortschritt</h1>
+            <button class="btn btn-primary" id="refreshBtn">
+                <span class="btn-icon">🔄</span>
+                Daten aktualisieren
+            </button>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📚</div>
+                <div class="stat-value" id="totalVocabs">-</div>
+                <div class="stat-label">Gesamte Vokabeln</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">📝</div>
+                <div class="stat-value" id="totalPhrases">-</div>
+                <div class="stat-label">Mit Phrasen</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">🔥</div>
+                <div class="stat-value" id="uniqueDays">-</div>
+                <div class="stat-label">Tage aktiv</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">📅</div>
+                <div class="stat-value" id="lastActivity">-</div>
+                <div class="stat-label">Letzte Aktivität</div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3>📈 Vokabeln über Zeit</h3>
+                <canvas id="timelineChart"></canvas>
+            </div>
+            
+            <div class="chart-card">
+                <h3>🗓️ Aktivität nach Wochentag</h3>
+                <canvas id="weekdayChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="activity-card">
+            <h3 class="section-heading">🕒 Letzte Aktivitäten</h3>
+            <div id="activityList" class="activity-list">
+                <!-- Wird dynamisch gefüllt -->
+            </div>
+        </div>
+
+        <!-- Top Vocabs -->
+        <div class="vocab-list-card">
+            <h3 class="section-heading">⭐ Neueste Vokabeln</h3>
+            <div class="table-wrapper">
+                <table class="vocab-table vocab-display-table" id="recentVocabTable">
+                    <thead>
+                        <tr>
+                            <th>Français</th>
+                            <th>Anglais</th>
+                            <th>Phrase</th>
+                            <th>Datum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="loading-row">
+                            <td colspan="4">Lade Daten...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const WEBHOOK_GET_ALL = "https://n8n.srv1220381.hstgr.cloud/webhook/65902228-7703-4dad-a898-ab8cfd33c107";
+        let vocabData = [];
+        let charts = {};
+
+        /* ============ Fetch Data ============ */
+        async function fetchDashboardData() {
+            try {
+                const response = await fetch(WEBHOOK_GET_ALL);
+                const data = await response.json();
+                vocabData = data.rows || [];
+                
+                updateStats();
+                updateCharts();
+                updateRecentActivity();
+                updateRecentVocabs();
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                alert('Fehler beim Laden der Dashboard-Daten');
+            }
+        }
+
+        /* ============ Update Stats ============ */
+        function updateStats() {
+            // Total Vocabs
+            document.getElementById('totalVocabs').textContent = vocabData.length;
+
+            // Vocabs with Phrases
+            const withPhrases = vocabData.filter(v => v.Phrase && v.Phrase.trim()).length;
+            document.getElementById('totalPhrases').textContent = withPhrases;
+
+            // Unique Days
+            const uniqueDates = new Set(
+                vocabData
+                    .filter(v => v.Timestamp)
+                    .map(v => new Date(v.Timestamp).toDateString())
+            );
+            document.getElementById('uniqueDays').textContent = uniqueDates.size;
+
+            // Last Activity
+            if (vocabData.length > 0) {
+                const dates = vocabData
+                    .filter(v => v.Timestamp)
+                    .map(v => new Date(v.Timestamp))
+                    .sort((a, b) => b - a);
+                
+                if (dates.length > 0) {
+                    const lastDate = dates[0];
+                    const daysAgo = Math.floor((new Date() - lastDate) / (1000 * 60 * 60 * 24));
+                    
+                    if (daysAgo === 0) {
+                        document.getElementById('lastActivity').textContent = 'Heute';
+                    } else if (daysAgo === 1) {
+                        document.getElementById('lastActivity').textContent = 'Gestern';
+                    } else {
+                        document.getElementById('lastActivity').textContent = `vor ${daysAgo}d`;
+                    }
+                }
+            }
+        }
+
+        /* ============ Update Charts ============ */
+        function updateCharts() {
+            // Destroy existing charts
+            Object.values(charts).forEach(chart => chart.destroy());
+            charts = {};
+
+            if (vocabData.length === 0) return;
+
+            // Timeline Chart - Cumulative vocabs over time
+            const timelineData = {};
+            vocabData.forEach(v => {
+                if (v.Timestamp) {
+                    const date = new Date(v.Timestamp).toLocaleDateString('de-DE');
+                    timelineData[date] = (timelineData[date] || 0) + 1;
+                }
+            });
+
+            const sortedDates = Object.keys(timelineData).sort((a, b) => {
+                return new Date(a.split('.').reverse().join('-')) - new Date(b.split('.').reverse().join('-'));
+            });
+
+            let cumulative = 0;
+            const cumulativeData = sortedDates.map(date => {
+                cumulative += timelineData[date];
+                return cumulative;
+            });
+
+            const timelineCtx = document.getElementById('timelineChart').getContext('2d');
+            charts.timeline = new Chart(timelineCtx, {
+                type: 'line',
+                data: {
+                    labels: sortedDates,
+                    datasets: [{
+                        label: 'Gesamte Vokabeln',
+                        data: cumulativeData,
+                        borderColor: '#5b8cff',
+                        backgroundColor: 'rgba(91, 140, 255, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)',
+                                maxRotation: 45,
+                                minRotation: 45
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Weekday Chart
+            const weekdays = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+            const weekdayData = [0, 0, 0, 0, 0, 0, 0];
+            
+            vocabData.forEach(v => {
+                if (v.Timestamp) {
+                    const day = new Date(v.Timestamp).getDay();
+                    weekdayData[day]++;
+                }
+            });
+
+            const weekdayCtx = document.getElementById('weekdayChart').getContext('2d');
+            charts.weekday = new Chart(weekdayCtx, {
+                type: 'bar',
+                data: {
+                    labels: weekdays,
+                    datasets: [{
+                        label: 'Vokabeln',
+                        data: weekdayData,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)',
+                            'rgba(199, 199, 199, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(199, 199, 199, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)',
+                                stepSize: 1
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        /* ============ Update Recent Activity ============ */
+        function updateRecentActivity() {
+            const activityList = document.getElementById('activityList');
+            
+            if (vocabData.length === 0) {
+                activityList.innerHTML = '<div class="empty-state">Noch keine Aktivitäten</div>';
+                return;
+            }
+
+            // Group by date
+            const grouped = {};
+            vocabData.forEach(v => {
+                if (v.Timestamp) {
+                    const date = new Date(v.Timestamp).toLocaleDateString('de-DE');
+                    if (!grouped[date]) grouped[date] = [];
+                    grouped[date].push(v);
+                }
+            });
+
+            const sortedDates = Object.keys(grouped).sort((a, b) => {
+                return new Date(b.split('.').reverse().join('-')) - new Date(a.split('.').reverse().join('-'));
+            }).slice(0, 5);
+
+            activityList.innerHTML = sortedDates.map(date => {
+                const count = grouped[date].length;
+                return `
+                    <div class="activity-item">
+                        <div class="activity-icon">📝</div>
+                        <div class="activity-content">
+                            <div class="activity-title">${count} Vokabel${count > 1 ? 'n' : ''} hinzugefügt</div>
+                            <div class="activity-date">${date}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        /* ============ Update Recent Vocabs Table ============ */
+        function updateRecentVocabs() {
+            const tbody = document.querySelector('#recentVocabTable tbody');
+            
+            if (vocabData.length === 0) {
+                tbody.innerHTML = '<tr class="empty-state"><td colspan="4">Noch keine Vokabeln</td></tr>';
+                return;
+            }
+
+            const recent = vocabData
+                .filter(v => v.Timestamp)
+                .sort((a, b) => new Date(b.Timestamp) - new Date(a.Timestamp))
+                .slice(0, 10);
+
+            tbody.innerHTML = recent.map(v => `
+                <tr>
+                    <td><strong>${v.francais || '-'}</strong></td>
+                    <td>${v.anglais || '-'}</td>
+                    <td><em>${v.Phrase || '-'}</em></td>
+                    <td>${new Date(v.Timestamp).toLocaleDateString('de-DE')}</td>
+                </tr>
+            `).join('');
+        }
+
+        /* ============ Refresh Button ============ */
+        document.getElementById('refreshBtn').addEventListener('click', () => {
+            document.getElementById('refreshBtn').disabled = true;
+            document.getElementById('refreshBtn').innerHTML = '<span class="btn-icon">⏳</span> Lädt...';
+            
+            fetchDashboardData().then(() => {
+                document.getElementById('refreshBtn').disabled = false;
+                document.getElementById('refreshBtn').innerHTML = '<span class="btn-icon">🔄</span> Daten aktualisieren';
+            });
+        });
+
+        /* ============ Load on Page Load ============ */
+        window.addEventListener('DOMContentLoaded', () => {
+            fetchDashboardData();
+        });
+    </script>
+
+</body>
+
+</html>

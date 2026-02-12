@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIzen – Vokabeltrainer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="AIzen.png">
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="topbar-left">
+            <img src="AIzen.png" class="topbar-logo" alt="AIzen Logo">
+            <span class="topbar-title">AIzen Vokabeltrainer</span>
+        </div>
+
+        <nav class="topbar-nav">
+            <a href="vocab3.html" class="nav-link active">
+                <span class="nav-icon">✏️</span>
+                <span>Trainer</span>
+            </a>
+            <a href="vocab_show.html" class="nav-link">
+                <span class="nav-icon">📚</span>
+                <span>Alle Vokabeln</span>
+            </a>
+            <a href="dashboard.html" class="nav-link">
+                <span class="nav-icon">📊</span>
+                <span>Dashboard</span>
+            </a>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <div class="vocab-form-card">
+
+            <h2 class="section-heading">Französische Vokabeln eingeben</h2>
+            <p class="section-description">
+                Fülle die Tabelle aus und generiere eine französische Kurzgeschichte mit deinen Vokabeln.
+            </p>
+
+            <table class="vocab-table">
+                <thead>
+                    <tr>
+                        <th>Français</th>
+                        <th>Anglais</th>
+                        <th>Phrase (optional)</th>
+                    </tr>
+                </thead>
+                <tbody id="rows"></tbody>
+            </table>
+
+            <div class="button-group" style="margin-top:30px;">
+                <button class="btn btn-primary" id="submitBtn">
+                    <span class="btn-icon">✨</span>
+                    Kurzgeschichte generieren
+                </button>
+                <button class="btn btn-secondary" id="clearBtn">
+                    <span class="btn-icon">🗑️</span>
+                    Tabelle leeren
+                </button>
+            </div>
+
+            <!-- ================= LOADER ================= -->
+            <div id="loader" class="loader hidden">
+
+                <!-- Spark Loader -->
+                <canvas id="sparkCanvas" width="300" height="80"></canvas>
+
+                <!-- Neuer Progress Balken -->
+                <div class="progress-wrapper">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">0%</div>
+                </div>
+
+                <p class="loader-text">AIzen schreibt deine Geschichte...</p>
+                <p class="loader-subtext">Das kann 30–60 Sekunden dauern</p>
+            </div>
+
+        </div>
+
+        <!-- Info Card -->
+        <div class="info-card">
+            <h3>💡 Tipps</h3>
+            <ul>
+                <li>Fülle mindestens 3–5 Vokabeln aus</li>
+                <li>Die Phrase ist optional, hilft aber beim Kontext</li>
+                <li>Du kannst jederzeit neue Vokabeln hinzufügen</li>
+                <li>Alle Vokabeln werden automatisch gespeichert</li>
+            </ul>
+        </div>
+
+        <!-- ================= STORY SECTION ================= -->
+        <div class="text-display-card compact hidden" id="generatedSection">
+
+            <h2 class="section-heading">📖 Generierte Geschichte</h2>
+
+            <div class="text-section">
+                <div class="section-header">
+                    <h3>🇫🇷 Französischer Text</h3>
+                    <button id="ttsBtn" class="icon-btn">🔊</button>
+                </div>
+                <div id="generatedText" class="text-content french-text"></div>
+            </div>
+
+            <div class="translation-section">
+                <button id="translationToggle" class="translation-toggle">
+                    <span class="toggle-icon">▶</span>
+                    <span>Deutsche Übersetzung anzeigen</span>
+                </button>
+
+                <div id="translationContent" class="translation-content hidden">
+                    <div class="text-section translation-box">
+                        <h3>🇩🇪 Deutsche Übersetzung</h3>
+                        <div id="translatedText" class="text-content"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button id="copyFrenchBtn" class="btn btn-secondary">
+                    📋 Französisch kopieren
+                </button>
+                <button id="copyGermanBtn" class="btn btn-secondary">
+                    📋 Deutsch kopieren
+                </button>
+                <button id="nextSetBtn" class="btn btn-primary">
+                    ➕ Nächstes Set starten
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        const ROW_COUNT = 15;
+        const WEBHOOK_URL = "https://n8n.srv1220381.hstgr.cloud/webhook/4575a119-a0ee-4bf6-9cea-627aa5217998";
+
+        const tbody = document.getElementById("rows");
+        const submitBtn = document.getElementById("submitBtn");
+        const clearBtn = document.getElementById("clearBtn");
+        const loader = document.getElementById("loader");
+        const generatedSection = document.getElementById("generatedSection");
+        const generatedTextDiv = document.getElementById("generatedText");
+        const translatedTextDiv = document.getElementById("translatedText");
+
+        const progressFill = document.getElementById("progressFill");
+        const progressText = document.getElementById("progressText");
+
+        /* ============ Tabelle erzeugen ============ */
+        for (let i = 0; i < ROW_COUNT; i++) {
+            tbody.insertAdjacentHTML("beforeend", `
+        <tr>
+            <td><input type="text" class="table-input"></td>
+            <td><input type="text" class="table-input"></td>
+            <td><input type="text" class="table-input"></td>
+        </tr>
+    `);
+        }
+
+        /* ============ Tabelle leeren ============ */
+        clearBtn.addEventListener("click", () => {
+            if (confirm("Möchtest du wirklich alle Eingaben löschen?")) {
+                tbody.querySelectorAll("input").forEach(input => input.value = "");
+            }
+        });
+
+        /* ============ Progress Simulation ============ */
+        let progressInterval;
+
+        function startProgress() {
+            let progress = 0;
+            progressInterval = setInterval(() => {
+                progress += 1;
+                if (progress >= 95) progress = 95;
+                progressFill.style.width = progress + "%";
+                progressText.innerText = progress + "%";
+            }, 400);
+        }
+
+        function finishProgress() {
+            clearInterval(progressInterval);
+            progressFill.style.width = "100%";
+            progressText.innerText = "100%";
+        }
+
+        /* ============ Submit ============ */
+        submitBtn.addEventListener("click", async () => {
+
+            const rows = [...tbody.querySelectorAll("tr")]
+                .map(tr => {
+                    const inputs = tr.querySelectorAll("input");
+                    return {
+                        francais: inputs[0].value.trim(),
+                        anglais: inputs[1].value.trim(),
+                        phrase: inputs[2].value.trim()
+                    };
+                })
+                .filter(r => r.francais || r.anglais || r.phrase);
+
+            if (!rows.length) {
+                alert("Bitte mindestens eine Zeile ausfüllen.");
+                return;
+            }
+
+            loader.classList.remove("hidden");
+            startProgress();
+
+            try {
+                const response = await fetch(WEBHOOK_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ rows })
+                });
+
+                const data = await response.json();
+
+                finishProgress();
+
+                setTimeout(() => {
+                    loader.classList.add("hidden");
+                    generatedTextDiv.innerText = data.generatedText || "";
+                    translatedTextDiv.innerText = data.translatedText || "";
+                    generatedSection.classList.remove("hidden");
+                    window.scrollTo({ top: generatedSection.offsetTop - 80, behavior: "smooth" });
+                }, 600);
+
+            } catch (err) {
+                loader.classList.add("hidden");
+                alert("Fehler beim Generieren.");
+            }
+        });
+
+        /* ============ Next Set ============ */
+        document.getElementById("nextSetBtn").addEventListener("click", () => {
+            generatedSection.classList.add("hidden");
+            tbody.querySelectorAll("input").forEach(input => input.value = "");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        /* ============ Translation Toggle ============ */
+        const translationToggle = document.getElementById('translationToggle');
+        const translationContent = document.getElementById('translationContent');
+        const toggleIcon = translationToggle.querySelector('.toggle-icon');
+
+        translationToggle.addEventListener('click', () => {
+            const hidden = translationContent.classList.contains('hidden');
+            translationContent.classList.toggle('hidden');
+            toggleIcon.textContent = hidden ? '▼' : '▶';
+        });
+
+        /* ============ TTS ============ */
+        document.getElementById('ttsBtn').addEventListener('click', () => {
+            const utterance = new SpeechSynthesisUtterance(generatedTextDiv.innerText);
+            utterance.lang = 'fr-FR';
+            speechSynthesis.speak(utterance);
+        });
+
+        /* ============ Copy ============ */
+        document.getElementById('copyFrenchBtn')
+            .addEventListener('click', () =>
+                navigator.clipboard.writeText(generatedTextDiv.innerText));
+
+        document.getElementById('copyGermanBtn')
+            .addEventListener('click', () =>
+                navigator.clipboard.writeText(translatedTextDiv.innerText));
+
+    </script>
+
+</body>
+
+</html>

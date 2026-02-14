@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>KI-Studien-Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="durchschnitt.css" />
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- HEADER -->
+        <header class="header">
+            <h1>📊 KI-Studien-Dashboard</h1>
+            <p>Modul-Tracking · Kategorien · Semester-Trends · KI-Analyse</p>
+        </header>
+
+        <!-- ===================== STEP 1 ====================== -->
+        <section class="card" id="step1">
+            <h2>Willkommen</h2>
+            <div class="field">
+                <label>Dein Name</label>
+                <input type="text" id="User" required placeholder="z.B. Kaan" />
+            </div>
+            <button id="nextStep">Weiter</button>
+        </section>
+
+        <!-- ===================== STEP 2 ====================== -->
+        <section class="card" id="step2" style="display:none;">
+            <h2>Neues Modul hinzufügen</h2>
+
+            <form id="gradeForm">
+                <div class="grid">
+                    <div class="field">
+                        <label>Modulname</label>
+                        <input type="text" id="newModule" required placeholder="z.B. VWL" />
+                    </div>
+
+                    <div class="field">
+                        <label>Note</label>
+                        <input type="number" step="0.01" id="newGrade" required placeholder="z.B. 1.7" />
+                    </div>
+
+                    <div class="field">
+                        <label>Credits</label>
+                        <input type="number" step="1" id="newCredits" required placeholder="z.B. 6" />
+                    </div>
+
+                    <div class="field">
+                        <label>Kategorie</label>
+                        <select id="category" required>
+                            <option value="">Bitte auswählen</option>
+                            <option value="Wirtschaft">Wirtschaft</option>
+                            <option value="Logistik">Logistik</option>
+                            <option value="Informatik">Informatik</option>
+                            <option value="Technik">Technik</option>
+                            <option value="Mathe">Mathe</option>
+                            <option value="Sonstiges">Sonstiges</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>Semester</label>
+                        <input type="text" id="semester" required placeholder="z.B. WS 2024 / SS 2025" />
+                    </div>
+                </div>
+
+                <button type="submit">Berechnen & Speichern</button>
+            </form>
+        </section>
+
+        <!-- ===================== DASHBOARD ====================== -->
+        <section class="card result" id="resultCard" style="display:none;">
+            <h2>Dashboard</h2>
+
+            <!-- KPI -->
+            <div class="stats">
+                <div class="stat">
+                    <span>Neuer Schnitt</span>
+                    <strong id="newAvg">–</strong>
+                </div>
+                <div class="stat">
+                    <span>Trend</span>
+                    <strong id="globalTrend">–</strong>
+                </div>
+                <div class="stat">
+                    <span>Credits</span>
+                    <strong id="totalCredits">–</strong>
+                </div>
+            </div>
+
+            <!-- KI -->
+            <div class="ai-box">
+                <h3>🤖 KI-Agent Kommentar</h3>
+                <p id="aiComment">–</p>
+            </div>
+
+            <!-- Semester Chart -->
+            <div class="chart-box">
+                <h3>📈 Notenverlauf pro Semester</h3>
+                <canvas id="semesterChart"></canvas>
+            </div>
+
+            <!-- Semester Trends -->
+            <div class="trend-box">
+                <h3>Studien-Trend</h3>
+                <ul id="trendList"></ul>
+            </div>
+
+            <!-- Kategorien -->
+            <div class="chart-box">
+                <h3>Kategorien-Performance</h3>
+                <div id="categoryChart"></div>
+            </div>
+
+            <!-- Module -->
+            <div class="module-list">
+                <h3>Alle Module</h3>
+                <ul id="moduleList"></ul>
+            </div>
+
+        </section>
+
+        <footer class="footer">
+            <p>Powered by n8n Webhook + KI-Agent</p>
+        </footer>
+
+    </div>
+
+    <!-- ===================== SCRIPT ====================== -->
+    <script>
+        const WEBHOOK_URL = "https://n8n.srv1220381.hstgr.cloud/webhook/be6636ba-d0ad-4197-a7e0-48a79f25eb54";
+
+        const step1 = document.getElementById("step1");
+        const step2 = document.getElementById("step2");
+        const nextStepBtn = document.getElementById("nextStep");
+        const form = document.getElementById("gradeForm");
+        const resultCard = document.getElementById("resultCard");
+
+        let currentUser = "";
+        let semesterChart = null;
+
+        // ------------------ STEP FLOW ------------------
+        nextStepBtn.addEventListener("click", () => {
+            const userInput = document.getElementById("User").value.trim();
+            if (!userInput) {
+                alert("Bitte gib deinen Namen ein.");
+                return;
+            }
+
+            currentUser = userInput;
+            step1.style.display = "none";
+            step2.style.display = "block";
+        });
+
+        // ------------------ CATEGORY BARS ------------------
+        function renderCategoryChart(categories) {
+            const container = document.getElementById("categoryChart");
+            container.innerHTML = "";
+
+            if (!Array.isArray(categories)) return;
+
+            const maxValue = Math.max(...categories.map(c => c.average));
+
+            categories.forEach(cat => {
+                const row = document.createElement("div");
+                row.className = "cat-row";
+
+                const label = document.createElement("div");
+                label.className = "cat-label";
+                label.innerText = cat.name;
+
+                const barWrapper = document.createElement("div");
+                barWrapper.className = "cat-bar-wrapper";
+
+                const bar = document.createElement("div");
+                const widthPercent = (cat.average / maxValue) * 100;
+                bar.className = "cat-bar";
+                bar.style.width = widthPercent + "%";
+
+                const value = document.createElement("div");
+                value.className = "cat-value";
+                value.innerText = cat.average.toFixed(2);
+
+                barWrapper.appendChild(bar);
+                row.appendChild(label);
+                row.appendChild(barWrapper);
+                row.appendChild(value);
+                container.appendChild(row);
+            });
+        }
+
+        // ------------------ TREND LIST ------------------
+        function renderTrendList(semesters) {
+            const list = document.getElementById("trendList");
+            list.innerHTML = "";
+
+            semesters.forEach(s => {
+                const li = document.createElement("li");
+
+                let icon = "➖";
+                if (s.trend === "improving") icon = "📈";
+                if (s.trend === "declining") icon = "📉";
+
+                li.innerHTML = `
+      <span>${icon} ${s.name}</span>
+      <strong>Ø ${s.average.toFixed(2)}</strong>
+    `;
+
+                list.appendChild(li);
+            });
+        }
+
+        // ------------------ SEMESTER CHART ------------------
+        function renderSemesterChart(semesters) {
+            const ctx = document.getElementById("semesterChart");
+
+            const labels = semesters.map(s => s.name);
+            const values = semesters.map(s => s.average);
+
+            if (semesterChart) semesterChart.destroy();
+
+            semesterChart = new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels,
+                    datasets: [{
+                        label: "Semester-Schnitt",
+                        data: values,
+                        tension: 0.4,
+                        fill: true,
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            reverse: true,
+                            min: 1,
+                            max: 4,
+                            title: {
+                                display: true,
+                                text: "Notenschnitt"
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // ------------------ SUBMIT ------------------
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const payload = {
+                User: currentUser,
+                newModule: document.getElementById("newModule").value.trim(),
+                newGrade: parseFloat(document.getElementById("newGrade").value),
+                newCredits: parseInt(document.getElementById("newCredits").value, 10),
+                category: document.getElementById("category").value,
+                semester: document.getElementById("semester").value.trim()
+            };
+
+            try {
+                const res = await fetch(WEBHOOK_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!res.ok) throw new Error("Serverantwort nicht OK");
+
+                const response = await res.json();
+                const data = Array.isArray(response) ? response[0] : response;
+
+                // KPI
+                document.getElementById("newAvg").innerText = Number(data.newAverage).toFixed(2);
+                document.getElementById("totalCredits").innerText = data.total_credits;
+
+                const trendMap = {
+                    improving: "📈 Verbessert",
+                    declining: "📉 Verschlechtert",
+                    stable: "➖ Stabil"
+                };
+                document.getElementById("globalTrend").innerText =
+                    trendMap[data.globalTrend] || "—";
+
+                // KI
+                document.getElementById("aiComment").innerText =
+                    data.comment || "Kein Kommentar vom KI-Agenten erhalten.";
+
+                // Module
+                const list = document.getElementById("moduleList");
+                list.innerHTML = "";
+
+                if (Array.isArray(data.modules)) {
+                    data.modules.forEach(m => {
+                        const li = document.createElement("li");
+                        li.innerText =
+                            `${m.modul} | Note: ${m.note} | Credits: ${m.credits} | Semester: ${m.semester} | Kategorie: ${m.kategorie}`;
+                        list.appendChild(li);
+                    });
+                }
+
+                // Categories
+                if (Array.isArray(data.categories)) {
+                    renderCategoryChart(data.categories);
+                }
+
+                // Semester Trends
+                if (Array.isArray(data.semesters)) {
+                    renderTrendList(data.semesters);
+                    renderSemesterChart(data.semesters);
+                }
+
+                resultCard.style.display = "block";
+
+            } catch (err) {
+                alert("Fehler bei der Verbindung zu n8n");
+                console.error(err);
+            }
+        });
+    </script>
+
+</body>
+
+</html>

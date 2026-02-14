@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMT AI Study Assistant v7</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="MMT7.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+
+    <!-- AUTH MODAL -->
+    <div id="authModal" class="modal active">
+        <div class="modal-content auth-modal">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h1>MMT Study Assistant</h1>
+                <p>Dein KI-Partner fürs Masterstudium</p>
+            </div>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </button>
+                <button class="auth-tab" data-tab="register">
+                    <i class="fas fa-user-plus"></i>
+                    Registrieren
+                </button>
+            </div>
+
+            <div id="loginForm" class="auth-form active">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="loginEmail" placeholder="E-Mail" autocomplete="email">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="loginPassword" placeholder="Passwort" autocomplete="current-password">
+                </div>
+                <button class="btn-primary" id="loginBtn">
+                    <i class="fas fa-arrow-right"></i>
+                    Anmelden
+                </button>
+            </div>
+
+            <div id="registerForm" class="auth-form">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="regName" placeholder="Vollständiger Name">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="regEmail" placeholder="E-Mail" autocomplete="email">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="regPassword" placeholder="Passwort (mind. 8 Zeichen)"
+                        autocomplete="new-password">
+                </div>
+                <button class="btn-primary" id="registerBtn">
+                    <i class="fas fa-rocket"></i>
+                    Account erstellen
+                </button>
+            </div>
+
+            <div class="auth-footer">
+                <p><i class="fas fa-shield-alt"></i> Daten werden verschlüsselt gespeichert</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP -->
+    <div class="app">
+
+        <!-- TOP NAVIGATION BAR -->
+        <header class="top-navbar">
+            <div class="navbar-brand">
+                <i class="fas fa-brain"></i>
+                <span>MMT Study</span>
+            </div>
+            <nav class="navbar-links">
+                <a href="#" class="nav-link active">
+                    <i class="fas fa-comments"></i>
+                    Chat
+                </a>
+                <a href="vocab/vocab3.html" class="nav-link">
+                    <i class="fas fa-book"></i>
+                    Vokabeln
+                </a>
+                <a href="durchschnitt/durchschnitt.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    Dashboard
+                </a>
+                <a href="AizenAuth4.html" class="nav-link">
+                    <i class="fas fa-user-shield"></i>
+                    Admin
+                </a>
+            </nav>
+            <div class="navbar-actions">
+                <button class="icon-btn" id="navThemeToggle" title="Theme wechseln">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="user-profile" id="userProfile">
+                    <div class="avatar" id="userAvatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name" id="userName">Loading...</span>
+                        <span class="user-status">
+                            <span class="status-dot"></span>
+                            Online
+                        </span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="icon-btn" id="filesBtn" title="Dateien verwalten">
+                        <i class="fas fa-folder-open"></i>
+                        <span class="file-badge" id="fileBadge">0</span>
+                    </button>
+                    <button class="icon-btn" id="logoutBtn" title="Abmelden">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchChats" placeholder="Chats durchsuchen...">
+                <button class="search-clear" id="searchClear" style="display:none">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="sidebar-tabs">
+                <button class="sidebar-tab active" data-view="chats">
+                    <i class="fas fa-comments"></i>
+                    <span>Alle</span>
+                    <span class="tab-count" id="allChatsCount">0</span>
+                </button>
+                <button class="sidebar-tab" data-view="favorites">
+                    <i class="fas fa-star"></i>
+                    <span>Favoriten</span>
+                    <span class="tab-count" id="favChatsCount">0</span>
+                </button>
+                <button class="sidebar-tab" data-view="stats">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Stats</span>
+                </button>
+            </div>
+
+            <div id="chatsView" class="sidebar-view active">
+                <div class="chat-list" id="chatList"></div>
+            </div>
+
+            <div id="favoritesView" class="sidebar-view">
+                <div class="chat-list" id="favoritesList"></div>
+            </div>
+
+            <div id="statsView" class="sidebar-view">
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <i class="fas fa-message"></i>
+                        <div>
+                            <h3 id="totalMessages">0</h3>
+                            <p>Nachrichten</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-comments"></i>
+                        <div>
+                            <h3 id="totalChats">0</h3>
+                            <p>Chats erstellt</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-fire"></i>
+                        <div>
+                            <h3 id="streakDays">0</h3>
+                            <p>Tage Streak</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h3 id="avgResponse">2.3s</h3>
+                            <p>Ø Antwortzeit</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <button class="new-chat" id="newChat">
+                    <i class="fas fa-plus"></i>
+                    <span>Neuer Chat</span>
+                </button>
+            </div>
+
+            <!-- Resize Handle -->
+            <div class="resize-handle" id="resizeHandle"></div>
+        </aside>
+
+        <!-- SIDEBAR TOGGLE (Mobile + Minimized) -->
+        <button class="sidebar-toggle" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- CHAT AREA -->
+        <main class="chat-area">
+            <canvas id="starfield"></canvas>
+
+            <header class="chat-header">
+                <div class="chat-title">
+                    <h2 id="activeChatName">MMT AI Assistant</h2>
+                    <span class="chat-subtitle">
+                        <span id="messageCount">Keine Nachrichten</span>
+                        <span class="chat-subtitle-sep">•</span>
+                        <span id="chatTimestamp">Jetzt</span>
+                    </span>
+                </div>
+                <div class="chat-actions">
+                    <button class="icon-btn" id="favoriteBtn" title="Favorit">
+                        <i class="far fa-star"></i>
+                    </button>
+                    <button class="icon-btn" id="exportBtn" title="Exportieren">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button class="icon-btn" id="shortcutsBtn" title="Tastenkürzel (Strg+?)">
+                        <i class="fas fa-keyboard"></i>
+                    </button>
+                    <button class="icon-btn" id="themeToggle" title="Theme wechseln">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="messages" id="messages">
+                <div class="welcome-screen" id="welcomeScreen">
+                    <div class="welcome-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h2>Willkommen zurück!</h2>
+                    <p>Wie kann ich dir heute beim Studium helfen?</p>
+                    <div class="quick-actions">
+                        <button class="quick-action"
+                            data-prompt="Erstelle einen Lernplan für diese Woche mit allen wichtigen Themen">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Lernplan erstellen</span>
+                        </button>
+                        <button class="quick-action" data-prompt="Erkläre mir das Konzept von">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Konzept erklären</span>
+                        </button>
+                        <button class="quick-action" data-prompt="Fasse folgendes Paper zusammen:">
+                            <i class="fas fa-file-lines"></i>
+                            <span>Paper zusammenfassen</span>
+                        </button>
+                        <button class="quick-action" data-prompt="Erstelle 10 Übungsfragen zu folgendem Thema:">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Quiz generieren</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <div class="input-tools">
+                    <button class="tool-btn" id="uploadFilesBtn" title="Dateien hochladen">
+                        <i class="fas fa-paperclip"></i>
+                        <span>Dateien</span>
+                    </button>
+                    <button class="tool-btn" id="voiceBtn" title="Spracheingabe (Strg+M)">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button class="tool-btn" id="codeBtn" title="Code-Block einfügen">
+                        <i class="fas fa-code"></i>
+                    </button>
+                    <button class="tool-btn" id="clearBtn" title="Eingabe leeren">
+                        <i class="fas fa-eraser"></i>
+                    </button>
+                </div>
+
+                <div class="input-bar">
+                    <textarea id="input" placeholder="Nachricht schreiben... (Strg+Enter zum Senden)"
+                        rows="1"></textarea>
+                    <button id="send" class="send-btn" disabled>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+
+                <div class="input-footer">
+                    <span class="input-hint">
+                        <i class="fas fa-lightbulb"></i>
+                        Tipp: Nutze <kbd>Strg</kbd>+<kbd>K</kbd> für Befehle oder <kbd>Strg</kbd>+<kbd>?</kbd> für alle
+                        Shortcuts
+                    </span>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <!-- FILE MANAGEMENT PANEL -->
+    <div id="filePanel" class="file-panel">
+        <div class="file-panel-header">
+            <h3>
+                <i class="fas fa-folder-open"></i>
+                Dokumente-Bibliothek
+            </h3>
+            <button class="close-panel" id="closeFilePanel">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Metadata -->
+        <div class="file-metadata">
+            <input id="metaCategory" placeholder="Kategorie" class="meta-input">
+            <input id="metaProject" placeholder="Projekt" class="meta-input">
+            <label class="meta-checkbox">
+                <input type="checkbox" id="metaVersioned">
+                <span>Dokument versionieren</span>
+            </label>
+        </div>
+
+        <div class="file-upload-zone" id="fileUploadZone">
+            <div class="upload-zone-content">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h4>Dateien hier ablegen</h4>
+                <p>PDF, DOCX, PNG, JPG · max. 20 MB</p>
+                <button class="btn-secondary" id="selectFilesBtn">
+                    <i class="fas fa-folder-open"></i>
+                    Dateien auswählen
+                </button>
+                <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.txt,.md,.png,.jpg,.jpeg"
+                    style="display:none">
+            </div>
+        </div>
+
+        <!-- Upload Progress -->
+        <div class="upload-progress-wrapper" id="uploadProgressWrapper" style="display:none">
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progressBarFill"></div>
+                <canvas id="sparkCanvas"></canvas>
+            </div>
+            <p class="upload-status" id="uploadStatus">Lädt...</p>
+        </div>
+
+        <!-- File Queue -->
+        <div class="file-queue" id="fileQueue"></div>
+
+        <div class="file-list" id="fileList">
+            <div class="file-list-header">
+                <h4>Hochgeladene Dateien (<span id="fileCount">0</span>)</h4>
+                <button class="btn-text" id="clearAllFiles">
+                    <i class="fas fa-trash-alt"></i>
+                    Alle löschen
+                </button>
+            </div>
+            <div class="file-items" id="fileItems">
+                <div class="empty-state">
+                    <i class="fas fa-inbox"></i>
+                    <p>Noch keine Dateien hochgeladen</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION CONTAINER -->
+    <div id="notificationContainer"></div>
+
+    <!-- COMMAND PALETTE -->
+    <div id="commandPalette" class="modal">
+        <div class="modal-content command-palette">
+            <div class="command-header">
+                <i class="fas fa-terminal"></i>
+                <input type="text" id="commandInput" placeholder="Befehl suchen...">
+            </div>
+            <div id="commandResults"></div>
+        </div>
+    </div>
+
+    <!-- EXPORT MODAL -->
+    <div id="exportModal" class="modal">
+        <div class="modal-content export-modal">
+            <div class="modal-header">
+                <h3>
+                    <i class="fas fa-download"></i>
+                    Chat exportieren
+                </h3>
+                <button class="close-modal" data-modal="exportModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="export-options">
+                <button class="export-btn" id="exportMD">
+                    <i class="fas fa-file-alt"></i>
+                    <div>
+                        <strong>Markdown</strong>
+                        <span>Ideal für Notion, Obsidian</span>
+                    </div>
+                </button>
+                <button class="export-btn" id="exportJSON">
+                    <i class="fas fa-file-code"></i>
+                    <div>
+                        <strong>JSON</strong>
+                        <span>Für technische Weiterverarbeitung</span>
+                    </div>
+                </button>
+                <button class="export-btn" id="exportTXT">
+                    <i class="fas fa-file-lines"></i>
+                    <div>
+                        <strong>Plain Text</strong>
+                        <span>Einfaches Textformat</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SHORTCUTS MODAL -->
+    <div id="shortcutsModal" class="modal">
+        <div class="modal-content shortcuts-modal">
+            <div class="modal-header">
+                <h3>
+                    <i class="fas fa-keyboard"></i>
+                    Tastenkürzel
+                </h3>
+                <button class="close-modal" data-modal="shortcutsModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="shortcuts-grid">
+                <div class="shortcut-item">
+                    <div><kbd>Strg</kbd> + <kbd>K</kbd></div>
+                    <span>Befehlspalette öffnen</span>
+                </div>
+                <div class="shortcut-item">
+                    <div><kbd>Strg</kbd> + <kbd>N</kbd></div>
+                    <span>Neuer Chat</span>
+                </div>
+                <div class="shortcut-item">
+                    <div><kbd>Strg</kbd> + <kbd>M</kbd></div>
+                    <span>Spracheingabe starten</span>
+                </div>
+                <div class="shortcut-item">
+                    <div><kbd>Strg</kbd> + <kbd>Enter</kbd></div>
+                    <span>Nachricht senden</span>
+                </div>
+                <div class="shortcut-item">
+                    <div><kbd>Strg</kbd> + <kbd>L</kbd></div>
+                    <span>Eingabe leeren</span>
+                </div>
+                <div class="shortcut-item">
+                    <div><kbd>Strg</kbd> + <kbd>B</kbd></div>
+                    <span>Sidebar ein/ausblenden</span>
+                </div>
+                <div class="shortcut-item">
+                    <div><kbd>Strg</kbd> + <kbd>F</kbd></div>
+                    <span>Chat suchen</span>
+                </div>
+                <div class="shortcut-item">
+                    <div><kbd>Strg</kbd> + <kbd>?</kbd></div>
+                    <span>Diese Hilfe anzeigen</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="MMT7.js"></script>
+
+</body>
+
+</html>

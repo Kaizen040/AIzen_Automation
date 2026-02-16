@@ -1,11 +1,12 @@
-/* MMT7.js – stable, defensive version */
+/* MMT7.js – stable, defensive version with batch upload & manual submit */
 (() => {
     'use strict';
 
     // ============ CONFIG ============
     const CONFIG = {
         webhookUrl: "https://n8n.srv1220381.hstgr.cloud/webhook/a6cc63aa-d05f-43f5-aaf8-5dede32919a2",
-        fileWebhookUrl: "https://n8n.srv1220381.hstgr.cloud/webhook/cd704034-367b-440b-8f01-fe196f8251ff",
+        // Upload-Endpoint auf funktionierende n8n-Route
+        fileWebhookUrl: "https://n8n.srv1220381.hstgr.cloud/webhook/upload_file_rag",
         maxFileSize: 20 * 1024 * 1024, // 20MB
         allowedFileTypes: ['pdf', 'png', 'jpg', 'jpeg', 'docx', 'doc', 'txt', 'md']
     };
@@ -30,8 +31,13 @@
     let activeChat = null;
     let isRecording = false;
     let recognition = null;
+
+    // Upload-Queue & Status
     let fileQueue = [];
     let uploadXHR = null;
+    let isBatchUploading = false;
+    let totalBytesInBatch = 0;
+    let uploadedBytesInBatch = 0;
 
     // Spark animation
     let sparks = [];
@@ -50,7 +56,7 @@
     const uuid = () => {
         try {
             if (window.crypto?.randomUUID) return window.crypto.randomUUID();
-        } catch (_) {}
+        } catch (_) { }
         // Fallback (RFC4122 v4-like)
         const rnd = (n = 16) => {
             if (window.crypto?.getRandomValues) {
@@ -1061,21 +1067,28 @@
         }
     };
 
-    // ============ FILE MANAGEMENT ============
+    // ============ FILE MANAGEMENT (mit manueller Absenden-Funktion) ============
     const initFilePanel = () => {
         const filePanel = $('#filePanel');
         const uploadZone = $('#fileUploadZone');
         const fileInput = $('#fileInput');
         const selectFilesBtn = $('#selectFilesBtn');
 
+        // Panel schließen
         on('#closeFilePanel', 'click', () => { filePanel?.classList.remove('active'); });
+
+        // Dateien auswählen
         if (selectFilesBtn && fileInput) {
             selectFilesBtn.addEventListener('click', () => fileInput.click());
         }
+
+        // Klick in die Dropzone öffnet File-Dialog
         if (uploadZone && fileInput) {
             uploadZone.addEventListener('click', (e) => {
                 if (e.target === uploadZone || e.target.closest('.upload-zone-content')) fileInput.click();
             });
+
+            // Drag & Drop
             uploadZone.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 uploadZone.classList.add('drag-over');
@@ -1084,37 +1097,92 @@
             uploadZone.addEventListener('drop', (e) => {
                 e.preventDefault();
                 uploadZone.classList.remove('drag-over');
-                const dropped = Array.from(e.dataTransfer?.files || []);
-                addFilesToQueue(dropped);
+                const droppedFiles = Array.from(e.dataTransfer?.files || []);
+                addFilesToQueue(droppedFiles);   // nur in Queue legen, NICHT auto-starten
             });
         }
+
+        // File input change
         if (fileInput) {
             fileInput.addEventListener('change', (e) => {
-                const selected = Array.from(e.target.files || []);
-                addFilesToQueue(selected);
+                const selectedFiles = Array.from(e.target.files || []);
+                addFilesToQueue(selectedFiles);  // nur in Queue legen
                 fileInput.value = '';
             });
         }
 
+        // „Alle löschen“-Button
         on('#clearAllFiles', 'click', () => {
-            if (uploadedFiles.length === 0) return;
+            if (uploadedFiles.length === 0 && fileQueue.length === 0) return;
+
+            // Queue leeren
+            fileQueue = [];
+            renderFileQueue();
+            updateStartButtonState();
+
+            // Bereits hochgeladene Liste (lokal) leeren
             uploadedFiles = [];
             saveUploadedFiles();
             renderUploadedFiles();
             updateFileBadge();
+
             showNotification('Gelöscht', 'Alle Dateien wurden gelöscht', 'info');
         });
 
+        // Absenden-Button ggf. anlegen
+        ensureStartUploadButton();
+
+        // Meta-Felder überwachen für Button-Enable
+        on('#metaCategory', 'input', updateStartButtonState);
+        on('#metaProject', 'input', updateStartButtonState);
+
+        // Funken-Animation initialisieren (bestehende Optik)
         initSparkCanvas();
+
+        // Initial
+        renderFileQueue();
+        updateStartButtonState();
     };
+
+    function ensureStartUploadButton() {
+        let startBtn = document.getElementById('startUploadBtn');
+        if (startBtn) {
+            startBtn.removeEventListener('click', startQueuedUpload);
+        } else {
+            const header = document.querySelector('#filePanel .file-panel-header');
+            startBtn = document.createElement('button');
+            startBtn.id = 'startUploadBtn';
+            startBtn.className = 'btn-primary';
+            startBtn.style.marginLeft = 'auto';
+            startBtn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Absenden';
+            if (header) header.appendChild(startBtn);
+        }
+        startBtn.addEventListener('click', startQueuedUpload);
+    }
+
+    function updateStartButtonState() {
+        const startBtn = document.getElementById('startUploadBtn');
+        const cat = $('#metaCategory')?.value?.trim();
+        const proj = $('#metaProject')?.value?.trim();
+        const hasMeta = !!cat && !!proj;
+        if (startBtn) {
+            startBtn.disabled = !(fileQueue.length > 0 && hasMeta && !isBatchUploading);
+            startBtn.title = startBtn.disabled
+                ? 'Kategorie & Projekt angeben und mindestens 1 Datei in der Warteschlange'
+                : 'Upload starten';
+        }
+    }
 
     const addFilesToQueue = (fileList) => {
         if (!fileList?.length) return;
+
         for (const file of fileList) {
+            // Größe prüfen
             if (file.size > CONFIG.maxFileSize) {
                 showNotification('Fehler', `"${file.name}" ist zu groß (max. ${formatFileSize(CONFIG.maxFileSize)})`, 'error');
                 continue;
             }
+            // Typ prüfen
             const ext = (file.name.split('.').pop() || '').toLowerCase();
             if (!CONFIG.allowedFileTypes.includes(ext)) {
                 showNotification('Fehler', `Dateityp ".${ext}" wird nicht unterstützt`, 'error');
@@ -1122,50 +1190,108 @@
             }
             fileQueue.push(file);
         }
+
         renderFileQueue();
-        if (!uploadXHR) uploadNextFile();
+        updateStartButtonState();
     };
 
     const renderFileQueue = () => {
-        const container = $('#fileQueue');
-        if (!container) return;
-        if (fileQueue.length === 0) { container.innerHTML = ''; return; }
-        container.innerHTML = '';
+        const queueContainer = $('#fileQueue');
+        if (!queueContainer) return;
+
+        if (fileQueue.length === 0) {
+            queueContainer.innerHTML = '';
+            return;
+        }
+
+        queueContainer.innerHTML = '';
         fileQueue.forEach((file, idx) => {
-            const item = document.createElement('div');
-            item.className = 'file-queue-item';
-            const name = document.createElement('span');
-            name.className = 'file-name';
-            name.textContent = file.name;
+            const queueItem = document.createElement('div');
+            queueItem.className = 'file-queue-item';
+
+            const fileName = document.createElement('span');
+            fileName.className = 'file-name';
+            fileName.textContent = `${file.name} (${formatFileSize(file.size)})`;
 
             const removeBtn = document.createElement('button');
             removeBtn.textContent = '✖';
+            removeBtn.title = 'Aus Warteschlange entfernen';
             removeBtn.addEventListener('click', () => removeFromQueue(idx));
-            item.appendChild(name);
-            item.appendChild(removeBtn);
-            container.appendChild(item);
+
+            queueItem.appendChild(fileName);
+            queueItem.appendChild(removeBtn);
+            queueContainer.appendChild(queueItem);
         });
     };
 
     const removeFromQueue = (idx) => {
         fileQueue.splice(idx, 1);
         renderFileQueue();
+        updateStartButtonState();
     };
 
-    const uploadNextFile = () => {
-        if (fileQueue.length === 0) {
-            const wrap = $('#uploadProgressWrapper');
-            if (wrap) wrap.style.display = 'none';
+    async function startQueuedUpload() {
+        if (isBatchUploading) return;
+        if (fileQueue.length === 0) return;
+
+        const cat = $('#metaCategory')?.value?.trim();
+        const proj = $('#metaProject')?.value?.trim();
+
+        if (!cat || !proj) {
+            showNotification('Fehler', 'Bitte Kategorie und Projekt angeben.', 'error');
             return;
         }
 
-        const file = fileQueue[0];
+        // UI sperren
+        isBatchUploading = true;
+        updateStartButtonState();
+
+        const progressWrapper = $('#uploadProgressWrapper');
+        const progressFill = $('#progressBarFill');
+        const uploadStatus = $('#uploadStatus');
+        if (progressWrapper) progressWrapper.style.display = 'block';
+        if (progressFill) progressFill.style.width = '0%';
+
+        // Aggregierten Fortschritt vorbereiten
+        totalBytesInBatch = fileQueue.reduce((s, f) => s + (f.size || 0), 0);
+        uploadedBytesInBatch = 0;
+
+        // Kategorie/Projekt fixieren (zum Startzeitpunkt)
+        const meta = { category: cat, project: proj };
+
+        // Dateien nacheinander hochladen
+        await uploadBatchSequential(meta);
+
+        // Ende
+        isBatchUploading = false;
+        updateStartButtonState();
+    }
+
+    function uploadBatchSequential(meta) {
+        return new Promise((resolve) => {
+            const next = () => {
+                if (fileQueue.length === 0) {
+                    const progressWrapper = $('#uploadProgressWrapper');
+                    const uploadStatus = $('#uploadStatus');
+                    if (progressWrapper) progressWrapper.style.display = 'none';
+                    if (uploadStatus) uploadStatus.textContent = 'Upload abgeschlossen.';
+                    return resolve();
+                }
+                uploadSingleFile(meta, next);
+            };
+            next();
+        });
+    }
+
+    function uploadSingleFile(meta, done) {
+        const file = fileQueue[0]; // jeweils erstes Element
         const formData = new FormData();
         formData.append('file', file);
-        formData.append('category', $('#metaCategory')?.value || '');
-        formData.append('project', $('#metaProject')?.value || '');
-        formData.append('versioned', $('#metaVersioned')?.checked ? 'true' : 'false');
-        formData.append('userId', currentUser?.email || '');
+        formData.append('category', meta.category);
+        formData.append('project', meta.project);
+        // Optional: Metadaten mitschicken
+        // formData.append('userId', currentUser?.email || '');
+        // formData.append('versioned', $('#metaVersioned')?.checked ? 'true' : 'false');
 
         uploadXHR = new XMLHttpRequest();
         uploadXHR.open('POST', CONFIG.fileWebhookUrl);
@@ -1174,54 +1300,65 @@
         const progressFill = $('#progressBarFill');
         const uploadStatus = $('#uploadStatus');
 
-        if (progressWrapper) progressWrapper.style.display = 'block';
-        if (uploadStatus) uploadStatus.textContent = `Lädt ${file.name}...`;
-
+        // Onprogress: Aggregierten Fortschritt anzeigen
         uploadXHR.upload.onprogress = (e) => {
-            if (e.lengthComputable) {
-                const percent = e.loaded / e.total;
-                if (progressFill) progressFill.style.width = (percent * 100) + '%';
-                sparkEmitter.setPosition(percent);
-            }
+            if (!e.lengthComputable) return;
+            const totalLoaded = uploadedBytesInBatch + e.loaded;
+            const p = totalBytesInBatch > 0 ? (totalLoaded / totalBytesInBatch) : 0;
+            if (progressFill) progressFill.style.width = (p * 100) + '%';
+            sparkEmitter.setPosition(p);
+            if (uploadStatus) uploadStatus.textContent = `Lädt ${file.name} (${Math.round(p * 100)}%)…`;
         };
 
         uploadXHR.onload = () => {
-            if (uploadXHR.status === 200) {
-                uploadedFiles.push({
-                    id: uuid(),
-                    name: file.name,
-                    size: file.size,
-                    type: '.' + (file.name.split('.').pop() || '').toLowerCase(),
-                    uploadedAt: new Date().toISOString()
-                });
-                saveUploadedFiles();
-                renderUploadedFiles();
-                updateFileBadge();
-                showNotification('Upload erfolgreich', `"${file.name}" wurde hochgeladen`, 'success');
-            } else {
-                showNotification('Upload fehlgeschlagen', `"${file.name}" konnte nicht hochgeladen werden`, 'error');
+            try {
+                if (uploadXHR.status >= 200 && uploadXHR.status < 300) {
+                    uploadedBytesInBatch += file.size || 0;
+
+                    // In „hochgeladene Dateien“ übernehmen (lokal)
+                    uploadedFiles.push({
+                        id: uuid(),
+                        name: file.name,
+                        size: file.size,
+                        type: '.' + (file.name.split('.').pop() || '').toLowerCase(),
+                        uploadedAt: new Date().toISOString()
+                    });
+                    saveUploadedFiles();
+                    renderUploadedFiles();
+                    updateFileBadge();
+
+                    showNotification('Upload erfolgreich', `"${file.name}" wurde hochgeladen`, 'success');
+                } else {
+                    console.warn('Upload error response:', uploadXHR.status, uploadXHR.responseText);
+                    showNotification('Upload fehlgeschlagen', `"${file.name}" konnte nicht hochgeladen werden`, 'error');
+                }
+            } finally {
+                // Aus Queue entfernen und nächsten starten
+                fileQueue.shift();
+                renderFileQueue();
+                uploadXHR = null;
+                setTimeout(done, 200);
             }
-            fileQueue.shift();
-            renderFileQueue();
-            uploadXHR = null;
-            setTimeout(uploadNextFile, 300);
         };
 
         uploadXHR.onerror = () => {
             showNotification('Fehler', `Upload von "${file.name}" fehlgeschlagen`, 'error');
+            // Datei überspringen und weitermachen
             fileQueue.shift();
             renderFileQueue();
             uploadXHR = null;
-            setTimeout(uploadNextFile, 300);
+            setTimeout(done, 200);
         };
 
         try {
+            if (progressWrapper) progressWrapper.style.display = 'block';
+            if (uploadStatus) uploadStatus.textContent = `Lädt ${file.name}…`;
             uploadXHR.send(formData);
         } catch (e) {
             console.error('Upload send failed', e);
             uploadXHR.onerror?.();
         }
-    };
+    }
 
     const saveUploadedFiles = () => {
         if (!currentUser) return;

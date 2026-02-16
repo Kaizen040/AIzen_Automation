@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIzen – Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/png" href="AIzen.png">
+    <link rel="stylesheet" href="vocab.css">
+    <link rel="icon" type="image/png" href="../../assets/logo/AIzen.png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -20,7 +20,7 @@
         </div>
 
         <nav class="topbar-nav">
-            <a href="vocab3.html" class="nav-link">
+            <a href="vocab.html" class="nav-link active">
                 <span class="nav-icon">✏️</span>
                 <span>Trainer</span>
             </a>
@@ -28,9 +28,21 @@
                 <span class="nav-icon">📚</span>
                 <span>Alle Vokabeln</span>
             </a>
-            <a href="dashboard.html" class="nav-link active">
+            <a href="vocab_dashboard.html" class="nav-link">
                 <span class="nav-icon">📊</span>
                 <span>Dashboard</span>
+            </a>
+            <a href="../durchschnitt/durchschnitt.html" class="nav-link">
+                <span class="nav-icon">🏆</span>
+                <span>Durchschnitt</span>
+            </a>
+            <a href="../MMT.html" class="nav-link">
+                <span class="nav-icon">🤖</span>
+                <span>MMT</span>
+            </a>
+            <a href="../../AIzen.html" class="nav-link">
+                <span class="nav-icon">✳️</span>
+                <span>AIzen</span>
             </a>
         </nav>
     </header>
@@ -52,19 +64,19 @@
                 <div class="stat-value" id="totalVocabs">-</div>
                 <div class="stat-label">Gesamte Vokabeln</div>
             </div>
-            
+
             <div class="stat-card">
                 <div class="stat-icon">📝</div>
                 <div class="stat-value" id="totalPhrases">-</div>
                 <div class="stat-label">Mit Phrasen</div>
             </div>
-            
+
             <div class="stat-card">
                 <div class="stat-icon">🔥</div>
                 <div class="stat-value" id="uniqueDays">-</div>
                 <div class="stat-label">Tage aktiv</div>
             </div>
-            
+
             <div class="stat-card">
                 <div class="stat-icon">📅</div>
                 <div class="stat-value" id="lastActivity">-</div>
@@ -78,7 +90,7 @@
                 <h3>📈 Vokabeln über Zeit</h3>
                 <canvas id="timelineChart"></canvas>
             </div>
-            
+
             <div class="chart-card">
                 <h3>🗓️ Aktivität nach Wochentag</h3>
                 <canvas id="weekdayChart"></canvas>
@@ -128,7 +140,7 @@
                 const response = await fetch(WEBHOOK_GET_ALL);
                 const data = await response.json();
                 vocabData = data.rows || [];
-                
+
                 updateStats();
                 updateCharts();
                 updateRecentActivity();
@@ -162,11 +174,11 @@
                     .filter(v => v.Timestamp)
                     .map(v => new Date(v.Timestamp))
                     .sort((a, b) => b - a);
-                
+
                 if (dates.length > 0) {
                     const lastDate = dates[0];
                     const daysAgo = Math.floor((new Date() - lastDate) / (1000 * 60 * 60 * 24));
-                    
+
                     if (daysAgo === 0) {
                         document.getElementById('lastActivity').textContent = 'Heute';
                     } else if (daysAgo === 1) {
@@ -256,7 +268,7 @@
             // Weekday Chart
             const weekdays = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
             const weekdayData = [0, 0, 0, 0, 0, 0, 0];
-            
+
             vocabData.forEach(v => {
                 if (v.Timestamp) {
                     const day = new Date(v.Timestamp).getDay();
@@ -328,7 +340,7 @@
         /* ============ Update Recent Activity ============ */
         function updateRecentActivity() {
             const activityList = document.getElementById('activityList');
-            
+
             if (vocabData.length === 0) {
                 activityList.innerHTML = '<div class="empty-state">Noch keine Aktivitäten</div>';
                 return;
@@ -365,7 +377,7 @@
         /* ============ Update Recent Vocabs Table ============ */
         function updateRecentVocabs() {
             const tbody = document.querySelector('#recentVocabTable tbody');
-            
+
             if (vocabData.length === 0) {
                 tbody.innerHTML = '<tr class="empty-state"><td colspan="4">Noch keine Vokabeln</td></tr>';
                 return;
@@ -390,7 +402,7 @@
         document.getElementById('refreshBtn').addEventListener('click', () => {
             document.getElementById('refreshBtn').disabled = true;
             document.getElementById('refreshBtn').innerHTML = '<span class="btn-icon">⏳</span> Lädt...';
-            
+
             fetchDashboardData().then(() => {
                 document.getElementById('refreshBtn').disabled = false;
                 document.getElementById('refreshBtn').innerHTML = '<span class="btn-icon">🔄</span> Daten aktualisieren';

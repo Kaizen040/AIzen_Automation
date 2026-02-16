@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>MMT Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
+    <!-- App Styles -->
+    <link rel="stylesheet" href="MMT7.css" />
+</head>
+
+<body>
+    <!-- Top Navigation -->
+    <header class="top-navbar">
+        <div class="navbar-brand">
+            <i class="fas fa-brain"></i>
+            <span>MMT Study</span>
+        </div>
+        <nav class="navbar-links">
+            <a href="index.html" class="nav-link">
+                <i class="fas fa-comments"></i>
+                Chat
+            </a>
+            <a href="vocab2.html" class="nav-link">
+                <i class="fas fa-book"></i>
+                Vokabeln
+            </a>
+            <a href="dashboard.html" class="nav-link">
+                <i class="fas fa-chart-line"></i>
+                Dashboard
+            </a>
+            <a href="admin.html" class="nav-link active">
+                <i class="fas fa-user-shield"></i>
+                Admin
+            </a>
+        </nav>
+        <div class="navbar-actions">
+            <button class="icon-btn" id="themeToggle" title="Theme wechseln">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Admin Content -->
+    <main class="page page-admin">
+        <section class="admin-header">
+            <div class="admin-title">
+                <i class="fas fa-user-gear"></i>
+                <div>
+                    <h1>Administration</h1>
+                    <p>Kontoeinstellungen, Daten & Integrationen verwalten</p>
+                </div>
+            </div>
+
+            <div class="admin-userchip" id="adminUserChip">
+                <div class="avatar" id="adminAvatar">U</div>
+                <div class="meta">
+                    <div id="adminName">Unbekannt</div>
+                    <small id="adminEmail">user@example.com</small>
+                </div>
+            </div>
+        </section>
+
+        <section class="admin-grid">
+
+            <!-- Konto -->
+            <article class="admin-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-id-badge"></i> Konto</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-grid">
+                        <label class="form-field">
+                            <span>Vollständiger Name</span>
+                            <input id="accName" type="text" placeholder="Dein Name" />
+                        </label>
+                        <label class="form-field">
+                            <span>E-Mail (Anmelde-ID)</span>
+                            <input id="accEmail" type="email" disabled />
+                        </label>
+                        <div class="form-actions">
+                            <button class="btn-primary" id="btnSaveName">
+                                <i class="fas fa-save"></i> Name speichern
+                            </button>
+                        </div>
+                    </div>
+
+                    <hr class="card-sep" />
+
+                    <h4>Passwort ändern</h4>
+                    <div class="form-grid">
+                        <label class="form-field">
+                            <span>Aktuelles Passwort</span>
+                            <input id="pwCurrent" type="password" autocomplete="current-password" />
+                        </label>
+                        <label class="form-field">
+                            <span>Neues Passwort (min. 8 Zeichen)</span>
+                            <input id="pwNew" type="password" autocomplete="new-password" />
+                        </label>
+                        <label class="form-field">
+                            <span>Neues Passwort bestätigen</span>
+                            <input id="pwConfirm" type="password" autocomplete="new-password" />
+                        </label>
+                        <div class="form-actions">
+                            <button class="btn-secondary" id="btnChangePassword">
+                                <i class="fas fa-key"></i> Passwort ändern
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Sicherheit -->
+            <article class="admin-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-shield-halved"></i> Sicherheit</h3>
+                </div>
+                <div class="card-body">
+                    <div class="button-row">
+                        <button class="btn-warning" id="btnRevokeToken">
+                            <i class="fas fa-ban"></i> Sitzungstoken widerrufen
+                        </button>
+                        <button class="btn-danger" id="btnLogout">
+                            <i class="fas fa-right-from-bracket"></i> Abmelden
+                        </button>
+                    </div>
+                    <p class="muted">
+                        Tipp: Token-Widerruf meldet dich nicht automatisch ab, verhindert aber weitere Auto-Logins.
+                        Abmelden löscht zusätzlich den eingeloggten Benutzer aus diesem Browser.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Daten & Speicher -->
+            <article class="admin-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-database"></i> Daten & Speicher</h3>
+                </div>
+                <div class="card-body">
+                    <div class="stats-row">
+                        <div class="stat">
+                            <div class="stat-value" id="statChats">0</div>
+                            <div class="stat-label">Chats</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" id="statMessages">0</div>
+                            <div class="stat-label">Nachrichten</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" id="statFiles">0</div>
+                            <div class="stat-label">Dateien</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" id="statDrafts">0</div>
+                            <div class="stat-label">Entwürfe</div>
+                        </div>
+                    </div>
+
+                    <div class="button-wrap">
+                        <button class="btn-secondary" id="btnExportChats">
+                            <i class="fas fa-file-export"></i> Alle Chats exportieren (JSON)
+                        </button>
+                        <button class="btn-secondary" id="btnExportAll">
+                            <i class="fas fa-download"></i> Komplettes Backup (JSON)
+                        </button>
+                    </div>
+
+                    <div class="button-wrap">
+                        <button class="btn-danger" id="btnClearChats">
+                            <i class="fas fa-trash"></i> Alle Chats löschen
+                        </button>
+                        <button class="btn-danger" id="btnClearFiles">
+                            <i class="fas fa-trash"></i> Datei-Index löschen
+                        </button>
+                        <button class="btn-danger" id="btnClearDrafts">
+                            <i class="fas fa-eraser"></i> Entwürfe löschen
+                        </button>
+                    </div>
+
+                    <div class="button-wrap">
+                        <button class="btn-text" id="btnResetTheme">
+                            <i class="fas fa-circle-half-stroke"></i> Theme zurücksetzen
+                        </button>
+                        <button class="btn-text" id="btnResetSidebar">
+                            <i class="fas fa-arrows-left-right-to-line"></i> Sidebar-Breite zurücksetzen
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Integrationen -->
+            <article class="admin-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-plug"></i> Integrationen (n8n / Webhooks)</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-grid">
+                        <label class="form-field">
+                            <span>Chat Webhook URL</span>
+                            <input id="epChat" type="url" placeholder="https://…" />
+                        </label>
+                        <label class="form-field">
+                            <span>File Upload Webhook URL</span>
+                            <input id="epUpload" type="url" placeholder="https://…" />
+                        </label>
+                        <div class="form-actions">
+                            <button class="btn-primary" id="btnSaveEndpoints">
+                                <i class="fas fa-save"></i> Endpoints speichern (lokal)
+                            </button>
+                        </div>
+                    </div>
+
+                    <hr class="card-sep" />
+
+                    <h4>Verbindung testen</h4>
+                    <div class="button-wrap">
+                        <button class="btn-secondary" id="btnTestChat">
+                            <i class="fas fa-signal"></i> Ping Chat Webhook
+                        </button>
+                        <button class="btn-secondary" id="btnTestUpload">
+                            <i class="fas fa-upload"></i> Test-Upload (Textdatei)
+                        </button>
+                    </div>
+
+                    <pre class="log" id="epLog" spellcheck="false">(Logs erscheinen hier)</pre>
+                </div>
+            </article>
+
+            <!-- Tools -->
+            <article class="admin-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-toolbox"></i> Tools</h3>
+                </div>
+                <div class="card-body">
+                    <div class="button-wrap">
+                        <button class="btn-secondary" id="btnReindex">
+                            <i class="fas fa-rotate"></i> Re-Index Befehl senden (n8n)
+                        </button>
+                        <button class="btn-secondary" id="btnVacuumLS">
+                            <i class="fas fa-broom"></i> LocalStorage aufräumen (verwaiste Keys)
+                        </button>
+                    </div>
+                    <p class="muted">Die Befehle senden einfache Test-Payloads an euren Chat-Webhook (action:
+                        "reindex").</p>
+                </div>
+            </article>
+
+        </section>
+    </main>
+
+    <!-- Notifications -->
+    <div id="notificationContainer"></div>
+
+    <!-- Admin Logic -->
+    <script>
+        (function () {
+            'use strict';
+
+            // Storage Keys (wie in der App)
+            var STORAGE = {
+                authToken: 'mmt_auth_token',
+                currentUser: 'mmt_current_user',
+                usersLocal: 'mmt_users_local',
+                chats: 'mmt_chats',
+                files: 'mmt_files',
+                theme: 'mmt_theme',
+                sidebarWidth: 'mmt_sidebar_width',
+                draft: 'mmt_draft',
+                endpoints: 'mmt_admin_endpoints'
+            };
+
+            var DEFAULT_ENDPOINTS = {
+                webhookUrl: "https://n8n.srv1220381.hstgr.cloud/webhook/a6cc63aa-d05f-43f5-aaf8-5dede32919a2",
+                fileWebhookUrl: "https://n8n.srv1220381.hstgr.cloud/webhook/upload_file_rag"
+            };
+
+            // --- Utils ---
+            function $(sel) { return document.querySelector(sel); }
+            function saveJSON(k, v) { localStorage.setItem(k, JSON.stringify(v)); }
+            function loadJSON(k, d) {
+                var v = localStorage.getItem(k);
+                try { return v ? JSON.parse(v) : d; } catch (e) { return d; }
+            }
+
+            function showNotification(title, message, type) {
+                var t = type || 'info';
+                var icons = {
+                    success: 'fa-check-circle',
+                    error: 'fa-exclamation-circle',
+                    info: 'fa-info-circle',
+                    warning: 'fa-exclamation-triangle'
+                };
+                var container = document.getElementById('notificationContainer');
+                if (!container) { alert(title + "\\n\\n" + message); return; }
+                var n = document.createElement('div');
+                n.className = 'notification ' + t;
+
+                var iconEl = document.createElement('i');
+                iconEl.className = 'fas ' + (icons[t] || icons.info) + ' notification-icon';
+
+                var content = document.createElement('div');
+                content.className = 'notification-content';
+
+                var titleEl = document.createElement('div');
+                titleEl.className = 'notification-title';
+                titleEl.textContent = title;
+
+                var msgEl = document.createElement('div');
+                msgEl.className = 'notification-message';
+                msgEl.textContent = message;
+
+                var btn = document.createElement('button');
+                btn.className = 'notification-close';
+                btn.innerHTML = '<i class="fas fa-times"></i>';
+                btn.addEventListener('click', function () {
+                    n.style.animation = 'notificationSlideIn 0.25s ease reverse';
+                    setTimeout(function () { if (n.parentNode) n.parentNode.removeChild(n); }, 200);
+                });
+
+                content.appendChild(titleEl);
+                content.appendChild(msgEl);
+                n.appendChild(iconEl);
+                n.appendChild(content);
+                n.appendChild(btn);
+                container.appendChild(n);
+
+                setTimeout(function () {
+                    if (n.parentNode) {
+                        n.style.animation = 'notificationSlideIn 0.25s ease reverse';
+                        setTimeout(function () { if (n.parentNode) n.parentNode.removeChild(n); }, 200);
+                    }
+                }, 4500);
+            }
+
+            function hashPassword(password) {
+                try {
+                    if (window.crypto && crypto.subtle) {
+                        var data = new TextEncoder().encode(password);
+                        return crypto.subtle.digest('SHA-256', data).then(function (buf) {
+                            var arr = Array.from(new Uint8Array(buf));
+                            return arr.map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
+                        });
+                    }
+                } catch (e) { }
+                // Fallback (dev only)
+                var h = 0, i;
+                for (i = 0; i < password.length; i++) { h = ((h << 5) - h) + password.charCodeAt(i); h |= 0; }
+                return Promise.resolve('insecure_' + h);
+            }
+
+            // Theme Toggle
+            function initThemeToggle() {
+                var btn = document.getElementById('themeToggle');
+                var stored = localStorage.getItem(STORAGE.theme) || 'dark';
+                if (stored === 'light') {
+                    document.body.classList.add('light');
+                    var iEl = btn ? btn.querySelector('i') : null;
+                    if (iEl) iEl.className = 'fas fa-sun';
+                }
+                if (btn) {
+                    btn.addEventListener('click', function () {
+                        document.body.classList.toggle('light');
+                        var isDark = !document.body.classList.contains('light');
+                        var iEl2 = btn.querySelector('i');
+                        if (iEl2) iEl2.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+                        localStorage.setItem(STORAGE.theme, isDark ? 'dark' : 'light');
+                    });
+                }
+            }
+
+            // Auth-Check
+            var currentUser = null;
+            function ensureAuth() {
+                var cu = loadJSON(STORAGE.currentUser, null);
+                var token = loadJSON(STORAGE.authToken, null);
+                if (!cu || !token) {
+                    alert('Du bist nicht angemeldet. Bitte zuerst im Chat einloggen.');
+                    window.location.href = 'index.html';
+                    return false;
+                }
+                currentUser = cu;
+                return true;
+            }
+
+            function initUserHeader() {
+                var name = (currentUser && currentUser.name) ? currentUser.name : 'Unbekannt';
+                var email = (currentUser && currentUser.email) ? currentUser.email : 'user@example.com';
+                var initials = name.split(' ').map(function (n) { return n.charAt(0); }).join('').toUpperCase().slice(0, 2) || 'U';
+                var nameEl = document.getElementById('adminName');
+                var emailEl = document.getElementById('adminEmail');
+                var avatarEl = document.getElementById('adminAvatar');
+                if (nameEl) nameEl.textContent = name;
+                if (emailEl) emailEl.textContent = email;
+                if (avatarEl) avatarEl.textContent = initials;
+
+                var accName = document.getElementById('accName');
+                var accEmail = document.getElementById('accEmail');
+                if (accName) accName.value = name;
+                if (accEmail) accEmail.value = email;
+            }
+
+            // Konto
+            function wireAccountActions() {
+                var btnSaveName = document.getElementById('btnSaveName');
+                if (btnSaveName) {
+                    btnSaveName.addEventListener('click', function () {
+                        var newName = (document.getElementById('accName').value || '').trim();
+                        if (!newName) { showNotification('Fehler', 'Name darf nicht leer sein', 'error'); return; }
+                        var users = loadJSON(STORAGE.usersLocal, {});
+                        var email = currentUser.email;
+                        if (!users[email]) { showNotification('Fehler', 'Benutzer nicht gefunden', 'error'); return; }
+                        users[email].name = newName;
+                        saveJSON(STORAGE.usersLocal, users);
+                        currentUser.name = newName;
+                        saveJSON(STORAGE.currentUser, currentUser);
+                        initUserHeader();
+                        showNotification('Gespeichert', 'Name wurde aktualisiert', 'success');
+                    });
+                }
+
+                var btnChangePassword = document.getElementById('btnChangePassword');
+                if (btnChangePassword) {
+                    btnChangePassword.addEventListener('click', function () {
+                        var pwCurrent = document.getElementById('pwCurrent').value;
+                        var pwNew = document.getElementById('pwNew').value;
+                        var pwConfirm = document.getElementById('pwConfirm').value;
+
+                        if (!pwCurrent || !pwNew || !pwConfirm) { showNotification('Fehler', 'Bitte alle Passwortfelder ausfüllen', 'error'); return; }
+                        if (pwNew.length < 8) { showNotification('Fehler', 'Neues Passwort muss mindestens 8 Zeichen haben', 'error'); return; }
+                        if (pwNew !== pwConfirm) { showNotification('Fehler', 'Neue Passwörter stimmen nicht überein', 'error'); return; }
+
+                        var users = loadJSON(STORAGE.usersLocal, {});
+                        var email = currentUser.email;
+                        if (!users[email]) { showNotification('Fehler', 'Benutzer nicht gefunden', 'error'); return; }
+
+                        hashPassword(pwCurrent).then(function (hashCurrent) {
+                            if (users[email].password !== hashCurrent) {
+                                showNotification('Fehler', 'Aktuelles Passwort ist falsch', 'error');
+                                return;
+                            }
+                            hashPassword(pwNew).then(function (hashNew) {
+                                users[email].password = hashNew;
+                                saveJSON(STORAGE.usersLocal, users);
+                                showNotification('Erfolg', 'Passwort wurde geändert', 'success');
+                                document.getElementById('pwCurrent').value = '';
+                                document.getElementById('pwNew').value = '';
+                                document.getElementById('pwConfirm').value = '';
+                            });
+                        });
+                    });
+                }
+            }
+
+            // Sicherheit
+            function wireSecurity() {
+                var btnRevokeToken = document.getElementById('btnRevokeToken');
+                if (btnRevokeToken) {
+                    btnRevokeToken.addEventListener('click', function () {
+                        localStorage.removeItem(STORAGE.authToken);
+                        showNotification('Token widerrufen', 'Sitzungstoken wurde entfernt', 'success');
+                    });
+                }
+                var btnLogout = document.getElementById('btnLogout');
+                if (btnLogout) {
+                    btnLogout.addEventListener('click', function () {
+                        if (!confirm('Wirklich abmelden?')) return;
+                        localStorage.removeItem(STORAGE.authToken);
+                        localStorage.removeItem(STORAGE.currentUser);
+                        window.location.href = 'index.html';
+                    });
+                }
+            }
+
+            // Daten & Speicher
+            function userScopedKey(base) { return base + '_' + currentUser.email; }
+
+            function computeStats() {
+                var chats = loadJSON(userScopedKey(STORAGE.chats), {});
+                var files = loadJSON(userScopedKey(STORAGE.files), []);
+                var drafts = 0;
+                for (var i = 0; i < localStorage.length; i++) {
+                    var k = localStorage.key(i);
+                    if (k && k.indexOf(STORAGE.draft + '_') === 0) drafts++;
+                }
+                var totalMessages = 0;
+                Object.keys(chats).forEach(function (id) {
+                    var c = chats[id];
+                    if (c && c.messages && c.messages.length) totalMessages += c.messages.length;
+                });
+
+                var el;
+                el = document.getElementById('statChats'); if (el) el.textContent = String(Object.keys(chats).length);
+                el = document.getElementById('statMessages'); if (el) el.textContent = String(totalMessages);
+                el = document.getElementById('statFiles'); if (el) el.textContent = String(files.length);
+                el = document.getElementById('statDrafts'); if (el) el.textContent = String(drafts);
+            }
+
+            function wireData() {
+                var btnExportChats = document.getElementById('btnExportChats');
+                if (btnExportChats) {
+                    btnExportChats.addEventListener('click', function () {
+                        var chats = loadJSON(userScopedKey(STORAGE.chats), {});
+                        var blob = new Blob([JSON.stringify(chats, null, 2)], { type: 'application/json' });
+                        var a = document.createElement('a');
+                        a.href = URL.createObjectURL(blob);
+                        a.download = 'mmt_chats_export.json';
+                        a.click();
+                        URL.revokeObjectURL(a.href);
+                        showNotification('Exportiert', 'Chats als JSON exportiert', 'success');
+                    });
+                }
+
+                var btnExportAll = document.getElementById('btnExportAll');
+                if (btnExportAll) {
+                    btnExportAll.addEventListener('click', function () {
+                        var dump = {};
+                        dump[STORAGE.currentUser] = loadJSON(STORAGE.currentUser, null);
+                        dump[STORAGE.authToken] = loadJSON(STORAGE.authToken, null);
+                        dump[userScopedKey(STORAGE.chats)] = loadJSON(userScopedKey(STORAGE.chats), {});
+                        dump[userScopedKey(STORAGE.files)] = loadJSON(userScopedKey(STORAGE.files), []);
+                        dump[STORAGE.theme] = localStorage.getItem(STORAGE.theme);
+                        dump[STORAGE.sidebarWidth] = localStorage.getItem(STORAGE.sidebarWidth);
+
+                        // Draft-Keys sammeln
+                        var drafts = [];
+                        for (var i = 0; i < localStorage.length; i++) {
+                            var k = localStorage.key(i);
+                            if (k && k.indexOf(STORAGE.draft + '_') === 0) drafts.push(k);
+                        }
+                        dump['draft_keys'] = drafts;
+
+                        var blob = new Blob([JSON.stringify(dump, null, 2)], { type: 'application/json' });
+                        var a = document.createElement('a');
+                        a.href = URL.createObjectURL(blob);
+                        a.download = 'mmt_full_backup.json';
+                        a.click();
+                        URL.revokeObjectURL(a.href);
+                        showNotification('Exportiert', 'Vollständiges Backup erstellt', 'success');
+                    });
+                }
+
+                var btnClearChats = document.getElementById('btnClearChats');
+                if (btnClearChats) {
+                    btnClearChats.addEventListener('click', function () {
+                        if (!confirm('Alle Chats dieses Benutzers endgültig löschen?')) return;
+                        localStorage.removeItem(userScopedKey(STORAGE.chats));
+                        computeStats();
+                        showNotification('Gelöscht', 'Chats wurden entfernt', 'success');
+                    });
+                }
+
+                var btnClearFiles = document.getElementById('btnClearFiles');
+                if (btnClearFiles) {
+                    btnClearFiles.addEventListener('click', function () {
+                        if (!confirm('Datei-Index dieses Benutzers löschen?')) return;
+                        localStorage.removeItem(userScopedKey(STORAGE.files));
+                        computeStats();
+                        showNotification('Gelöscht', 'Datei-Index entfernt (lokal)', 'success');
+                    });
+                }
+
+                var btnClearDrafts = document.getElementById('btnClearDrafts');
+                if (btnClearDrafts) {
+                    btnClearDrafts.addEventListener('click', function () {
+                        if (!confirm('Alle Entwürfe (Drafts) löschen?')) return;
+                        var toDel = [];
+                        for (var i = 0; i < localStorage.length; i++) {
+                            var k = localStorage.key(i);
+                            if (k && k.indexOf(STORAGE.draft + '_') === 0) toDel.push(k);
+                        }
+                        toDel.forEach(function (key) { localStorage.removeItem(key); });
+                        computeStats();
+                        showNotification('Gelöscht', 'Entwürfe entfernt', 'success');
+                    });
+                }
+
+                var btnResetTheme = document.getElementById('btnResetTheme');
+                if (btnResetTheme) {
+                    btnResetTheme.addEventListener('click', function () {
+                        localStorage.setItem(STORAGE.theme, 'dark');
+                        showNotification('OK', 'Theme zurückgesetzt (dark)', 'success');
+                    });
+                }
+
+                var btnResetSidebar = document.getElementById('btnResetSidebar');
+                if (btnResetSidebar) {
+                    btnResetSidebar.addEventListener('click', function () {
+                        localStorage.removeItem(STORAGE.sidebarWidth);
+                        showNotification('OK', 'Sidebar-Breite zurückgesetzt', 'success');
+                    });
+                }
+            }
+
+            // Integrationen
+            function loadEndpoints() {
+                var ep = loadJSON(STORAGE.endpoints, null) || DEFAULT_ENDPOINTS;
+                var c = document.getElementById('epChat');
+                var u = document.getElementById('epUpload');
+                if (c) c.value = ep.webhookUrl || '';
+                if (u) u.value = ep.fileWebhookUrl || '';
+            }
+            function getEndpoints() {
+                var c = (document.getElementById('epChat').value || '').trim();
+                var u = (document.getElementById('epUpload').value || '').trim();
+                return { webhookUrl: c, fileWebhookUrl: u };
+            }
+            function writeLog(msg) {
+                var log = document.getElementById('epLog');
+                var time = new Date().toLocaleTimeString('de-DE');
+                if (log) log.textContent = '[' + time + '] ' + msg + '\n' + (log.textContent || '');
+            }
+
+            function wireIntegrations() {
+                var btnSaveEndpoints = document.getElementById('btnSaveEndpoints');
+                if (btnSaveEndpoints) {
+                    btnSaveEndpoints.addEventListener('click', function () {
+                        var ep = getEndpoints();
+                        if (!ep.webhookUrl || !ep.fileWebhookUrl) {
+                            showNotification('Fehler', 'Bitte beide Endpoints ausfüllen', 'error');
+                            return;
+                        }
+                        saveJSON(STORAGE.endpoints, ep);
+                        showNotification('Gespeichert', 'Endpoints lokal gespeichert', 'success');
+                    });
+                }
+
+                var btnTestChat = document.getElementById('btnTestChat');
+                if (btnTestChat) {
+                    btnTestChat.addEventListener('click', function () {
+                        var ep = getEndpoints();
+                        fetch(ep.webhookUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify([{
+                                sessionId: 'admin-test-' + Date.now(),
+                                action: 'ping',
+                                chatInput: 'ping',
+                                userId: (currentUser && currentUser.email) ? currentUser.email : 'unknown@local'
+                            }])
+                        }).then(function (res) {
+                            return res.text().then(function (text) {
+                                writeLog('Chat-Ping Status ' + res.status + ': ' + text.slice(0, 300));
+                                showNotification(res.ok ? 'OK' : 'Fehler', 'Chat-Ping ausgeführt', res.ok ? 'success' : 'error');
+                            });
+                        }).catch(function (e) {
+                            writeLog('Chat-Ping Fehler: ' + e.message);
+                            showNotification('Fehler', 'Chat-Ping fehlgeschlagen', 'error');
+                        });
+                    });
+                }
+
+                var btnTestUpload = document.getElementById('btnTestUpload');
+                if (btnTestUpload) {
+                    btnTestUpload.addEventListener('click', function () {
+                        var ep = getEndpoints();
+                        var fd = new FormData();
+                        var blob = new Blob(['Admin Test Upload @ ' + new Date().toISOString()], { type: 'text/plain' });
+                        fd.append('file', blob, 'admin_test.txt');
+                        fd.append('category', 'ADMIN');
+                        fd.append('project', 'Diagnostics');
+                        fd.append('userId', (currentUser && currentUser.email) ? currentUser.email : 'unknown@local');
+
+                        fetch(ep.fileWebhookUrl, { method: 'POST', body: fd })
+                            .then(function (res) {
+                                return res.text().then(function (t) {
+                                    writeLog('Upload-Test Status ' + res.status + ': ' + t.slice(0, 300));
+                                    showNotification(res.ok ? 'OK' : 'Fehler', 'Upload-Test ausgeführt', res.ok ? 'success' : 'error');
+                                });
+                            })
+                            .catch(function (e) {
+                                writeLog('Upload-Test Fehler: ' + e.message);
+                                showNotification('Fehler', 'Upload-Test fehlgeschlagen', 'error');
+                            });
+                    });
+                }
+            }
+
+            // Tools
+            function wireTools() {
+                var btnReindex = document.getElementById('btnReindex');
+                if (btnReindex) {
+                    btnReindex.addEventListener('click', function () {
+                        var ep = getEndpoints();
+                        fetch(ep.webhookUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify([{
+                                sessionId: 'admin-reindex-' + Date.now(),
+                                action: 'reindex',
+                                chatInput: 'reindex',
+                                userId: (currentUser && currentUser.email) ? currentUser.email : 'unknown@local'
+                            }])
+                        }).then(function (res) {
+                            return res.text().then(function (text) {
+                                writeLog('Reindex Status ' + res.status + ': ' + text.slice(0, 300));
+                                showNotification(res.ok ? 'OK' : 'Fehler', 'Reindex-Befehl gesendet', res.ok ? 'success' : 'error');
+                            });
+                        }).catch(function (e) {
+                            writeLog('Reindex Fehler: ' + e.message);
+                            showNotification('Fehler', 'Reindex fehlgeschlagen', 'error');
+                        });
+                    });
+                }
+
+                var btnVacuum = document.getElementById('btnVacuumLS');
+                if (btnVacuum) {
+                    btnVacuum.addEventListener('click', function () {
+                        var removed = 0;
+                        var keys = [];
+                        for (var i = 0; i < localStorage.length; i++) {
+                            var k = localStorage.key(i);
+                            if (k && k.indexOf(STORAGE.draft + '_') === 0) keys.push(k);
+                        }
+                        keys.forEach(function (key) { localStorage.removeItem(key); removed++; });
+                        computeStats();
+                        showNotification('Aufgeräumt', removed + ' Draft-Einträge entfernt', 'success');
+                    });
+                }
+            }
+
+            // Bootstrap
+            document.addEventListener('DOMContentLoaded', function () {
+                initThemeToggle();
+                if (!ensureAuth()) return;
+                initUserHeader();
+                wireAccountActions();
+                wireSecurity();
+                wireData();
+                wireIntegrations();
+                wireTools();
+                loadEndpoints();
+                computeStats();
+            });
+        })();
+    </script>
+</body>
+
+</html>

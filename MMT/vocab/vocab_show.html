@@ -2,12 +2,11 @@
 <html lang="de">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIzen – Dashboard</title>
-    <link rel="stylesheet" href="vocab.css">
+    <meta charset="UTF-8" />
+    <title>AIzen – Alle Vokabeln</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="vocab.css" />
     <link rel="icon" type="image/png" href="../../assets/logo/AIzen.png">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -20,11 +19,11 @@
         </div>
 
         <nav class="topbar-nav">
-            <a href="vocab.html" class="nav-link active">
+            <a href="vocab.html" class="nav-link">
                 <span class="nav-icon">✏️</span>
                 <span>Trainer</span>
             </a>
-            <a href="vocab_show.html" class="nav-link">
+            <a href="vocab_show.html" class="nav-link active">
                 <span class="nav-icon">📚</span>
                 <span>Alle Vokabeln</span>
             </a>
@@ -34,7 +33,7 @@
             </a>
             <a href="../durchschnitt/durchschnitt.html" class="nav-link">
                 <span class="nav-icon">🏆</span>
-                <span>Durchschnitt</span>
+                <span>Dashboard</span>
             </a>
             <a href="../MMT.html" class="nav-link">
                 <span class="nav-icon">🤖</span>
@@ -49,67 +48,82 @@
 
     <div class="container">
 
-        <div class="dashboard-header">
-            <h1 class="section-heading">📊 Dein Lernfortschritt</h1>
-            <button class="btn btn-primary" id="refreshBtn">
-                <span class="btn-icon">🔄</span>
-                Daten aktualisieren
-            </button>
-        </div>
+        <!-- Generated Text Section -->
+        <div class="text-display-card">
+            <h2 class="section-heading">📖 Letzte generierte Geschichte</h2>
 
-        <!-- Stats Grid -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon">📚</div>
-                <div class="stat-value" id="totalVocabs">-</div>
-                <div class="stat-label">Gesamte Vokabeln</div>
+            <!-- French Text -->
+            <div class="text-section">
+                <div class="section-header">
+                    <h3>🇫🇷 Französischer Text</h3>
+                    <button id="ttsBtn" class="icon-btn" title="Text vorlesen">
+                        🔊
+                    </button>
+                </div>
+                <div id="generatedText" class="text-content french-text">
+                    Noch keine Geschichte generiert. Gehe zum Trainer und erstelle deine erste Geschichte!
+                </div>
             </div>
 
-            <div class="stat-card">
-                <div class="stat-icon">📝</div>
-                <div class="stat-value" id="totalPhrases">-</div>
-                <div class="stat-label">Mit Phrasen</div>
+            <!-- German Translation (Collapsible) -->
+            <div class="translation-section">
+                <button id="translationToggle" class="translation-toggle">
+                    <span class="toggle-icon">▶</span>
+                    <span>Deutsche Übersetzung anzeigen</span>
+                </button>
+                <div id="translationContent" class="translation-content hidden">
+                    <div class="text-section translation-box">
+                        <h3>🇩🇪 Deutsche Übersetzung</h3>
+                        <div id="translatedText" class="text-content">
+                            Keine Übersetzung verfügbar.
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="stat-card">
-                <div class="stat-icon">🔥</div>
-                <div class="stat-value" id="uniqueDays">-</div>
-                <div class="stat-label">Tage aktiv</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-icon">📅</div>
-                <div class="stat-value" id="lastActivity">-</div>
-                <div class="stat-label">Letzte Aktivität</div>
-            </div>
-        </div>
-
-        <!-- Charts -->
-        <div class="charts-grid">
-            <div class="chart-card">
-                <h3>📈 Vokabeln über Zeit</h3>
-                <canvas id="timelineChart"></canvas>
-            </div>
-
-            <div class="chart-card">
-                <h3>🗓️ Aktivität nach Wochentag</h3>
-                <canvas id="weekdayChart"></canvas>
-            </div>
-        </div>
-
-        <!-- Recent Activity -->
-        <div class="activity-card">
-            <h3 class="section-heading">🕒 Letzte Aktivitäten</h3>
-            <div id="activityList" class="activity-list">
-                <!-- Wird dynamisch gefüllt -->
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a href="vocab.html" class="btn btn-primary">
+                    <span class="btn-icon">↻</span>
+                    Neue Geschichte erstellen
+                </a>
+                <button id="copyFrenchBtn" class="btn btn-secondary">
+                    <span class="btn-icon">📋</span>
+                    Französisch kopieren
+                </button>
+                <button id="copyGermanBtn" class="btn btn-secondary">
+                    <span class="btn-icon">📋</span>
+                    Deutsch kopieren
+                </button>
             </div>
         </div>
 
-        <!-- Top Vocabs -->
+        <!-- All Vocabs Section -->
         <div class="vocab-list-card">
-            <h3 class="section-heading">⭐ Neueste Vokabeln</h3>
+            <div class="card-header">
+                <h2 class="section-heading">📚 Alle gespeicherten Vokabeln</h2>
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="loadVocab">
+                        <span class="btn-icon">🔄</span>
+                        Vokabeln laden
+                    </button>
+                    <button class="btn btn-secondary" id="exportBtn">
+                        <span class="btn-icon">📥</span>
+                        CSV Export
+                    </button>
+                </div>
+            </div>
+
+            <div class="search-bar">
+                <input type="text" id="filterInput" class="search-input"
+                    placeholder="🔍 Filtern nach Französisch, Englisch oder Phrase...">
+                <div class="search-stats" id="searchStats">
+                    <span id="resultCount">0 Vokabeln</span>
+                </div>
+            </div>
+
             <div class="table-wrapper">
-                <table class="vocab-table vocab-display-table" id="recentVocabTable">
+                <table class="vocab-table vocab-display-table" id="vocabTable">
                     <thead>
                         <tr>
                             <th>Français</th>
@@ -120,7 +134,7 @@
                     </thead>
                     <tbody>
                         <tr class="loading-row">
-                            <td colspan="4">Lade Daten...</td>
+                            <td colspan="4">Klicke auf "Vokabeln laden" um deine Vokabeln anzuzeigen</td>
                         </tr>
                     </tbody>
                 </table>
@@ -131,289 +145,182 @@
 
     <script>
         const WEBHOOK_GET_ALL = "https://n8n.srv1220381.hstgr.cloud/webhook/65902228-7703-4dad-a898-ab8cfd33c107";
+        const tbody = document.querySelector("#vocabTable tbody");
+        const filterInput = document.getElementById('filterInput');
+        const resultCount = document.getElementById('resultCount');
         let vocabData = [];
-        let charts = {};
 
-        /* ============ Fetch Data ============ */
-        async function fetchDashboardData() {
-            try {
-                const response = await fetch(WEBHOOK_GET_ALL);
-                const data = await response.json();
-                vocabData = data.rows || [];
 
-                updateStats();
-                updateCharts();
-                updateRecentActivity();
-                updateRecentVocabs();
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                alert('Fehler beim Laden der Dashboard-Daten');
+        /* ============ Load Generated Text ============ */
+        function loadGeneratedText() {
+            const generatedText = localStorage.getItem('generatedText');
+            const translatedText = localStorage.getItem('translatedText');
+            const lastDate = localStorage.getItem('lastGeneratedDate');
+
+            if (generatedText) {
+                document.getElementById('generatedText').innerText = generatedText;
+            }
+
+            if (translatedText) {
+                document.getElementById('translatedText').innerText = translatedText;
+            }
+
+            if (lastDate) {
+                const dateStr = new Date(lastDate).toLocaleString('de-DE');
+                document.querySelector('.text-display-card .section-heading').innerHTML =
+                    `📖 Letzte generierte Geschichte <small style="font-size:0.7em;opacity:0.7;">(${dateStr})</small>`;
             }
         }
 
-        /* ============ Update Stats ============ */
-        function updateStats() {
-            // Total Vocabs
-            document.getElementById('totalVocabs').textContent = vocabData.length;
+        /* ============ Translation Toggle ============ */
+        const translationToggle = document.getElementById('translationToggle');
+        const translationContent = document.getElementById('translationContent');
+        const toggleIcon = translationToggle.querySelector('.toggle-icon');
 
-            // Vocabs with Phrases
-            const withPhrases = vocabData.filter(v => v.Phrase && v.Phrase.trim()).length;
-            document.getElementById('totalPhrases').textContent = withPhrases;
+        translationToggle.addEventListener('click', () => {
+            const isHidden = translationContent.classList.contains('hidden');
 
-            // Unique Days
-            const uniqueDates = new Set(
-                vocabData
-                    .filter(v => v.Timestamp)
-                    .map(v => new Date(v.Timestamp).toDateString())
-            );
-            document.getElementById('uniqueDays').textContent = uniqueDates.size;
-
-            // Last Activity
-            if (vocabData.length > 0) {
-                const dates = vocabData
-                    .filter(v => v.Timestamp)
-                    .map(v => new Date(v.Timestamp))
-                    .sort((a, b) => b - a);
-
-                if (dates.length > 0) {
-                    const lastDate = dates[0];
-                    const daysAgo = Math.floor((new Date() - lastDate) / (1000 * 60 * 60 * 24));
-
-                    if (daysAgo === 0) {
-                        document.getElementById('lastActivity').textContent = 'Heute';
-                    } else if (daysAgo === 1) {
-                        document.getElementById('lastActivity').textContent = 'Gestern';
-                    } else {
-                        document.getElementById('lastActivity').textContent = `vor ${daysAgo}d`;
-                    }
-                }
+            if (isHidden) {
+                translationContent.classList.remove('hidden');
+                toggleIcon.textContent = '▼';
+                translationToggle.querySelector('span:last-child').textContent = 'Deutsche Übersetzung verbergen';
+            } else {
+                translationContent.classList.add('hidden');
+                toggleIcon.textContent = '▶';
+                translationToggle.querySelector('span:last-child').textContent = 'Deutsche Übersetzung anzeigen';
             }
-        }
+        });
 
-        /* ============ Update Charts ============ */
-        function updateCharts() {
-            // Destroy existing charts
-            Object.values(charts).forEach(chart => chart.destroy());
-            charts = {};
+        /* ============ French TTS ============ */
+        const ttsBtn = document.getElementById('ttsBtn');
+        ttsBtn.addEventListener('click', () => {
+            const text = document.getElementById('generatedText').innerText;
 
-            if (vocabData.length === 0) return;
-
-            // Timeline Chart - Cumulative vocabs over time
-            const timelineData = {};
-            vocabData.forEach(v => {
-                if (v.Timestamp) {
-                    const date = new Date(v.Timestamp).toLocaleDateString('de-DE');
-                    timelineData[date] = (timelineData[date] || 0) + 1;
-                }
-            });
-
-            const sortedDates = Object.keys(timelineData).sort((a, b) => {
-                return new Date(a.split('.').reverse().join('-')) - new Date(b.split('.').reverse().join('-'));
-            });
-
-            let cumulative = 0;
-            const cumulativeData = sortedDates.map(date => {
-                cumulative += timelineData[date];
-                return cumulative;
-            });
-
-            const timelineCtx = document.getElementById('timelineChart').getContext('2d');
-            charts.timeline = new Chart(timelineCtx, {
-                type: 'line',
-                data: {
-                    labels: sortedDates,
-                    datasets: [{
-                        label: 'Gesamte Vokabeln',
-                        data: cumulativeData,
-                        borderColor: '#5b8cff',
-                        backgroundColor: 'rgba(91, 140, 255, 0.1)',
-                        tension: 0.4,
-                        fill: true,
-                        pointRadius: 4,
-                        pointHoverRadius: 6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                color: 'rgba(255, 255, 255, 0.7)'
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: 'rgba(255, 255, 255, 0.7)',
-                                maxRotation: 45,
-                                minRotation: 45
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            }
-                        }
-                    }
-                }
-            });
-
-            // Weekday Chart
-            const weekdays = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
-            const weekdayData = [0, 0, 0, 0, 0, 0, 0];
-
-            vocabData.forEach(v => {
-                if (v.Timestamp) {
-                    const day = new Date(v.Timestamp).getDay();
-                    weekdayData[day]++;
-                }
-            });
-
-            const weekdayCtx = document.getElementById('weekdayChart').getContext('2d');
-            charts.weekday = new Chart(weekdayCtx, {
-                type: 'bar',
-                data: {
-                    labels: weekdays,
-                    datasets: [{
-                        label: 'Vokabeln',
-                        data: weekdayData,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.6)',
-                            'rgba(54, 162, 235, 0.6)',
-                            'rgba(255, 206, 86, 0.6)',
-                            'rgba(75, 192, 192, 0.6)',
-                            'rgba(153, 102, 255, 0.6)',
-                            'rgba(255, 159, 64, 0.6)',
-                            'rgba(199, 199, 199, 0.6)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)',
-                            'rgba(199, 199, 199, 1)'
-                        ],
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                color: 'rgba(255, 255, 255, 0.7)',
-                                stepSize: 1
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: 'rgba(255, 255, 255, 0.7)'
-                            },
-                            grid: {
-                                display: false
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        /* ============ Update Recent Activity ============ */
-        function updateRecentActivity() {
-            const activityList = document.getElementById('activityList');
-
-            if (vocabData.length === 0) {
-                activityList.innerHTML = '<div class="empty-state">Noch keine Aktivitäten</div>';
+            if (text === "Noch keine Geschichte generiert. Gehe zum Trainer und erstelle deine erste Geschichte!") {
+                alert("Keine Geschichte zum Vorlesen verfügbar.");
                 return;
             }
 
-            // Group by date
-            const grouped = {};
-            vocabData.forEach(v => {
-                if (v.Timestamp) {
-                    const date = new Date(v.Timestamp).toLocaleDateString('de-DE');
-                    if (!grouped[date]) grouped[date] = [];
-                    grouped[date].push(v);
-                }
+            if ('speechSynthesis' in window) {
+                speechSynthesis.cancel();
+
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'fr-FR';
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+
+                ttsBtn.textContent = '⏸';
+                utterance.onend = () => {
+                    ttsBtn.textContent = '🔊';
+                };
+
+                speechSynthesis.speak(utterance);
+            } else {
+                alert('Text-to-Speech wird von deinem Browser nicht unterstützt.');
+            }
+        });
+
+        /* ============ Copy to Clipboard ============ */
+        document.getElementById('copyFrenchBtn').addEventListener('click', () => {
+            const text = document.getElementById('generatedText').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Französischer Text in Zwischenablage kopiert! ✓');
             });
+        });
 
-            const sortedDates = Object.keys(grouped).sort((a, b) => {
-                return new Date(b.split('.').reverse().join('-')) - new Date(a.split('.').reverse().join('-'));
-            }).slice(0, 5);
+        document.getElementById('copyGermanBtn').addEventListener('click', () => {
+            const text = document.getElementById('translatedText').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Deutsche Übersetzung in Zwischenablage kopiert! ✓');
+            });
+        });
 
-            activityList.innerHTML = sortedDates.map(date => {
-                const count = grouped[date].length;
-                return `
-                    <div class="activity-item">
-                        <div class="activity-icon">📝</div>
-                        <div class="activity-content">
-                            <div class="activity-title">${count} Vokabel${count > 1 ? 'n' : ''} hinzugefügt</div>
-                            <div class="activity-date">${date}</div>
-                        </div>
-                    </div>
+        /* ============ Render Vocab Table ============ */
+        function renderTable(data) {
+            tbody.innerHTML = "";
+            if (!data.length) {
+                tbody.innerHTML = "<tr><td colspan='4' class='empty-state'>Keine Einträge gefunden</td></tr>";
+                resultCount.textContent = "0 Vokabeln";
+                return;
+            }
+
+            resultCount.textContent = `${data.length} ${data.length === 1 ? 'Vokabel' : 'Vokabeln'}`;
+
+            data.forEach(r => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td><strong>${r.francais || '-'}</strong></td>
+                    <td>${r.anglais || '-'}</td>
+                    <td><em>${r.Phrase || '-'}</em></td>
+                    <td>${r.Timestamp ? new Date(r.Timestamp).toLocaleDateString('de-DE') : '-'}</td>
                 `;
-            }).join('');
+                tbody.appendChild(tr);
+            });
         }
 
-        /* ============ Update Recent Vocabs Table ============ */
-        function updateRecentVocabs() {
-            const tbody = document.querySelector('#recentVocabTable tbody');
+        /* ============ Load Vocabs ============ */
+        document.getElementById('loadVocab').addEventListener('click', () => {
+            tbody.innerHTML = "<tr class='loading-row'><td colspan='4'>Lade Vokabeln...</td></tr>";
+            fetch(WEBHOOK_GET_ALL)
+                .then(res => res.json())
+                .then(data => {
+                    vocabData = data.rows || [];
+                    renderTable(vocabData);
+                })
+                .catch(err => {
+                    tbody.innerHTML = "<tr class='error-row'><td colspan='4'>❌ Fehler beim Laden der Vokabeln</td></tr>";
+                    console.error(err);
+                });
+        });
 
-            if (vocabData.length === 0) {
-                tbody.innerHTML = '<tr class="empty-state"><td colspan="4">Noch keine Vokabeln</td></tr>';
+        /* ============ Filter Vocabs ============ */
+        filterInput.addEventListener('input', () => {
+            const filter = filterInput.value.toLowerCase();
+            const filtered = vocabData.filter(r =>
+                (r.francais && r.francais.toLowerCase().includes(filter)) ||
+                (r.anglais && r.anglais.toLowerCase().includes(filter)) ||
+                (r.Phrase && r.Phrase.toLowerCase().includes(filter))
+            );
+            renderTable(filtered);
+        });
+
+        /* ============ CSV Export ============ */
+        document.getElementById('exportBtn').addEventListener('click', () => {
+            if (!vocabData.length) {
+                alert("Keine Vokabeln zum Exportieren. Lade zuerst die Vokabeln.");
                 return;
             }
 
-            const recent = vocabData
-                .filter(v => v.Timestamp)
-                .sort((a, b) => new Date(b.Timestamp) - new Date(a.Timestamp))
-                .slice(0, 10);
+            const csv = [
+                ['Français', 'Anglais', 'Phrase', 'Datum'],
+                ...vocabData.map(r => [
+                    r.francais || '',
+                    r.anglais || '',
+                    r.Phrase || '',
+                    r.Timestamp ? new Date(r.Timestamp).toLocaleDateString('de-DE') : ''
+                ])
+            ].map(row => row.map(cell => `"${cell}"`).join(',')).join('\n');
 
-            tbody.innerHTML = recent.map(v => `
-                <tr>
-                    <td><strong>${v.francais || '-'}</strong></td>
-                    <td>${v.anglais || '-'}</td>
-                    <td><em>${v.Phrase || '-'}</em></td>
-                    <td>${new Date(v.Timestamp).toLocaleDateString('de-DE')}</td>
-                </tr>
-            `).join('');
-        }
-
-        /* ============ Refresh Button ============ */
-        document.getElementById('refreshBtn').addEventListener('click', () => {
-            document.getElementById('refreshBtn').disabled = true;
-            document.getElementById('refreshBtn').innerHTML = '<span class="btn-icon">⏳</span> Lädt...';
-
-            fetchDashboardData().then(() => {
-                document.getElementById('refreshBtn').disabled = false;
-                document.getElementById('refreshBtn').innerHTML = '<span class="btn-icon">🔄</span> Daten aktualisieren';
-            });
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `aizen_vokabeln_${new Date().toISOString().split('T')[0]}.csv`;
+            link.click();
         });
 
         /* ============ Load on Page Load ============ */
         window.addEventListener('DOMContentLoaded', () => {
-            fetchDashboardData();
+            loadGeneratedText();
+        });
+
+        /* ============ Stop TTS on unload ============ */
+        window.addEventListener('beforeunload', () => {
+            if ('speechSynthesis' in window) {
+                speechSynthesis.cancel();
+            }
         });
     </script>
+
 
 </body>
 
